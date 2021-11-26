@@ -29,14 +29,9 @@ android {
 
 dependencies {
     //继承base模块
-    implementation project(':lib-base')
+    api project(':lib-base')
 
-
-    //以下是刚创建项目时 通用的依赖
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
     testImplementation 'junit:junit:4.+'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

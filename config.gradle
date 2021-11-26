@@ -54,6 +54,4 @@ dependencies {
     //集成base模块和common模块
     implementation project(':lib-base')
     implementation project(':lib-common')
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-
 }

@@ -2,7 +2,6 @@
 buildscript {
     //全局可使用version.gradle中的插件
     apply from: "version.gradle"
-
     repositories {
         google()
         mavenCentral()
