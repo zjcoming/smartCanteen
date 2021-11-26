@@ -31,6 +31,19 @@ dependencies {
     //继承base模块
     implementation project(':lib-base')
 
+    //导入retrofit
+    api 'com.squareup.retrofit2:retrofit:2.0.2'
+    //导入Gson
+    api 'com.google.code.gson:gson:2.8.5'
+    //导入转换类
+    api 'com.squareup.retrofit2:converter-gson:2.4.0'
+    //导入Rxjava
+    // 此处一定要注意使用RxJava2的版本
+    api 'io.reactivex.rxjava2:rxjava:2.2.10'
+    api 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    // 衔接 Retrofit & RxJava
+    // 此处一定要注意使用RxJava2的版本
+    api 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
 
     //以下是刚创建项目时 通用的依赖
     implementation 'androidx.appcompat:appcompat:1.2.0'
