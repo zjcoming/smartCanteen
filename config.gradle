@@ -1,0 +1,58 @@
+if (isSingleModuleDebug.toBoolean()){
+    //表示当前为模块单独调试状态
+    apply plugin: 'com.android.application'
+}else{
+    if(project.name == "app"){
+        apply plugin: 'com.android.application'
+        apply plugin: 'kotlin-android'
+    }else {
+        apply plugin: 'com.android.library'
+    }
+}
+
+android {
+
+    sourceSets{
+        main{
+            if (isSingleModuleDebug.toBoolean()){
+                //模块单独调试的时候，用module文件夹里面的AndroidManifest
+                manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            }else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
+    }
+
+
+    compileSdk build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
+
+    defaultConfig {
+        minSdk build_versions.min_sdk
+        targetSdk build_versions.target_sdk
+
+        versionCode versionCode
+        versionName versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    //集成base模块和common模块
+    implementation project(':lib-base')
+    implementation project(':lib-common')
+
+}
