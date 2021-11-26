@@ -10,12 +10,12 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/advanceBook" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/lib-base" />
             <option value="$PROJECT_DIR$/lib-common" />
+            <option value="$PROJECT_DIR$/module-advanceBook" />
             <option value="$PROJECT_DIR$/module-inCanteen" />
-            <option value="$PROJECT_DIR$/takeout" />
+            <option value="$PROJECT_DIR$/module-takeout" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

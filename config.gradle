@@ -14,7 +14,7 @@ android {
 
     sourceSets{
         main{
-            if (isSingleModuleDebug.toBoolean()){
+            if (isSingleModuleDebug.toBoolean() && project.name != "app"){
                 //模块单独调试的时候，用module文件夹里面的AndroidManifest
                 manifest.srcFile 'src/main/module/AndroidManifest.xml'
             }else {
@@ -54,5 +54,6 @@ dependencies {
     //集成base模块和common模块
     implementation project(':lib-base')
     implementation project(':lib-common')
+    implementation 'androidx.appcompat:appcompat:1.2.0'
 
 }
