@@ -1,6 +1,7 @@
 if (isSingleModuleDebug.toBoolean()){
     //表示当前为模块单独调试状态
     apply plugin: 'com.android.application'
+    apply plugin: 'kotlin-android'
 }else{
     if(project.name == "app"){
         apply plugin: 'com.android.application'
