@@ -1,14 +1,17 @@
 package com.swu.takeout;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.base.BaseActivity;
+import com.swu.takeout.databinding.ActivityTakeOutBinding;
 
-import android.os.Bundle;
-
-public class TakeOutActivity extends AppCompatActivity {
+public class TakeOutActivity extends BaseActivity<ActivityTakeOutBinding> {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_take_out);
+    public void initData() {
+
+    }
+
+    @Override
+    public void initListener() {
+
     }
 }

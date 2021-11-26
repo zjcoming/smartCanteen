@@ -1,14 +1,17 @@
 package com.swu.advancebook;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.base.BaseActivity;
+import com.swu.advancebook.databinding.ActivityBookBinding;
 
-import android.os.Bundle;
-
-public class BookActivity extends AppCompatActivity {
+public class BookActivity extends BaseActivity<ActivityBookBinding> {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book);
+    public void initData() {
+
+    }
+
+    @Override
+    public void initListener() {
+
     }
 }
