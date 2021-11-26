@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/smartCanteen/app/src/main/res/layout/activity_main.xml" value="0.2046875" />
+        <entry key="..\:/smartCanteen/app/src/main/res/layout/activity_splash.xml" value="0.22" />
+        <entry key="..\:/smartCanteen/lib-common/src/main/res/drawable/test.xml" value="0.2015625" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
