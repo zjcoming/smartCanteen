@@ -18,7 +18,7 @@ import com.swu.smartcanteen.databinding.FragmentHomeBinding;
  * des:
  */
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
     public HomeFragment() {
         // Required empty public constructor

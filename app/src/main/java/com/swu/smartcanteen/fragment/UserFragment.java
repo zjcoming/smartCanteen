@@ -19,7 +19,7 @@ import com.swu.smartcanteen.databinding.FragmentUserBinding;
  * des:
  */
 
-public class UserFragment extends Fragment {
+public class UserFragment extends BaseFragment<FragmentUserBinding> {
 
     public UserFragment() {
         // Required empty public constructor

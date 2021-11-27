@@ -18,7 +18,7 @@ import com.swu.smartcanteen.databinding.FragmentOrderBinding;
  * des:
  */
 
-public class OrderFragment extends Fragment {
+public class OrderFragment extends BaseFragment<FragmentOrderBinding> {
 
     public OrderFragment() {
         // Required empty public constructor
