@@ -13,9 +13,8 @@ import com.base.util.inflateBindingWithGeneric
  * date 11/26/21
  */
 abstract class BaseFragment<VIEW: ViewBinding>: Fragment() {
-    private lateinit var _binding: VIEW
-    val binding: VIEW = _binding
-
+    private var _binding: VIEW? = null
+    val binding:VIEW get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,7 +26,7 @@ abstract class BaseFragment<VIEW: ViewBinding>: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = inflateBindingWithGeneric(layoutInflater,container,false)
+        _binding = inflateBindingWithGeneric(layoutInflater, container, false)
         return binding.root
     }
 
@@ -35,6 +34,11 @@ abstract class BaseFragment<VIEW: ViewBinding>: Fragment() {
         super.onActivityCreated(savedInstanceState)
         initData()
         initListener()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     protected open fun init() {}

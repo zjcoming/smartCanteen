@@ -11,6 +11,29 @@ import com.base.util.bindViewWithGeneric
  * Created by chenxiong
  * date 11/26/21
  */
+
+/*
+    将每一个item抽离成一个具体的View，只需继承BaseCustomView，提供布局ID、具体的数据绑定
+    如binding.textView = data.text
+
+    public class MyView extends BaseCustomView<TestLayoutBinding,MyModel> {
+
+    public MyView(@NotNull Context context) {
+        super(context);
+    }
+
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.test_layout;
+    }
+
+    @Override
+    protected void setDataToView(@NotNull MyModel myModel) {
+        binding.name.setText(myModel.name);
+    }
+}
+ */
 abstract class BaseCustomView<VIEW : ViewBinding, DATA : IBaseCustomViewModel> @JvmOverloads constructor(
     context: Context,
     attr: AttributeSet? = null, style: Int = 0
