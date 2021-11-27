@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+    <LinearLayout
+        android:padding="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <ImageView
+            android:padding="20dp"
+            android:id="@+id/randomCode"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <EditText
+            android:layout_gravity="center"
+            android:id="@+id/inputRandomCode"
+            android:gravity="bottom"
+            android:digits="0123456789qwertyuioiplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM"
+            android:layout_weight="0.6"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            />
+        <Button
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_weight="0.3"
+            android:layout_height="0dp"
+            android:text="验证"
+            android:id="@+id/confirmRandomCode"
+            android:layout_width="100dp"
+            />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
