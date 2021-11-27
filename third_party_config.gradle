@@ -22,7 +22,10 @@ ext {
             //底部导航栏
             BottomNavigation         : 'com.ashokvarma.android:bottom-navigation-bar:2.2.0',
             //fragment
-            FRAGMENT                 : 'androidx.legacy:legacy-support-v4:1.0.0'
+            FRAGMENT                 : 'androidx.legacy:legacy-support-v4:1.0.0',
+            //数据库ROOM配置
+            ROOM                     : 'android.arch.persistence.room:runtime:1.0.0',
+            annotationProcessor      : 'android.arch.persistence.room:compiler:1.0.0',
 
     ]
 }
