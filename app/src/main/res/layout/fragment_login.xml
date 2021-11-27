@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginFragment"
+    tools:context=".fragment.LoginFragment"
     android:orientation="vertical">
 
     <LinearLayout
+
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:orientation="vertical"
@@ -19,6 +20,7 @@
                 android:src="@drawable/login_top"
                 android:layout_weight="0.2"/>
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.7"
@@ -28,21 +30,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="0dp"
                 >
                 <EditText
                     android:theme="@style/MyEditTextRegister"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/login_telephoneOrid"
-                    android:gravity="center"
+                    android:gravity="left"
                     android:hint="手机号/账号"
                     android:inputType="number" />
                 <EditText
                     android:theme="@style/MyEditTextRegister"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="30dp"
                     android:id="@+id/login_password"
-                    android:gravity="center"
+                    android:gravity="left"
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -54,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 >
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -83,9 +85,9 @@
 
                 <Button
                     android:id="@+id/login_login_normal"
-                    android:layout_marginTop="40dp"
-                    android:layout_width="120dp"
-                    android:layout_height="45dp"
+                    android:layout_marginTop="100dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
                     android:textSize="15sp"
                     android:text="登录"
                     android:textColor="@color/white"

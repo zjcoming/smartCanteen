@@ -1,4 +1,4 @@
-package com.swu.smartcanteen;
+package com.swu.smartcanteen.fragment;
 
 import android.os.Bundle;
 
@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.common.constants.LoginAndRegisterConstants;
 import com.common.util.RandomCode;
+import com.swu.smartcanteen.R;
+
 /**
  * Created by 刘金豪 on 2021/11/26
  * desc: 手机验证码登录 和 忘记密码的Fragment

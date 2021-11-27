@@ -1,21 +1,17 @@
 package com.swu.smartcanteen
 
-import android.app.Activity
-import android.app.PendingIntent.getActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.base.BaseActivity
 import com.swu.smartcanteen.databinding.ActivityMainBinding
+import com.swu.smartcanteen.fragment.LoginFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun initData() {
         //进行判断 如果刚下载app，则展示登录页面
         createFragment(LoginFragment())
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-    }
+
 
     override fun initListener() {
 

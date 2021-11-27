@@ -1,4 +1,4 @@
-package com.swu.smartcanteen;
+package com.swu.smartcanteen.fragment;
 
 import android.os.Bundle;
 
@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.common.constants.LoginAndRegisterConstants;
 import com.common.util.RandomCode;
+import com.swu.smartcanteen.MainActivity;
+import com.swu.smartcanteen.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;

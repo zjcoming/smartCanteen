@@ -1,5 +1,6 @@
-package com.swu.smartcanteen;
+package com.swu.smartcanteen.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -17,6 +18,10 @@ import android.widget.Toast;
 
 import com.common.constants.LoginAndRegisterConstants;
 import com.common.util.CheckUtil;
+import com.swu.smartcanteen.MainActivity;
+import com.swu.smartcanteen.NavigationActivity;
+import com.swu.smartcanteen.R;
+import com.swu.smartcanteen.SplashActivity;
 
 /**
  * Created by 刘金豪 on 2021/11/26
@@ -104,6 +109,8 @@ public class LoginFragment extends Fragment {
                     boolean isValidPhone = CheckUtil.isPhone(telephoneOrId);
                     if (isValidPhone){
                         //是有效的电话号码，此时进行网络请求
+                        Intent intent = new Intent(getActivity(), NavigationActivity.class);
+                        startActivity(intent);
                     }
                 }
             }
