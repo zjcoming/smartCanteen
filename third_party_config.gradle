@@ -20,7 +20,9 @@ ext {
             // 导入MMKV
             MMKV                     : 'com.tencent:mmkv:1.0.10',
             //底部导航栏
-            BottomNavigation         : 'com.ashokvarma.android:bottom-navigation-bar:2.2.0'
+            BottomNavigation         : 'com.ashokvarma.android:bottom-navigation-bar:2.2.0',
+            //fragment
+            FRAGMENT                 : 'androidx.legacy:legacy-support-v4:1.0.0'
 
     ]
 }

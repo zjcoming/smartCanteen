@@ -1,5 +1,6 @@
 package com.swu.smartcanteen
 
+import android.os.Bundle
 import com.base.BaseActivity
 import com.swu.smartcanteen.databinding.ActivityMainBinding
 
@@ -8,9 +9,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     }
 
-class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
+    }
+
+    override fun initListener() {
+
     }
 }
