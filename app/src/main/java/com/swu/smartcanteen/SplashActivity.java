@@ -39,7 +39,7 @@ public class SplashActivity extends AppCompatActivity {
         //停留3s后，跳转到主页
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, NavigationActivity.class);
                 startActivity(intent);
                 SplashActivity.this.finish();   //关闭splashActivity，将其回收，否则按返回键会返回此界面
             }

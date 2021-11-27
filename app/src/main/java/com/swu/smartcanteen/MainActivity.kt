@@ -12,6 +12,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         //进行判断 如果刚下载app，则展示登录页面
         createFragment(LoginFragment())
     }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+    }
 
     override fun initListener() {
 
@@ -36,5 +40,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         fragmentTransaction.addToBackStack(null)
         //事务提交
         fragmentTransaction.commit()
+
     }
 }

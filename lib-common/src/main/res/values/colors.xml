@@ -11,4 +11,16 @@
     <color name="underLineNorLogin">#C9C8C8</color>
     <color name="underLineActiRegister">#828181</color>
     <color name="underLineNorRegister">#C9C8C8</color>
+
+
+    <color name="black1">#222831</color>
+    <color name="grey1">#A7A9AC</color>
+    <color name="fill_grey">#393E46</color>
+    <color name="red_price">#FF4949</color>
+    <color name="grey2">#D8D8D8</color>
+    <color name="grey">#9E9E9E</color>
+    <color name="blue">#4D94FF</color>
+<!--    <color name="white">#FFFFFFFF</color>-->
+<!--    <color name="white">#FFFFFFFF</color>-->
+
 </resources>
