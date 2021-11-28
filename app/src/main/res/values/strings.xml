@@ -1,0 +1,9 @@
+<resources>
+    <string name="welcome_title">欢迎使用西荣食堂APP</string>
+    <string name="register">注册</string>
+    <string name="finish_register">完成</string>
+    <string name="s_num_error_tip">学号输入格式有误！</string>
+    <string name="tel_error_tip">手机号码输入格式有误！</string>
+    <string name="verify_code_error_tip">手机验证码输入有误！</string>
+    <string name="twice_disagree_tip">两次密码输入不一致!</string>
+</resources>

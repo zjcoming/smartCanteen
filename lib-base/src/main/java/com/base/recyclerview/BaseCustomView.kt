@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.viewbinding.ViewBinding
+import com.base.util.UIUtils
 import com.base.util.bindViewWithGeneric
 
 /**
@@ -46,7 +47,7 @@ abstract class BaseCustomView<VIEW : ViewBinding, DATA : IBaseCustomViewModel> @
     }
 
     private fun init() {
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = UIUtils.getLayoutInflater(context)
         val view = inflater.inflate(getLayoutId(),this,false)
         binding = bindViewWithGeneric(view)
         addView(binding.root)
