@@ -1,3 +1,4 @@
+//引入config.gradle
 apply from: '../config.gradle'
 apply plugin: 'kotlin-android'
 android.kotlinOptions.jvmTarget = 1.8
@@ -5,4 +6,4 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'io.github.bmob:android-sdk:3.8.11'
-}//引入config.gradle
+}

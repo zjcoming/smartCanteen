@@ -22,4 +22,13 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="MyEditTextLogin" parent="Theme.AppCompat.Light">
+         <item name="colorControlNormal">@color/underLineNorLogin</item>
+         <item name="colorControlActivated">@color/underLineActiLogin</item>
+    </style>
+    <style name="MyEditTextRegister" parent="Theme.AppCompat.Light">
+         <item name="colorControlNormal">@color/underLineNorRegister</item>
+         <item name="colorControlActivated">@color/underLineActiRegister</item>
+    </style>
 </resources>

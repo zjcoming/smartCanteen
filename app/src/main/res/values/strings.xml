@@ -6,4 +6,6 @@
     <string name="tel_error_tip">手机号码输入格式有误！</string>
     <string name="verify_code_error_tip">手机验证码输入有误！</string>
     <string name="twice_disagree_tip">两次密码输入不一致!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

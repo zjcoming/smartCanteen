@@ -2,4 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.swu.module_incanteen">
 
+    <application android:name="com.base.BaseApplication">
+        <activity
+            android:name=".InCanteenActivity"
+            android:exported="false" />
+
+
+    </application>
+
 </manifest>

@@ -17,11 +17,17 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.base.BaseActivity;
+import com.common.constants.RouteConstants;
 import com.common.util.LogUtil;
+import com.swu.smartcanteen.databinding.ActivitySplashBinding;
 
 import java.security.Key;
 
-public class SplashActivity extends AppCompatActivity {
+@Route(path = RouteConstants.Module_app.PAGER_SPLASH)
+public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +39,19 @@ public class SplashActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_splash);
 
+        //ARouter依赖注入
+        ARouter.getInstance().inject(this);
+
         //设置动画
         setAnimation(this);
 
         //停留3s后，跳转到主页
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+//                startActivity(intent);
+                //跳转
+                ARouter.getInstance().build(RouteConstants.Module_app.PAGER_NAVIGATION).navigation();
                 SplashActivity.this.finish();   //关闭splashActivity，将其回收，否则按返回键会返回此界面
             }
         }, 2000);
@@ -76,4 +87,13 @@ public class SplashActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public void initListener() {
+
+    }
 }
