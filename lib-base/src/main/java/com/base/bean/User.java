@@ -24,6 +24,22 @@ public class User implements Serializable {
     private String profilePhoto;
     private int score;
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
+
     public int getUid() {
         return uid;
     }
@@ -32,13 +48,6 @@ public class User implements Serializable {
         this.uid = uid;
     }
 
-    public String getUserName() {
-        return username;
-    }
-
-    public void setUserName(String userName) {
-        this.username = userName;
-    }
 
 
     public String getTelephone() {
@@ -49,13 +58,6 @@ public class User implements Serializable {
         this.telephone = telephone;
     }
 
-    public String getProfile_photo() {
-        return profilePhoto;
-    }
-
-    public void setProfile_photo(String profile_photo) {
-        this.profilePhoto = profile_photo;
-    }
 
     public int getScore() {
         return score;
@@ -77,12 +79,11 @@ public class User implements Serializable {
     }
 
     //全构造器
-    public User(int uid, String userName, String telephone, String profile_photo, int score) {
+    public User(int uid, String username, String telephone, String profilePhoto, int score) {
         this.uid = uid;
-        this.username = userName;
+        this.username = username;
         this.telephone = telephone;
-        this.profilePhoto = profile_photo;
+        this.profilePhoto = profilePhoto;
         this.score = score;
     }
-
 }

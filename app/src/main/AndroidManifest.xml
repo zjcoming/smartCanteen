@@ -3,6 +3,7 @@
     package="com.swu.smartcanteen">
 
     <application
+        android:name="com.base.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +12,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
             android:name=".NavigationActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".SplashActivity"
             android:exported="true"> <!-- exported: 是否支持其它应用调用当前组件 -->

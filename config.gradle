@@ -39,6 +39,13 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
         viewBinding.enabled = true
+
+        //Arouter 配置
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME :project.getName() ]
+            }
+        }
     }
 
     buildTypes {
@@ -55,6 +62,10 @@ android {
 
 dependencies {
     //集成base模块和common模块
+    //ARouter
+    annotationProcessor'com.alibaba:arouter-compiler:1.2.2'
+    //Room
+    annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
     implementation project(':lib-base')
     implementation project(':lib-common')
 }
