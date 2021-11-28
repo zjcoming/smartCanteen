@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.base.BaseActivity;
-import com.common.util.ThreadManager;
+import com.common.constants.RouteConstants;
 import com.swu.smartcanteen.databinding.ActivityNavigationBinding;
 import com.swu.smartcanteen.fragment.HomeFragment;
 import com.swu.smartcanteen.fragment.OrderFragment;
@@ -23,6 +25,7 @@ import java.util.List;
  * data 2021/11/27
  * des:
  */
+@Route(path = RouteConstants.Module_app.PAGER_NAVIGATION)
 public class NavigationActivity extends BaseActivity<ActivityNavigationBinding> {
 
     //创建一个list用于保存三个Fragment
@@ -40,6 +43,8 @@ public class NavigationActivity extends BaseActivity<ActivityNavigationBinding> 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(binding.getRoot());
+        //依赖注入
+        ARouter.getInstance().inject(this);
         init();
         initBar();
         pressMenu();
