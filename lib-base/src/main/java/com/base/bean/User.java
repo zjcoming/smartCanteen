@@ -17,11 +17,11 @@ public class User implements Serializable {
 
     @PrimaryKey(autoGenerate = false)//主键是否自动增长，默认为false
     private int uid;
-    private String userName;
+    private String username;
     //不需要密码？
 //    private String password;
     private String telephone;
-    private String profile_photo;
+    private String profilePhoto;
     private int score;
 
     public int getUid() {
@@ -33,20 +33,13 @@ public class User implements Serializable {
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = userName;
     }
 
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
 
     public String getTelephone() {
         return telephone;
@@ -57,11 +50,11 @@ public class User implements Serializable {
     }
 
     public String getProfile_photo() {
-        return profile_photo;
+        return profilePhoto;
     }
 
     public void setProfile_photo(String profile_photo) {
-        this.profile_photo = profile_photo;
+        this.profilePhoto = profile_photo;
     }
 
     public int getScore() {
@@ -76,9 +69,9 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
                 "uid=" + uid +
-                ", userName='" + userName + '\'' +
+                ", userName='" + username + '\'' +
                 ", telephone='" + telephone + '\'' +
-                ", profile_photo='" + profile_photo + '\'' +
+                ", profile_photo='" + profilePhoto + '\'' +
                 ", score=" + score +
                 '}';
     }
@@ -86,9 +79,9 @@ public class User implements Serializable {
     //全构造器
     public User(int uid, String userName, String telephone, String profile_photo, int score) {
         this.uid = uid;
-        this.userName = userName;
+        this.username = userName;
         this.telephone = telephone;
-        this.profile_photo = profile_photo;
+        this.profilePhoto = profile_photo;
         this.score = score;
     }
 
