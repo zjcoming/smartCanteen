@@ -46,4 +46,5 @@ abstract class BaseFragment<VIEW: ViewBinding>: Fragment() {
     protected open fun initData() {}
 
     protected open fun initListener() {}
+
 }

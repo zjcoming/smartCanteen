@@ -20,6 +20,19 @@ public class CheckUtil {
         String regex = "[0-9]{18}";
         return text.matches(regx) || text.matches(reg1) || text.matches(regex);
     }
+    //验证是否为空
+    /**
+     * 判断字符串是否有值，如果为null或者是空字符串或者只有空格或者为"null"字符串，则返回true，否则则返回false
+     */
+    public static boolean isEmpty(String value) {
+        if (value != null && !"".equalsIgnoreCase(value.trim())
+                && !"null".equalsIgnoreCase(value.trim())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     //验证手机号
     /**
      * 手机号码校验(三大运营商最新号段 合作版 2021-03)

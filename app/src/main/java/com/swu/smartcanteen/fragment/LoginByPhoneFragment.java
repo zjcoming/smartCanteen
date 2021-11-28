@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.base.BaseFragment;
+import com.common.anim.LoginRegisterFragmentAnimation;
 import com.common.constants.LoginAndRegisterConstants;
 import com.common.util.RandomCode;
 import com.swu.smartcanteen.R;
@@ -23,7 +25,7 @@ import com.swu.smartcanteen.R;
  * Created by 刘金豪 on 2021/11/26
  * desc: 手机验证码登录 和 忘记密码的Fragment
  */
-public class LoginByPhoneFragment extends Fragment {
+public class LoginByPhoneFragment extends BaseFragment {
     //验证码登录or忘记密码
     TextView phoneloginOrforgetpassword;
     //登录or验证
@@ -45,12 +47,20 @@ public class LoginByPhoneFragment extends Fragment {
         }
         return root;
     }
+    //设置入场动画和出场动画
+    @Override
+    public void onPause() {
+        super.onPause();
+        LoginRegisterFragmentAnimation.setAnimation(getActivity(),root,false);
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //设置入场动画
+        LoginRegisterFragmentAnimation.setAnimation(getActivity(),root,true);
 
-        init();
+        initViews();
 
         //不管是哪种页面，都有发送验证码的页面，所以先注册其点击事件
         //注册 发送验证码 点击事件
@@ -62,8 +72,14 @@ public class LoginByPhoneFragment extends Fragment {
 
         if(PHONELOGIN_OR_FORGETPASSWORD == LoginAndRegisterConstants.LOGIN_BY_PHONE){
             //是手机号登录页面，注册其点击事件即可
+            //首先进行页面设置
+            LoginAndRegisterConstants.CURRENT_PAGE = LoginAndRegisterConstants.CURRENT_PAGE_IS_LOGINBYPHONECODE;
         }else {
             //是忘记密码页面
+
+            //首先进行页面设置
+            LoginAndRegisterConstants.CURRENT_PAGE = LoginAndRegisterConstants.CURRENT_PAGE_IS_FORGETPASSWORD;
+
             phoneloginOrforgetpassword.setText("忘记密码");
             loginOrverification.setText("验证");
 
@@ -72,7 +88,7 @@ public class LoginByPhoneFragment extends Fragment {
         }
     }
 
-    public void init(){
+    public void initViews(){
         //上面标题的TextView获取
         phoneloginOrforgetpassword = getActivity().findViewById(R.id.phoneOrforget);
         //下面是登录还是验证的按钮的获取

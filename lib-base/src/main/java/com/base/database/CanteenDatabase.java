@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.base.bean.User;
+import com.base.bean.UserBean;
 import com.base.dao.UserDao;
 
 /**
@@ -25,7 +25,7 @@ import com.base.dao.UserDao;
  *
  *         关于增删改查的几种方式写在BaseDao中
  */
-@Database(entities = { User.class }, version = 1,exportSchema = false)
+@Database(entities = { UserBean.class }, version = 1,exportSchema = false)
 public abstract class CanteenDatabase extends RoomDatabase {
 
     //生命UserDao

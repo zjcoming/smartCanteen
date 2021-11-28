@@ -34,10 +34,22 @@ import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.base.bean.UserBean;
+import com.common.api.Bean;
+import com.common.api.ResponseModel;
+import com.common.constants.LoginAndRegisterConstants;
+import com.common.retrofitservice.UserLoginService;
 import com.swu.lib_common.R;
 
+import java.util.HashMap;
 import java.util.Random;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -114,11 +126,80 @@ public class RandomCode {
                 //与正确的进行比对
                 if (inputRandomCodeString.equals(randomCodeString[0])){
                     //输入正确，发送验证码
-                    //
                     //关闭对话框
                     alertDialog.dismiss();
-                    //Toast.makeText(getContext(),"验证码输入正确，正在发送验证码",Toast.LENGTH_SHORT).show();
+                    if (telephone.equals("")){
+                        Toast.makeText(context,"输入内容不能为空",Toast.LENGTH_LONG).show();
+                    }else {
+                        //发送验证码
+                        UserLoginService userLoginService = RetrofitUtil.getService(UserLoginService.class, LoginAndRegisterConstants.BASE_URL);
+                        Observable<ResponseModel<HashMap<String,String>>> observable = userLoginService.sendCode(telephone);
+                        if (currentPage.equals(LoginAndRegisterConstants.CURRENT_PAGE_IS_LOGINBYPHONECODE) || currentPage.equals(LoginAndRegisterConstants.CURRENT_PAGE_IS_FORGETPASSWORD)) {
+                            //当前页是 手机验证码登录 页面  或者 忘记密码 页面
+                            observable.subscribeOn(Schedulers.newThread())//启动新线程 请求网络
+                                    .observeOn(AndroidSchedulers.mainThread())//切换回主线程进行返回数据的处理
+                                    .subscribe(new Observer<ResponseModel<HashMap<String,String>>>() {
+                                        @Override
+                                        public void onSubscribe(@NonNull Disposable d) {
 
+                                        }
+
+                                        @Override
+                                        public void onNext(@NonNull ResponseModel<HashMap<String,String>> response) {
+                                            String result = response.getResult();
+                                            if (result.equals("FAILED")) {
+                                                Toast.makeText(context, "验证码发送失败，请重新发送", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                //验证码发送成功
+                                                Toast.makeText(context, "验证码发送成功！", Toast.LENGTH_SHORT).show();
+                                                LoginAndRegisterConstants.USER_SENDED_CODE = response.getData().get("code");
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onError(@NonNull Throwable e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+
+                                        }
+                                    });
+                        } else {
+                            //当前页是 注册页面
+                            observable.subscribeOn(Schedulers.newThread())//启动新线程 请求网络
+                                    .observeOn(AndroidSchedulers.mainThread())//切换回主线程进行返回数据的处理
+                                    .subscribe(new Observer<ResponseModel<HashMap<String,String>>>() {
+                                        @Override
+                                        public void onSubscribe(@NonNull Disposable d) {
+
+                                        }
+
+                                        @Override
+                                        public void onNext(@NonNull ResponseModel<HashMap<String,String>> response) {
+                                            String result = response.getResult();
+                                            if (result.equals("FAILED")) {
+                                                Toast.makeText(context, "验证码发送失败，请重新发送", Toast.LENGTH_SHORT);
+                                            } else {
+                                                //验证码发送成功
+                                                Toast.makeText(context, "验证码发送成功！", Toast.LENGTH_SHORT);
+                                                LoginAndRegisterConstants.USER_SENDED_CODE = response.getData().get("code");
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onError(@NonNull Throwable e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+
+                                        }
+                                    });
+                        }
+                    }
                 }else {
                     //Toast.makeText(getContext(),"验证码输入错误，请重试",Toast.LENGTH_LONG).show();
                     inputRandomCode.setText("");

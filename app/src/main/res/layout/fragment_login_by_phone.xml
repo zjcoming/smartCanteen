@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.LoginByPhoneFragment">
+    tools:context=".fragment.LoginByPhoneFragment"
+    android:id="@+id/login_by_phone_fragment">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"

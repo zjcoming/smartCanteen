@@ -1,15 +1,29 @@
 package com.swu.smartcanteen
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.base.BaseActivity
+import com.common.constants.LoginAndRegisterConstants
+import com.common.util.RetrofitUtil
 import com.swu.smartcanteen.databinding.ActivityMainBinding
+import com.swu.smartcanteen.fragment.LoginByPhoneFragment
 import com.swu.smartcanteen.fragment.LoginFragment
+import com.swu.smartcanteen.fragment.RegisterFragment
+import java.util.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun initData() {
+        //创建好每一个fragment
+        var fragments = arrayOfNulls<Fragment>(12)
+        fragments[LoginAndRegisterConstants.LOGIN_AND_REGISTER_FRAGMENT] = (LoginFragment())
+        fragments[LoginAndRegisterConstants.REGISTER_FRAGMENT] = (RegisterFragment())
+        fragments[LoginAndRegisterConstants.LOGINBYPHONE_OR_FORGETPASSWORD] = (LoginByPhoneFragment())
+        LoginAndRegisterConstants.fragments = fragments;
+
         //进行判断 如果刚下载app，则展示登录页面
         createFragment(LoginFragment())
+
+        //创建retrofit
+        RetrofitUtil.createRetrofit(LoginAndRegisterConstants.BASE_URL)
     }
 
 
@@ -36,6 +50,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         fragmentTransaction.addToBackStack(null)
         //事务提交
         fragmentTransaction.commit()
-
     }
 }
