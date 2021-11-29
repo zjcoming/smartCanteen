@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 
+import cn.bmob.v3.Bmob;
+
 /**
  * @ClassName BaseApplication
  * @Author zhangjun
@@ -11,6 +13,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
  * @Description BaseApplication封装
  */
 public class BaseApplication extends Application {
+    private final static String BMOB_APP_ID = "d638a1e12b050e32056d0c3c18643c2c";
     @Override
     public void onCreate() {
         super.onCreate();
@@ -20,6 +23,7 @@ public class BaseApplication extends Application {
         ARouter.openLog();
         ARouter.openDebug();//上线之后需要关闭
         ARouter.init(BaseApplication.this);
+        Bmob.initialize(this, BMOB_APP_ID);
     }
 
     @Override

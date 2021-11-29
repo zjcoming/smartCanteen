@@ -38,6 +38,9 @@
             android:exported="true">
 
         </activity>
+        <activity android:name=".RegisterActivity">
+
+        </activity>
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.swu.smartcanteen.BmobContentProvider">

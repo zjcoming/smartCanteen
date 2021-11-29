@@ -6,7 +6,11 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import android.widget.TextView
+import cn.bmob.v3.BmobSMS
+import cn.bmob.v3.exception.BmobException
+import cn.bmob.v3.listener.QueryListener
 import com.base.BaseActivity
+import com.base.util.BaseUtil
 import com.base.util.UIUtils
 import com.swu.smartcanteen.databinding.ActivityRegisterBinding
 import io.reactivex.Observable
@@ -42,13 +46,14 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
             }
         })
         binding.verifyCode.setVerifyCallBack {
-            val isLegal = if (binding.tellNum.editableText.length!=13) false else isMobilePhone()
-            if (!isLegal && binding.telTip.visibility == View.INVISIBLE) {
+            val isLegal = if (binding.tellNum.editableText.length != 13) false else isMobilePhone()
+            if (!isLegal) {
                 showAndDisappear(binding.telTip)
             } else {
                 //电话号码合法，可以发送验证码
                 hasSentVerifyCode = true
                 sendVerifyCodeTime = System.currentTimeMillis()
+                BaseUtil.sendMsgCode(getPhoneNum(), this)
             }
             isLegal
         }
@@ -97,15 +102,14 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
                 if (!res) return@subscribe
                 //最后一步只需校验验证码是否有效
                 if (System.currentTimeMillis() - sendVerifyCodeTime > validVerifyActiveTime) {
-                    UIUtils.showToast(this,"验证码已过期，请重新发送！")
+                    UIUtils.showToast(this, "验证码已过期，请重新发送！")
                 }
-                //判断验证码验证码一致性
-                val code = "132344"
-                if (binding.verifyCode.text.toString() == code) {
-                    //注册成功
-                    UIUtils.showToast(this,"注册成功！")
-                } else {
-                    UIUtils.showToast(this,"验证码输入有误，请重新输入！")
+                BaseUtil.verifyCode(getPhoneNum(), binding.verifyCode.text.toString()) { success ->
+                    if (success) {
+                        UIUtils.showToast(this, "注册成功！")
+                    } else {
+                        UIUtils.showToast(this, "注册失败！")
+                    }
                 }
             }
         }
@@ -117,6 +121,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
             view.visibility = View.INVISIBLE
         }, 2000)
     }
+
     private fun checkSNum(): Boolean{
         val sNum = binding.sNum.text.toString()
         val regExp = "[2][2][2][0][12]\\d{10}" //学号必须是以2220 1/2开头
@@ -125,11 +130,14 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
         return m.matches()
     }
 
-    private fun isMobilePhone(): Boolean {
-       val number =  SpannableStringBuilder(binding.tellNum.editableText).also { builder->
-            builder.delete(3,4)
-            builder.delete(7,8)
+    private fun getPhoneNum() =
+        SpannableStringBuilder(binding.tellNum.editableText).also { builder ->
+            builder.delete(3, 4)
+            builder.delete(7, 8)
         }.toString()
+
+    private fun isMobilePhone(): Boolean {
+        val number = getPhoneNum()
         val regExp = "[1][3456789]\\d{9}"
         var p = Pattern.compile(regExp)
         val m = p.matcher(number)//"[1]"代表第1位为数字1，"[34578]"代表第二位可以为3、4、5、7、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
