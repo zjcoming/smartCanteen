@@ -12,6 +12,7 @@ public class RouteConstants {
         private static final String MAIN = "/app";
         public static final String PAGER_NAVIGATION = MAIN + "/Navigation";
         public static final String PAGER_SPLASH = MAIN + "/Splash";
+        public static final String PAGER_MAIN = MAIN + "/Main";
     }
 
     //advanceBook 路径模板

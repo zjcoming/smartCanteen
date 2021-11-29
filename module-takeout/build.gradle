@@ -1,1 +1,14 @@
 apply from: '../config.gradle'
+android.defaultConfig{
+    javaCompileOptions {    //ARouter
+        annotationProcessorOptions {
+            arguments = [AROUTER_MODULE_NAME: project.getName()]
+        }
+    }
+}
+dependencies {
+    //ARouter
+    annotationProcessor'com.alibaba:arouter-compiler:1.2.2'
+    //Room
+    annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
+}

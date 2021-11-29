@@ -1,6 +1,7 @@
 package com.swu.smartcanteen
 
 import androidx.fragment.app.Fragment
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.base.BaseActivity
 import com.common.constants.LoginAndRegisterConstants
 import com.common.util.RetrofitUtil
@@ -8,8 +9,8 @@ import com.swu.smartcanteen.databinding.ActivityMainBinding
 import com.swu.smartcanteen.fragment.LoginByPhoneFragment
 import com.swu.smartcanteen.fragment.LoginFragment
 import com.swu.smartcanteen.fragment.RegisterFragment
-import java.util.*
-
+import com.common.constants.RouteConstants
+@Route(path = RouteConstants.Module_app.PAGER_MAIN)
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun initData() {
         //创建好每一个fragment

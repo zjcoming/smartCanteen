@@ -51,7 +51,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
 //                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
 //                startActivity(intent);
                 //跳转
-                ARouter.getInstance().build(RouteConstants.Module_app.PAGER_NAVIGATION).navigation();
+                ARouter.getInstance().build(RouteConstants.Module_app.PAGER_MAIN).navigation();
                 SplashActivity.this.finish();   //关闭splashActivity，将其回收，否则按返回键会返回此界面
             }
         }, 2000);

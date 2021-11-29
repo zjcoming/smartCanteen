@@ -1,7 +1,15 @@
 //引入config.gradle
 apply from: '../config.gradle'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 android.kotlinOptions.jvmTarget = 1.8
+android.defaultConfig{
+    kapt {
+        arguments {arg("AROUTER_MODULE_NAME", project.getName())}
+    }
+}
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "com.alibaba:arouter-api:1.5.2"
+    kapt "com.alibaba:arouter-compiler:1.5.2"
 }
