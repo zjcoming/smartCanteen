@@ -1,3 +1,5 @@
+include ':module_order'
+include ':order'
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -10,6 +12,4 @@ rootProject.name = "smartCanteen"
 include ':app'
 include ':lib-base'
 include ':lib-common'
-include ':module-inCanteen'
-include ':module-advanceBook'
-include ':module-takeout'
+include ':module_order'

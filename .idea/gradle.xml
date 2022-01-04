@@ -14,9 +14,8 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/lib-base" />
             <option value="$PROJECT_DIR$/lib-common" />
-            <option value="$PROJECT_DIR$/module-advanceBook" />
-            <option value="$PROJECT_DIR$/module-inCanteen" />
-            <option value="$PROJECT_DIR$/module-takeout" />
+            <option value="$PROJECT_DIR$/module_order" />
+            <option value="$PROJECT_DIR$/order" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
