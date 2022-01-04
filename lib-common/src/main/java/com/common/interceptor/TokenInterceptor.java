@@ -1,9 +1,17 @@
 package com.common.interceptor;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.util.Log;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.base.ApplicationContext;
+import com.common.constants.BaseAppConstants;
 import com.common.constants.LoginAndRegisterConstants;
+import com.common.constants.RouteConstants;
+import com.common.util.DialogUtil;
 import com.common.util.LogUtil;
+import com.common.util.MMKVUtil;
 
 import java.io.IOException;
 
@@ -16,24 +24,29 @@ import okhttp3.Response;
  * desc: 这是全局的Token拦截器，用于判断Token是否过期。如果过期，则再次发起请求
  */
 public class TokenInterceptor implements Interceptor {
+
     @Override
     public Response intercept(Interceptor.Chain chain) throws IOException {
-        Request request = chain.request();
+        Request request = chain.request()
+                .newBuilder()
+                .header("token",BaseAppConstants.getToken())
+                .build();
         Response response = chain.proceed(request);
-        LogUtil.d("第一次请求的响应码为" + response.code());
 
         //根据和服务端的约定判断token过期
         if (isTokenExpired(response)) {
-            LogUtil.d("Token失效了，正在自动刷新Token,然后重新请求数据");
-            //同步请求方式，获取最新的Token
-            String newToken = getNewToken();
-            //使用新的Token，创建新的请求
-            Request newRequest = chain.request()
-                    .newBuilder()
-                    .header("token", newToken)
-                    .build();
-            //重新请求
-            return chain.proceed(newRequest);
+            LogUtil.d("Token失效了");
+            //提示弹框，强制下线
+            DialogUtil.showOneBtnDialog(ApplicationContext.getContext(),
+                    "您被强制下线了",
+                    "您的账户已在另一台设备上登录，点击确定重新登录",
+                    "确定",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ARouter.getInstance().build(RouteConstants.Module_app.PAGER_MAIN).navigation();//强制回到登录页面
+                        }
+                    });
         }
         return response;
     }
@@ -45,8 +58,11 @@ public class TokenInterceptor implements Interceptor {
      * @return
      */
     private boolean isTokenExpired(Response response) {
-        //如果响应码是token失效的响应码，则返回true
-        if (response.code() == LoginAndRegisterConstants.INVALID_TOKEN_RESPONSE_CODE) {
+        if (response == null){
+            return true;
+        }
+        if(response.code() == LoginAndRegisterConstants.INVALID_TOKEN_RESPONSE_CODE){
+            //token失效
             return true;
         }
         return false;
@@ -57,9 +73,10 @@ public class TokenInterceptor implements Interceptor {
      *
      * @return
      */
-    private String getNewToken() throws IOException {
-        // 通过获取token的接口，同步请求接口
-        String newToken = "";
-        return newToken;
+    private String getNewToken(Response response) throws IOException {
+        if (response == null){
+            return "";
+        }
+        return "";
     }
 }

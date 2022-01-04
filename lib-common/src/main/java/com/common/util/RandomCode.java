@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Handler;
 import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -35,6 +36,7 @@ import android.widget.Toast;
 import androidx.fragment.app.FragmentActivity;
 
 import com.base.bean.UserBean;
+import com.base.util.BaseUtil;
 import com.common.api.Bean;
 import com.common.api.ResponseModel;
 import com.common.constants.LoginAndRegisterConstants;
@@ -68,8 +70,8 @@ public class RandomCode {
     public static void sendCodeFun(String telephone){
 
     }
-    public static void createAlertAndCode(Context context, FragmentActivity fragmentActivity,
-                                          String telephone, int color, String currentPage){
+    public static void createAlertAndCode(Context context, Button sendCode,FragmentActivity fragmentActivity,
+                                          String telephone, int color, int currentPage){
         //保存人机识别的真实验证码
         String[] randomCodeString = new String[1];
         //设置弹窗
@@ -132,72 +134,14 @@ public class RandomCode {
                         Toast.makeText(context,"输入内容不能为空",Toast.LENGTH_LONG).show();
                     }else {
                         //发送验证码
-                        UserLoginService userLoginService = RetrofitUtil.getService(UserLoginService.class, LoginAndRegisterConstants.BASE_URL);
-                        Observable<ResponseModel<HashMap<String,String>>> observable = userLoginService.sendCode(telephone);
-                        if (currentPage.equals(LoginAndRegisterConstants.CURRENT_PAGE_IS_LOGINBYPHONECODE) || currentPage.equals(LoginAndRegisterConstants.CURRENT_PAGE_IS_FORGETPASSWORD)) {
+                          if (currentPage == LoginAndRegisterConstants.LOGIN_BY_PHONE || currentPage == LoginAndRegisterConstants.FORGET_PASSWORD) {
                             //当前页是 手机验证码登录 页面  或者 忘记密码 页面
-                            observable.subscribeOn(Schedulers.newThread())//启动新线程 请求网络
-                                    .observeOn(AndroidSchedulers.mainThread())//切换回主线程进行返回数据的处理
-                                    .subscribe(new Observer<ResponseModel<HashMap<String,String>>>() {
-                                        @Override
-                                        public void onSubscribe(@NonNull Disposable d) {
-
-                                        }
-
-                                        @Override
-                                        public void onNext(@NonNull ResponseModel<HashMap<String,String>> response) {
-                                            String result = response.getResult();
-                                            if (result.equals("FAILED")) {
-                                                Toast.makeText(context, "验证码发送失败，请重新发送", Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                //验证码发送成功
-                                                Toast.makeText(context, "验证码发送成功！", Toast.LENGTH_SHORT).show();
-                                                LoginAndRegisterConstants.USER_SENDED_CODE = response.getData().get("code");
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onError(@NonNull Throwable e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        @Override
-                                        public void onComplete() {
-
-                                        }
-                                    });
+                            BaseUtil.INSTANCE.sendMsgCode(telephone,context);//发送验证码
+                            LoginAndRegisterConstants.LAST_SEND_CODE_TIME = System.currentTimeMillis();
+                            new Handler().postDelayed(BtnCountDownUtil.getCountDownRunnable(sendCode,60,"","s后重新发送"),1000);
                         } else {
                             //当前页是 注册页面
-                            observable.subscribeOn(Schedulers.newThread())//启动新线程 请求网络
-                                    .observeOn(AndroidSchedulers.mainThread())//切换回主线程进行返回数据的处理
-                                    .subscribe(new Observer<ResponseModel<HashMap<String,String>>>() {
-                                        @Override
-                                        public void onSubscribe(@NonNull Disposable d) {
-
-                                        }
-
-                                        @Override
-                                        public void onNext(@NonNull ResponseModel<HashMap<String,String>> response) {
-                                            String result = response.getResult();
-                                            if (result.equals("FAILED")) {
-                                                Toast.makeText(context, "验证码发送失败，请重新发送", Toast.LENGTH_SHORT);
-                                            } else {
-                                                //验证码发送成功
-                                                Toast.makeText(context, "验证码发送成功！", Toast.LENGTH_SHORT);
-                                                LoginAndRegisterConstants.USER_SENDED_CODE = response.getData().get("code");
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onError(@NonNull Throwable e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        @Override
-                                        public void onComplete() {
-
-                                        }
-                                    });
+                            BaseUtil.INSTANCE.sendMsgCode(telephone,context);//发送验证码
                         }
                     }
                 }else {

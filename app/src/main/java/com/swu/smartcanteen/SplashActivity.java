@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -16,15 +17,28 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.BaseActivity;
+import com.base.bean.UserBean;
+import com.base.util.UIUtils;
+import com.common.api.AppObserver;
+import com.common.api.ResponseModel;
+import com.common.constants.BaseAppConstants;
 import com.common.constants.RouteConstants;
+import com.common.handler.RequestHandler;
 import com.common.util.LogUtil;
+import com.common.util.MMKVUtil;
 import com.swu.smartcanteen.databinding.ActivitySplashBinding;
 
 import java.security.Key;
+import java.util.HashMap;
+
+import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 
 @Route(path = RouteConstants.Module_app.PAGER_SPLASH)
 public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
@@ -33,6 +47,10 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        MMKVUtil.getMMKV(this).encode("auto_login_id","");
+        MMKVUtil.getMMKV(this).encode("auto_login_pwd","");
+        MMKVUtil.getMMKV(this).encode("remember_pwd_id","");
+        MMKVUtil.getMMKV(this).encode("remember_pwd_pwd","");
 
         //状态栏透明
         setTranslucent(this);
@@ -45,17 +63,47 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
         //设置动画
         setAnimation(this);
 
-        //停留3s后，跳转到主页
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-//                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-//                startActivity(intent);
-                //跳转
-                ARouter.getInstance().build(RouteConstants.Module_app.PAGER_MAIN).navigation();
-                SplashActivity.this.finish();   //关闭splashActivity，将其回收，否则按返回键会返回此界面
-            }
-        }, 2000);
+        //看看是否有自动登录的
+        String autoLoginId = MMKVUtil.getMMKV(getApplicationContext()).decodeString("auto_login_id");
+        if (autoLoginId != null && !autoLoginId.equals("")){
+            //说明有自动登录的，则直接取出id登录
+            String autoLoginPwd = MMKVUtil.getMMKV(getApplicationContext()).decodeString("auto_login_pwd");
+            RequestHandler.login(new AppObserver<ResponseModel<HashMap<String,String>>>() {
 
+                @Override
+                public void onData(@NonNull ResponseModel<HashMap<String, String>> response) {
+                    if(response == null){
+                        return;
+                    }
+                    String result = response.getResult();
+                    if (result == null || (result != null && result.equals("FAILED"))) {
+                        UIUtils.INSTANCE.showToast(getApplicationContext(),response.getMessage());
+                    } else if (result != null && result.equals("SUCCESS")){
+                        //登录成功
+                        String token = response.getData().get("token");
+                        BaseAppConstants.updateLogin(true,autoLoginId,autoLoginPwd,token);
+                        //如果勾选了”记住密码“或者”自动登录“，则需要把该账号密码保存到本地
+                        //自动登录的优先级高
+
+                        //登录成功，短暂停留后进入广告页面
+                        new Handler().postDelayed(new Runnable() {
+                            public void run() {
+                                ARouter.getInstance().build(RouteConstants.Module_app.PAGER_AD).navigation();
+                                SplashActivity.this.finish();   //关闭splashActivity，将其回收，否则按返回键会返回此界面
+                            }
+                        }, 1000);
+                    }
+                }
+        },new UserBean("", "", autoLoginPwd, autoLoginId, "", 0));
+        }else {
+            //没有自动登录，则跳转到广告页面
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    ARouter.getInstance().build(RouteConstants.Module_app.PAGER_AD).navigation();
+                    SplashActivity.this.finish();   //关闭splashActivity，将其回收，否则按返回键会返回此界面
+                }
+            }, 1000);
+        }
     }
     //设置动画
     public static void setAnimation(Activity activity){

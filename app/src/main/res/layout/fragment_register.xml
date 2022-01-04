@@ -14,12 +14,19 @@
 
         <LinearLayout
             android:layout_marginTop="30dp"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:orientation="vertical">
-
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:text="注册"
+                android:textSize="30sp"
+                android:textColor="#828181"
+                android:gravity="center_horizontal"
+                />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -33,7 +40,7 @@
                     android:gravity="center"
                     android:inputType="number"
                     android:theme="@style/MyEditTextRegister"
-                    android:layout_width="270dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="手机号码"/>
             </LinearLayout>
@@ -49,7 +56,7 @@
                     android:id="@+id/register_password"
                     android:gravity="center"
                     android:theme="@style/MyEditTextRegister"
-                    android:layout_width="270dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="密码"/>
             </LinearLayout>
@@ -65,7 +72,7 @@
                     android:id="@+id/register_telecode"
                     android:gravity="center"
                     android:theme="@style/MyEditTextRegister"
-                    android:layout_width="270dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="手机验证码"/>
             </LinearLayout>

@@ -32,10 +32,15 @@ abstract class BaseFragment<VIEW: ViewBinding>: Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        //将Fragment大小设置为屏幕大小减去底部导航栏大小
+        setRealSize()
         initData()
         initListener()
     }
 
+    protected open fun setRealSize(){
+
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -46,5 +51,6 @@ abstract class BaseFragment<VIEW: ViewBinding>: Fragment() {
     protected open fun initData() {}
 
     protected open fun initListener() {}
+
 
 }

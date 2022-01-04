@@ -12,7 +12,7 @@
 
         <LinearLayout
             android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:orientation="vertical">
@@ -26,7 +26,7 @@
                 <TextView
                     android:id="@+id/phoneOrforget"
                     android:gravity="center"
-                    android:layout_width="270dp"
+                    android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:textSize="30dp"
                     android:textColor="#727171"
@@ -44,7 +44,7 @@
                     android:id="@+id/loginbyphone_tele"
                     android:gravity="center"
                     android:theme="@style/MyEditTextRegister"
-                    android:layout_width="270dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="手机号码"/>
             </LinearLayout>
@@ -59,7 +59,7 @@
                     android:id="@+id/loginbyphone_telecode"
                     android:gravity="center"
                     android:theme="@style/MyEditTextRegister"
-                    android:layout_width="270dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="手机验证码"/>
             </LinearLayout>

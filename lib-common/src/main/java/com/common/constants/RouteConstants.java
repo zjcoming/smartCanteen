@@ -11,6 +11,7 @@ public class RouteConstants {
     public static class Module_app {
         private static final String MAIN = "/app";
         public static final String PAGER_NAVIGATION = MAIN + "/Navigation";
+        public static final String PAGER_AD = MAIN + "/Ad";
         public static final String PAGER_SPLASH = MAIN + "/Splash";
         public static final String PAGER_MAIN = MAIN + "/Main";
     }

@@ -2,6 +2,8 @@ package com.swu.smartcanteen.fragment;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,15 +25,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.BaseFragment;
 import com.base.bean.UserBean;
+import com.base.util.UIUtils;
 import com.common.anim.LoginRegisterFragmentAnimation;
+import com.common.api.AppObserver;
 import com.common.api.ResponseModel;
+import com.common.constants.BaseAppConstants;
 import com.common.constants.LoginAndRegisterConstants;
+import com.common.constants.RouteConstants;
+import com.common.handler.RequestHandler;
 import com.common.retrofitservice.UserLoginService;
 import com.common.util.CheckUtil;
+import com.common.util.DialogUtil;
 import com.common.util.MMKVUtil;
 import com.common.util.RetrofitUtil;
+import com.common.util.ScreenSizeUtil;
 import com.swu.smartcanteen.MainActivity;
 import com.swu.smartcanteen.NavigationActivity;
 import com.swu.smartcanteen.R;
@@ -75,7 +86,24 @@ public class LoginFragment extends BaseFragment {
         if(root == null) {
             root = inflater.inflate(R.layout.fragment_login, container, false);
         }
+
         return root;
+    }
+    private void setIdAndPwd(){
+        //如果勾选了记住密码，则把用户手机号和密码保存到本地
+        String rememberPwdId = MMKVUtil.getMMKV(getActivity()).decodeString("remember_pwd_id");
+        if (rememberPwdId != null && !rememberPwdId.equals("")){
+            //说明上次点了记住密码，就把账号和密码填在输入框上
+            String rememberPwdPwd = MMKVUtil.getMMKV(getActivity()).decodeString("remember_pwd_pwd");
+            loginByTeleOrId.getText().append(rememberPwdId);
+            password.getText().append(rememberPwdPwd);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LoginAndRegisterConstants.CURRENT_PAGE_INT = LoginAndRegisterConstants.LOGIN_AND_REGISTER_FRAGMENT;
     }
 
     //设置入场和出场的动画
@@ -110,6 +138,9 @@ public class LoginFragment extends BaseFragment {
         loginByQQ = getActivity().findViewById(R.id.login_qq);
         loginByWechat = getActivity().findViewById(R.id.login_wechat);
         loginByEmail = getActivity().findViewById(R.id.login_email);
+
+        //赋上控件的默认值
+        setIdAndPwd();
     }
 
     public void registerAllClickEvent(){
@@ -124,6 +155,9 @@ public class LoginFragment extends BaseFragment {
 
         //忘记密码的点击事件注册
         forgetPasswordButtonOnclick();
+
+        //QQ、微信、邮件登录的点击事件注册
+        QQWechatEmainButtonOnclick();
     }
     //登录的点击事件注册
     public void loginButtonOnclick(){
@@ -134,68 +168,54 @@ public class LoginFragment extends BaseFragment {
                 String userpassword = password.getText().toString();
 
                 if(telephoneOrId.equals("")){
-                    Toast.makeText(getContext(), "电话号码不能为空,请重新输入", Toast.LENGTH_LONG).show();
+                    UIUtils.INSTANCE.showToast(getContext(),"电话号码不能为空,请重新输入");
                 }else if (userpassword.equals("")){
-                    Toast.makeText(getContext(), "密码不能为空,请重新输入", Toast.LENGTH_LONG).show();
+                    UIUtils.INSTANCE.showToast(getContext(),"密码不能为空,请重新输入");
                 }else{
                     //利用正则表达式，判断是电话号码还是账号
                     boolean isValidPhone = CheckUtil.isPhone(telephoneOrId);
                     if (isValidPhone){
-                        //是有效的电话号码，此时进行网络请求
-                        UserLoginService service = RetrofitUtil.getService(UserLoginService.class, LoginAndRegisterConstants.BASE_URL);
-                        Observable<ResponseModel<HashMap<String,String>>> loginService = service.login(
-                                new UserBean("",
-                                "",
-                                userpassword,
-                                telephoneOrId,
-                                "",
-                                0));
-
-                        loginService.subscribeOn(Schedulers.newThread())//启动新线程 请求网络
-                                .observeOn(AndroidSchedulers.mainThread())//切换回主线程进行返回数据的处理
-                                .subscribe(new Observer<ResponseModel<HashMap<String,String>>>() {
-                                    //执行时，会先执行onSubscribe，后执行onNext处理返回的数据，后执行onError或者onComplete
-                                    @Override
-                                    public void onSubscribe(Disposable d) {
+                        RequestHandler.login(new AppObserver<ResponseModel<HashMap<String,String>>>() {
+                            @Override
+                            public void onData(@NonNull ResponseModel<HashMap<String, String>> response) {
+                                if(response == null){
+                                    return;
+                                }
+                                String result = response.getResult();
+                                if (result == null || (result != null && result.equals("FAILED"))) {
+                                    UIUtils.INSTANCE.showToast(getContext(),response.getMessage());
+                                } else if (result != null && result.equals("SUCCESS")){
+                                    //登录成功
+                                    String token = response.getData().get("token");
+                                    BaseAppConstants.updateLogin(true,telephoneOrId,userpassword,token);
+                                    //如果勾选了”记住密码“或者”自动登录“，则需要把该账号密码保存到本地
+                                    //自动登录的优先级高
+                                    if(quickLogin != null && quickLogin.isChecked()){
+                                        //如果勾选了自动登录，则把用户手机号和密码保存到本地
+                                        MMKVUtil.getMMKV(getActivity()).encode("auto_login_id",telephoneOrId);
+                                        MMKVUtil.getMMKV(getActivity()).encode("auto_login_pwd",userpassword);
+                                    }else if (rememberPassword != null && rememberPassword.isChecked()){
+                                        //如果勾选了记住密码，则也把用户手机号和密码保存到本地
+                                        MMKVUtil.getMMKV(getActivity()).encode("remember_pwd_id",telephoneOrId);
+                                        MMKVUtil.getMMKV(getActivity()).encode("remember_pwd_pwd",userpassword);
+                                    }else {
+                                        //什么都没勾选，则清空所有的
+                                        MMKVUtil.getMMKV(getActivity()).encode("auto_login_id","");
+                                        MMKVUtil.getMMKV(getActivity()).encode("auto_login_pwd","");
+                                        MMKVUtil.getMMKV(getActivity()).encode("remember_pwd_id","");
+                                        MMKVUtil.getMMKV(getActivity()).encode("remember_pwd_pwd","");
                                     }
 
-                                    @Override
-                                    public void onNext(@NonNull ResponseModel<HashMap<String,String>> response) {
-                                        String result = response.getResult();
-                                        if (result.equals("FAILED")) {
-                                            Toast.makeText(getContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            //登录成功
-                                            Toast.makeText(getContext(), "登录成功", Toast.LENGTH_SHORT).show();
-                                            //进行判断，如果本地的Token为空，说明是第一次登录，如果不为空，则进行比较，如果一致则登录，不一致则更新
-                                            String localToken = MMKVUtil.getMMKV(getActivity()).decodeString(telephoneOrId + "token","");
-                                            if(!localToken.equals(response.getData().get("token"))){
-                                                //有可能是本地没有保存token（用户直接登录的，没有注册）
-                                                //有可能是本地token为""，（用户刚注册，还没登录）
-                                                //有可能本地token过期
-                                                //不管哪种情况，都要更新本地token
-                                                MMKVUtil.getMMKV(getActivity()).encode(telephoneOrId+"token",response.getData().get("token"));
-                                            }
-                                            //登录成功，短暂停留后进入主页面
-                                            new Handler().postDelayed(new Runnable() {
-                                                public void run() {
-                                                    Intent intent = new Intent(getActivity(), NavigationActivity.class);
-                                                    startActivity(intent);
-                                                }
-                                            }, 800);
+                                    //登录成功，短暂停留后进入主页面
+                                    new Handler().postDelayed(new Runnable() {
+                                        public void run() {
+                                            Intent intent = new Intent(getActivity(), NavigationActivity.class);
+                                            startActivity(intent);
                                         }
-                                    }
-
-                                    @Override
-                                    public void onError(Throwable e) {
-
-                                    }
-
-                                    @Override
-                                    public void onComplete() {
-                                    }
-                                });
-
+                                    }, 800);
+                                }
+                            }
+                        },new UserBean("", "", userpassword, telephoneOrId, "", 0));
                     }
                 }
             }
@@ -218,9 +238,10 @@ public class LoginFragment extends BaseFragment {
         loginByTeleCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bundle.putInt("show", LoginAndRegisterConstants.LOGIN_BY_PHONE);
-                LoginAndRegisterConstants.fragments[LoginAndRegisterConstants.LOGINBYPHONE_OR_FORGETPASSWORD].setArguments(bundle);
-                changeRegisterFrag(LoginAndRegisterConstants.LOGINBYPHONE_OR_FORGETPASSWORD);
+                //LoginAndRegisterConstants.fragments[LoginAndRegisterConstants.LOGINBYPHONE_OR_FORGETPASSWORD].setArguments(bundle);
+                //更改当前页面为LOGIN_BY_PHONE页面
+                LoginAndRegisterConstants.CURRENT_PAGE_INT = LoginAndRegisterConstants.LOGIN_BY_PHONE;
+                changeRegisterFrag(LoginAndRegisterConstants.LOGIN_BY_PHONE);
             }
         });
     }
@@ -229,16 +250,38 @@ public class LoginFragment extends BaseFragment {
         forgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bundle.putInt("show", LoginAndRegisterConstants.FORGET_PASSWORD);
-                LoginAndRegisterConstants.fragments[LoginAndRegisterConstants.LOGINBYPHONE_OR_FORGETPASSWORD].setArguments(bundle);
-                changeRegisterFrag(LoginAndRegisterConstants.LOGINBYPHONE_OR_FORGETPASSWORD);
+                //LoginAndRegisterConstants.fragments[LoginAndRegisterConstants.LOGINBYPHONE_OR_FORGETPASSWORD].setArguments(bundle);
+                LoginAndRegisterConstants.CURRENT_PAGE_INT = LoginAndRegisterConstants.FORGET_PASSWORD;
+                changeRegisterFrag(LoginAndRegisterConstants.FORGET_PASSWORD);
+            }
+        });
+    }
+
+    //QQ、微信、邮件登录的点击事件注册
+    public void QQWechatEmainButtonOnclick(){
+        loginByQQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIUtils.INSTANCE.showToast(getContext(),"暂未开放，敬请期待");
+            }
+        });
+        loginByWechat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIUtils.INSTANCE.showToast(getContext(),"暂未开放，敬请期待");
+            }
+        });
+        loginByEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIUtils.INSTANCE.showToast(getContext(),"暂未开放，敬请期待");
             }
         });
     }
     //更换Fragment
     public void changeRegisterFrag(int fragmentNum){
         MainActivity activity = (MainActivity) getActivity();
-        activity.changeFragment(LoginAndRegisterConstants.fragments[fragmentNum]);
+        activity.changeFragment(fragmentNum);
     }
 
 }

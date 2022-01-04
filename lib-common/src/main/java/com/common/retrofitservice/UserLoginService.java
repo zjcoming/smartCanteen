@@ -24,8 +24,10 @@ public interface UserLoginService {
     //登录
     @POST("token")
     Observable<ResponseModel<HashMap<String,String>>> login(@Body UserBean user);
+    //手机验证码登录
+    @POST("user/password")
+    Observable<ResponseModel<HashMap<String,String>>> resetPwd(@Body UserBean user);
     //发送验证码
     @GET("code")
     Observable<ResponseModel<HashMap<String,String>>> sendCode(@Query("telephone") String telephone);
-
 }

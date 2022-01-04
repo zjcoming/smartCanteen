@@ -23,10 +23,15 @@ import android.widget.Toast;
 
 import com.base.BaseFragment;
 import com.base.bean.UserBean;
+import com.base.util.BaseUtil;
+import com.base.util.UIUtils;
 import com.common.anim.LoginRegisterFragmentAnimation;
+import com.common.api.AppObserver;
 import com.common.api.ResponseModel;
 import com.common.constants.LoginAndRegisterConstants;
+import com.common.handler.RequestHandler;
 import com.common.retrofitservice.UserLoginService;
+import com.common.util.BtnCountDownUtil;
 import com.common.util.CheckUtil;
 import com.common.util.MMKVUtil;
 import com.common.util.RandomCode;
@@ -46,6 +51,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -70,6 +77,13 @@ public class RegisterFragment extends BaseFragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        BtnCountDownUtil.continueCountDown(sendCode,System.currentTimeMillis(),"","s后重新发送");
+        LoginAndRegisterConstants.CURRENT_PAGE_INT = LoginAndRegisterConstants.REGISTER_FRAGMENT;
+    }
+
     //设置入场动画和出场动画
     @Override
     public void onPause() {
@@ -89,19 +103,6 @@ public class RegisterFragment extends BaseFragment {
         //发送验证码  按钮点击事件
         sendCodeButtonOnclick();
     }
-    //设置入场动画
-    public static void setAnimation(Activity activity){
-        //设置动画
-        View splashView = activity.findViewById(R.id.register_fragment);
-        Animation animation = AnimationUtils.loadAnimation(activity, R.anim.top_in);
-        animation.setInterpolator(new AccelerateDecelerateInterpolator());//速度曲线，先加速后减速
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(splashView,"alpha",0f,1.0f);
-        objectAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
-        objectAnimator.setDuration(600);
-        //先启动从上往下滑的动画，再启动透明度动画
-        splashView.startAnimation(animation);
-        objectAnimator.start();
-    }
     public void initViews(){
         //得到控件
         passWord = (EditText)getActivity().findViewById(R.id.register_password);
@@ -119,34 +120,21 @@ public class RegisterFragment extends BaseFragment {
                 //进行校验
                 if(checkIsValid()){
                     //只有各参数合法的时候，才能继续
-                    //首先判断用户输入的验证码是否正确
-                    if(Code.getText().toString().equals(LoginAndRegisterConstants.USER_SENDED_CODE)){
-                        //验证码输入正确
-                        UserLoginService service = RetrofitUtil.getService(UserLoginService.class, LoginAndRegisterConstants.BASE_URL);
-                        Observable<ResponseModel<HashMap<String,String>>> register = service.register(new UserBean("",
-                                "",
-                                passWord.getText().toString(),
-                                telePhone.getText().toString(),
-                                "", 0));
-
-                        register.subscribeOn(Schedulers.newThread())//启动新线程 请求网络
-                                .observeOn(AndroidSchedulers.mainThread())//切换回主线程进行返回数据的处理
-                                .subscribe(new Observer<ResponseModel<HashMap<String,String>>>() {
-                                    //执行时，会先执行onSubscribe，后执行onNext处理返回的数据，后执行onError或者onComplete
+                    BaseUtil.INSTANCE.verifyCode(telePhone.getText().toString(), Code.getText().toString(), new Function1<Boolean, Unit>() {
+                        @Override
+                        public Unit invoke(Boolean aBoolean) {
+                            if(aBoolean){
+                                //说明验证码没有异常，短信是对的
+                                //验证码输入正确
+                                RequestHandler.register(new AppObserver<ResponseModel<HashMap<String, String>>>() {
                                     @Override
-                                    public void onSubscribe(Disposable d) {
-                                    }
-
-                                    @Override
-                                    public void onNext(@NonNull ResponseModel<HashMap<String,String>> response) {
-                                        String result = response.getResult();
+                                    public void onData(@NonNull ResponseModel<HashMap<String, String>> hashMapResponseModel) {
+                                        String result = hashMapResponseModel.getResult();
                                         if (result.equals("FAILED")) {
-                                            Toast.makeText(getContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                                            UIUtils.INSTANCE.showToast(getContext(), hashMapResponseModel.getMessage());
                                         } else {
                                             //注册成功
-                                            Toast.makeText(getContext(), "注册成功！！", Toast.LENGTH_SHORT).show();
-                                            //本地添加Token
-                                            MMKVUtil.getMMKV(getActivity()).encode(telePhone.getText().toString()+"token","");
+                                            UIUtils.INSTANCE.showToast(getContext(), "注册成功");
                                             //注册成功，短暂停留后进入登录页面
                                             new Handler().postDelayed(new Runnable() {
                                                 public void run() {
@@ -156,37 +144,37 @@ public class RegisterFragment extends BaseFragment {
 
                                         }
                                     }
+                                },new UserBean("",
+                                        "",
+                                        passWord.getText().toString(),
+                                        telePhone.getText().toString(),
+                                        "", 0));
+                            }else {
+                                //用户输入的验证码错误
+                                UIUtils.INSTANCE.showToast(getContext(), "验证码输入有误，请重新输入");
+                            }
 
-                                    @Override
-                                    public void onError(Throwable e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    @Override
-                                    public void onComplete() {
-                                    }
-                                });
-                    }else {
-                        //用户输入的验证码错误
-                        Toast.makeText(getContext(),"验证码输入有误，请重新输入",Toast.LENGTH_SHORT).show();
-                    }
+                            return Unit.INSTANCE;
+                        }
+                    });
                 }
             }
         });
     }
     //发送验证码按钮 点击事件
     public void sendCodeButtonOnclick(){
+
         sendCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RandomCode.createAlertAndCode(getContext(),getActivity(),telePhone.getText().toString(),getResources().getColor(R.color.black), LoginAndRegisterConstants.CURRENT_PAGE_IS_REGISTER);
+                RandomCode.createAlertAndCode(getContext(),(Button)v,getActivity(),telePhone.getText().toString(),getResources().getColor(R.color.black), LoginAndRegisterConstants.REGISTER_FRAGMENT);
             }
         });
     }
     //更换Fragment
     public void changeRegisterFrag(int fragmentNum){
         MainActivity activity = (MainActivity) getActivity();
-        activity.changeFragment(LoginAndRegisterConstants.fragments[fragmentNum]);
+        activity.changeFragment(fragmentNum);
     }
 
     //校验各参数是否合法

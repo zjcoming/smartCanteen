@@ -92,6 +92,7 @@
                     android:textSize="15sp"
                     android:text="登录"
                     android:textColor="@color/white"
+                    android:background="@drawable/shape"
                     />
                 <TextView
                     android:id="@+id/login_register"
@@ -129,29 +130,35 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="43dp"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 >
+
                 <ImageView
                     android:id="@+id/login_qq"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:scaleType="centerInside"
                     android:src="@drawable/login_qq"
                     tools:ignore="UnknownId" />
+
                 <ImageView
                     android:id="@+id/login_wechat"
-                    android:layout_alignParentRight="true"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
                     android:layout_marginLeft="60dp"
+                    android:scaleType="centerInside"
                     android:src="@drawable/login_wechat" />
+
                 <ImageView
                     android:id="@+id/login_email"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="60dp"
+                    android:scaleType="centerInside"
                     android:src="@drawable/login_email" />
 
             </LinearLayout>

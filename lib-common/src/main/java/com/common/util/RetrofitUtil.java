@@ -1,5 +1,6 @@
 package com.common.util;
 
+import com.common.interceptor.AddHeaderIntercepter;
 import com.common.interceptor.TokenInterceptor;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
@@ -18,33 +19,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * 介绍：
  *      这是Retrofit的封装类，同时也是单例类
  *
-            使用示例：
-            RetrofitUtil.getService(myservice,baseUrl)得到service对象
-            完整使用：
-                MyService myService = RetrofitUtil.getService(MyService.class, BASE_URL);
-                Observable<ResponseModel<Bean>> observable = myService.xxx();
-                observable.subscribeOn(Schedulers.newThread())//启动新线程 请求网络
-                .observeOn(AndroidSchedulers.mainThread())//切换回主线程进行返回数据的处理
-                .subscribe(new Observer<ResponseModel<Bean>>() {
-                    //执行时，会先执行onSubscribe，后执行onNext处理返回的数据，后执行onError或者onComplete
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
+            完整使用示例：
+        RequestHandler.login(new AppObserver<ResponseModel<HashMap<String,String>>>() {
+            @Override
+            public void onData(@NonNull ResponseModel<HashMap<String, String>> response) {
+                //在这里执行请求成功的代码
+            }
+            @Override
+            public void onFailed(@NonNull Throwable e) {
+                //在这里执行请求失败的代码
+            }
+        },new UserBean());
 
-                    @Override
-                    public void onNext(@NonNull Bean bean) {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                    }
-                });
  */
 
 public class RetrofitUtil {
@@ -77,6 +63,7 @@ public class RetrofitUtil {
                     .connectTimeout(15, TimeUnit.SECONDS)
                     .retryOnConnectionFailure(true)
                     .addInterceptor(new TokenInterceptor())
+                    .addInterceptor(new AddHeaderIntercepter())
                     .build();
 
             //然后创建Retrofit
