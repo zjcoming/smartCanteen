@@ -3,4 +3,8 @@
     <string name="home">首页</string>
     <string name="user">我的</string>
     <string name="order">订单</string>
+    <string name="take_out">外卖用餐</string>
+    <string name="pre_order">预约取餐</string>
+    <string name="in_canteen">食堂就餐</string>
+
 </resources>

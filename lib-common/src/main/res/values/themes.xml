@@ -31,4 +31,5 @@
          <item name="colorControlNormal">@color/underLineNorRegister</item>
          <item name="colorControlActivated">@color/underLineActiRegister</item>
     </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 </resources>

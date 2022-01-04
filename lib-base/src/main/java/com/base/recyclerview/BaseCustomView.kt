@@ -1,12 +1,15 @@
 package com.base.recyclerview
 
 import android.content.Context
+import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.annotation.RequiresApi
 import androidx.viewbinding.ViewBinding
 import com.base.util.UIUtils
 import com.base.util.bindViewWithGeneric
+import com.base.util.inflateBindingWithGeneric
 
 /**
  * Created by chenxiong
@@ -35,7 +38,8 @@ import com.base.util.bindViewWithGeneric
     }
 }
  */
-abstract class BaseCustomView<VIEW : ViewBinding, DATA : IBaseCustomViewModel> @JvmOverloads constructor(
+@RequiresApi(Build.VERSION_CODES.P)
+abstract class BaseCustomView<DATA : IBaseCustomViewModel, VIEW : ViewBinding> @JvmOverloads constructor(
     context: Context,
     attr: AttributeSet? = null, style: Int = 0
 ) : FrameLayout(context, attr, style), ICustomView<DATA> {
@@ -47,13 +51,9 @@ abstract class BaseCustomView<VIEW : ViewBinding, DATA : IBaseCustomViewModel> @
     }
 
     private fun init() {
-        val inflater = UIUtils.getLayoutInflater(context)
-        val view = inflater.inflate(getLayoutId(),this,false)
-        binding = bindViewWithGeneric(view)
+        binding = inflateBindingWithGeneric(UIUtils.getLayoutInflater(context),this,false)
         addView(binding.root)
     }
-    abstract fun getLayoutId(): Int
-
 
     override fun setData(data: DATA) {
         mData = data
