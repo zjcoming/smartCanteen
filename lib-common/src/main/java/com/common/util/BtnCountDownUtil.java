@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 /**
  * Created by 刘金豪 on 2021/11/26
- * desc: 点击 发送验证码后 设置按钮的状态
+ * desc: 设置按钮的ui
  *
  * 使用：BtnCountDownUtil.getCountDownRunnable(button,60);
  */

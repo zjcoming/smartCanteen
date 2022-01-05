@@ -18,49 +18,11 @@ import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.text.InputType;
-import android.util.DisplayMetrics;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import androidx.fragment.app.FragmentActivity;
-
-import com.base.bean.UserBean;
 import com.base.util.BaseUtil;
-import com.common.api.Bean;
-import com.common.api.ResponseModel;
 import com.common.constants.LoginAndRegisterConstants;
-import com.common.retrofitservice.UserLoginService;
 import com.swu.lib_common.R;
 
-import java.util.HashMap;
 import java.util.Random;
-
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import java.util.Random;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by 刘金豪 on 2021/11/26

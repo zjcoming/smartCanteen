@@ -1,61 +1,38 @@
 package com.swu.smartcanteen.fragment;
 
-import android.animation.ObjectAnimator;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.BaseFragment;
 import com.base.bean.UserBean;
 import com.base.util.UIUtils;
 import com.common.anim.LoginRegisterFragmentAnimation;
-import com.common.api.AppObserver;
-import com.common.api.ResponseModel;
+import com.common.requestbase.AppObserver;
+import com.common.requestbase.ResponseModel;
 import com.common.constants.BaseAppConstants;
 import com.common.constants.LoginAndRegisterConstants;
-import com.common.constants.RouteConstants;
 import com.common.handler.RequestHandler;
-import com.common.retrofitservice.UserLoginService;
 import com.common.util.CheckUtil;
-import com.common.util.DialogUtil;
 import com.common.util.MMKVUtil;
-import com.common.util.RetrofitUtil;
-import com.common.util.ScreenSizeUtil;
 import com.swu.smartcanteen.MainActivity;
 import com.swu.smartcanteen.NavigationActivity;
 import com.swu.smartcanteen.R;
-import com.swu.smartcanteen.SplashActivity;
-import com.tencent.mmkv.MMKV;
 
 import java.util.HashMap;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by 刘金豪 on 2021/11/26
@@ -145,8 +122,8 @@ public class LoginFragment extends BaseFragment {
 
     public void registerAllClickEvent(){
         //登录的点击事件注册
-        loginButtonOnclick();
-
+        //loginButtonOnclick();
+        testLoginButtonOnclick();
         //注册的点击事件注册
         registerButtonOnclick();
 
@@ -158,6 +135,15 @@ public class LoginFragment extends BaseFragment {
 
         //QQ、微信、邮件登录的点击事件注册
         QQWechatEmainButtonOnclick();
+    }
+    public void testLoginButtonOnclick(){
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NavigationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     //登录的点击事件注册
     public void loginButtonOnclick(){

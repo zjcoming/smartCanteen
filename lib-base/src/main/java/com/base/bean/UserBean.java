@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 //注解声明为Room模板
 @Entity
-public class UserBean implements Serializable {
+public class UserBean implements Serializable{
 
     @PrimaryKey(autoGenerate = false)//主键是否自动增长，默认为false
     @NonNull

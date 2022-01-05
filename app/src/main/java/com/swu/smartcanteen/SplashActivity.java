@@ -1,47 +1,44 @@
 package com.swu.smartcanteen;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.base.ApplicationContext;
 import com.base.BaseActivity;
 import com.base.bean.UserBean;
 import com.base.util.UIUtils;
-import com.common.api.AppObserver;
-import com.common.api.ResponseModel;
+import com.common.requestbase.AppObserver;
+import com.common.requestbase.ResponseModel;
 import com.common.constants.BaseAppConstants;
 import com.common.constants.RouteConstants;
 import com.common.handler.RequestHandler;
-import com.common.util.LogUtil;
 import com.common.util.MMKVUtil;
+import com.common.util.PermissionUtil;
 import com.swu.smartcanteen.databinding.ActivitySplashBinding;
 
-import java.security.Key;
 import java.util.HashMap;
 
-import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
+
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 @Route(path = RouteConstants.Module_app.PAGER_SPLASH)
 public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +102,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
             }, 1000);
         }
     }
+
     //设置动画
     public static void setAnimation(Activity activity){
         //设置动画
