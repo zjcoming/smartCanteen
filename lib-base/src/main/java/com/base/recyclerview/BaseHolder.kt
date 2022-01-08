@@ -30,9 +30,11 @@ import androidx.recyclerview.widget.RecyclerView
  */
 class BaseHolder(itemView: ICustomView<*>) : RecyclerView.ViewHolder(itemView as View) {
 
-    private  var mItemViewI: ICustomView<IBaseCustomViewModel> = itemView as ICustomView<IBaseCustomViewModel>
+    private  var mItemView: ICustomView<IBaseCustomViewModel> = itemView as ICustomView<IBaseCustomViewModel>
 
     fun bind(viewModelI: IBaseCustomViewModel) {
-        mItemViewI.setData(viewModelI)
+        mItemView.setData(viewModelI)
     }
+
+
 }

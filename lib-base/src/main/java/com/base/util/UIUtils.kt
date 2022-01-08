@@ -2,6 +2,8 @@ package com.base.util
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 
 /**
@@ -20,4 +22,10 @@ object UIUtils {
     fun getLayoutInflater(context: Context) = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     fun dp2px(context: Context, dp: Int) = (context.resources.displayMetrics.density * dp + 0.5f).toInt()
+}
+
+inline fun <reified T: ViewGroup.LayoutParams> View.updateLayoutParams(block: T.() -> Unit) {
+    val params = layoutParams as T
+    block(params)
+    layoutParams = params
 }

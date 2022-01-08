@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
 import androidx.viewbinding.ViewBinding
@@ -26,19 +27,12 @@ import com.base.util.inflateBindingWithGeneric
         super(context);
     }
 
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.test_layout;
-    }
-
     @Override
     protected void setDataToView(@NotNull MyModel myModel) {
         binding.name.setText(myModel.name);
     }
 }
  */
-@RequiresApi(Build.VERSION_CODES.P)
 abstract class BaseCustomView<DATA : IBaseCustomViewModel, VIEW : ViewBinding> @JvmOverloads constructor(
     context: Context,
     attr: AttributeSet? = null, style: Int = 0
@@ -48,6 +42,7 @@ abstract class BaseCustomView<DATA : IBaseCustomViewModel, VIEW : ViewBinding> @
 
     init {
         init()
+        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT)
     }
 
     private fun init() {
@@ -59,6 +54,8 @@ abstract class BaseCustomView<DATA : IBaseCustomViewModel, VIEW : ViewBinding> @
         mData = data
         setDataToView(data)
     }
+
+    fun getMBinding() = binding
 
     protected abstract fun setDataToView(data: DATA)
 
