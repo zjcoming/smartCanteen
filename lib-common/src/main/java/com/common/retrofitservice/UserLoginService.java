@@ -1,7 +1,7 @@
 package com.common.retrofitservice;
 
 import com.base.bean.UserBean;
-import com.common.api.ResponseModel;
+import com.common.requestbase.ResponseModel;
 
 
 import java.util.HashMap;

@@ -1,9 +1,8 @@
-package com.common.api;
+package com.common.requestbase;
 
 
 import com.base.ApplicationContext;
 import com.base.util.UIUtils;
-import com.common.constants.BaseAppConstants;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;

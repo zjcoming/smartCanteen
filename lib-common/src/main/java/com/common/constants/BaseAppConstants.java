@@ -8,7 +8,9 @@ import com.base.BaseApplication;
 
 /**
  * Created by 刘金豪 on 2021/11/26
- * desc: 用来保存整个app的一些常量 比如保存全局保存一个上下文、保存正在登录的用户id等等
+ * desc: 用来保存整个app的一些常量 比如保存正在登录的用户id等等
+ *
+ * 这里面变量的赋值，都是在app内部进行赋值的（本地），与RspAppInfo的区别在于，RspAppInfo是后端赋值的
  */
 public class BaseAppConstants {
     private static boolean isLogin;//用户是否登录

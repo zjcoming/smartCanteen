@@ -14,7 +14,6 @@ import okhttp3.Response;
  * desc: 这是添加请求头的拦截器，目前负责添加
  *
  *  ①用户是否是手机验证码登录
- *  ②用户是否是忘记密码页面
  */
 public class AddHeaderIntercepter implements Interceptor {
     @Override

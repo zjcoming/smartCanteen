@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,24 +15,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.BaseFragment;
 import com.base.bean.UserBean;
 import com.base.util.BaseUtil;
 import com.base.util.UIUtils;
 import com.common.anim.LoginRegisterFragmentAnimation;
-import com.common.api.AppObserver;
-import com.common.api.ResponseModel;
+import com.common.requestbase.AppObserver;
+import com.common.requestbase.ResponseModel;
 import com.common.constants.BaseAppConstants;
 import com.common.constants.LoginAndRegisterConstants;
-import com.common.constants.RouteConstants;
 import com.common.handler.RequestHandler;
 import com.common.util.BtnCountDownUtil;
 import com.common.util.RandomCode;
 import com.swu.smartcanteen.MainActivity;
 import com.swu.smartcanteen.NavigationActivity;
 import com.swu.smartcanteen.R;
-import com.swu.smartcanteen.SplashActivity;
 
 import java.util.HashMap;
 

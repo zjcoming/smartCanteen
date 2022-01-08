@@ -1,4 +1,4 @@
-package com.common.api;
+package com.common.requestbase;
 
 /**
  * Created by 刘金豪 on 2021/11/26

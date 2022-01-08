@@ -1,22 +1,14 @@
 package com.swu.smartcanteen.fragment;
 
-import android.animation.ObjectAnimator;
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,36 +18,22 @@ import com.base.bean.UserBean;
 import com.base.util.BaseUtil;
 import com.base.util.UIUtils;
 import com.common.anim.LoginRegisterFragmentAnimation;
-import com.common.api.AppObserver;
-import com.common.api.ResponseModel;
+import com.common.requestbase.AppObserver;
+import com.common.requestbase.ResponseModel;
 import com.common.constants.LoginAndRegisterConstants;
 import com.common.handler.RequestHandler;
-import com.common.retrofitservice.UserLoginService;
 import com.common.util.BtnCountDownUtil;
 import com.common.util.CheckUtil;
-import com.common.util.MMKVUtil;
 import com.common.util.RandomCode;
-import com.common.util.RetrofitUtil;
 import com.swu.smartcanteen.MainActivity;
-import com.swu.smartcanteen.NavigationActivity;
 import com.swu.smartcanteen.R;
-import com.swu.smartcanteen.SplashActivity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
 /**
  * Created by 刘金豪 on 2021/11/26
  * desc: 注册的Fragment
