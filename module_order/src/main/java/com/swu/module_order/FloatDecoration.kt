@@ -1,53 +1,38 @@
 package com.swu.module_order
 
-import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Rect
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.swu.module_order.databinding.ItemShopDetailsMenuRightGroupBinding
 
 
 /**
- * PackageName : com.ziwenl.meituandemo.ui.store.adapter
  * Author : Ziwen Lan
  * Date : 2020/9/15
  * Time : 13:51
  * Introduction : RecyclerView 悬浮吸顶 Decoration
  * 填充的 decorationLayoutRes 根布局高度需为明确值
  */
-class FloatDecoration(
-    context: Context,
-    /**
-     * 被装饰的 RecyclerView
-     */
-    recyclerView: RecyclerView,
-    /**
-     * 布局 layout
-     */
-    @LayoutRes decorationLayoutRes: Int,
-    /**
-     * 回调接口
-     */
-    decorationCallback: FloatDecoration.DecorationCallback
+class FloatDecoration <VB: ViewBinding> (
+    private val binding: VB,
+    private val mCallback: DecorationCallback<VB>
 ) : RecyclerView.ItemDecoration() {
 
-    private var binding = ItemShopDetailsMenuRightGroupBinding.inflate(LayoutInflater.from(context),recyclerView,false)
     private var mDecorationHeight: Int = 0
-    private var mCallback: DecorationCallback
 
     init {
+        init()
+    }
+
+    private fun init() {
         //计算装饰 View 的总高度
         if (binding.root.layoutParams.height == ViewGroup.LayoutParams.WRAP_CONTENT) {
             mDecorationHeight = 0
         } else {
             mDecorationHeight = binding.root.layoutParams.height
         }
-        mCallback = decorationCallback
     }
 
     /**
@@ -95,7 +80,7 @@ class FloatDecoration(
             if (position + 1 < itemCount) {
                 val nextDecoration = mCallback.getDecorationFlag(position + 1)
                 //组内最后一个view进入了header
-                if (nextDecoration !== currentDecoration && viewBottom < top) {
+                if (nextDecoration != currentDecoration && viewBottom < top) {
                     top = viewBottom.toFloat()
                 }
             }
@@ -131,7 +116,7 @@ class FloatDecoration(
     /**
      * 回调接口
      */
-    interface DecorationCallback {
+    interface DecorationCallback <VB: ViewBinding> {
         /**
          * 获得装饰标识位：用来区分不同分组，可以根据实际需求调整为 String(组名) 或者是 Long(组Id) 类型
          */
@@ -140,6 +125,6 @@ class FloatDecoration(
         /**
          * 操作装饰View：填充数据
          */
-        fun onBindView(binding: ItemShopDetailsMenuRightGroupBinding, position: Int)
+        fun onBindView(binding: VB, position: Int)
     }
 }

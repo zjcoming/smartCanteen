@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.base.BaseActivity
 import com.base.recyclerview.BaseAdapter
+import com.base.util.UIUtils
 import com.base.util.updateLayoutParams
 import com.swu.module_order.adapter.LeftMenuAdapter
 import com.swu.module_order.adapter.RightMenuAdapter
@@ -35,6 +36,27 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
             layoutManager = LinearLayoutManager(this@ChooseFoodActivity)
         }
 
+    }
+
+    override fun initListener() {
+        binding.rvRightMenu.addItemDecoration(
+            FloatDecoration(
+                ItemShopDetailsMenuRightGroupBinding.inflate(UIUtils.getLayoutInflater(this),binding.rvRightMenu,false),
+                binding.rvRightMenu,
+                object : FloatDecoration.DecorationCallback<ItemShopDetailsMenuRightGroupBinding> {
+                    override fun getDecorationFlag(position: Int): String {
+                        return rightMenuData[position].groupName
+                    }
+                    override fun onBindView(
+                        binding: ItemShopDetailsMenuRightGroupBinding,
+                        position: Int
+                    ) {
+                        binding.tvGroupName.text = rightMenuData[position].groupName
+                    }
+
+                }
+            )
+        )
         binding.scrollView.post {
             binding.rvLeftMenu.updateLayoutParams<ViewGroup.LayoutParams> {
                 height = binding.scrollView.height
@@ -43,24 +65,6 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
                 height = binding.scrollView.height
             }
         }
-        binding.rvRightMenu.addItemDecoration(
-            FloatDecoration(this,
-                binding.rvRightMenu,
-                R.layout.item_shop_details_menu_right_group,
-                object : FloatDecoration.DecorationCallback {
-                    override fun getDecorationFlag(position: Int): String {
-                        return rightMenuData[position].groupName
-                    }
-
-                    override fun onBindView(
-                        binding: ItemShopDetailsMenuRightGroupBinding,
-                        position: Int
-                    ) {
-                        binding.tvGroupName.text = rightMenuData[position].groupName
-                    }
-                }
-            )
-        )
         leftMenuAdapter.setItemClickCallBack(object : BaseAdapter.OnClickCallBack {
             override fun onItemClick(position: Int) {
                 for (i in rightMenuData.indices) {
@@ -95,10 +99,6 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
                 }
             }
         })
-    }
-
-    override fun initListener() {
-
     }
 
 }
