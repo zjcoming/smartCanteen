@@ -32,7 +32,7 @@ import java.util.List;
  *                                            如果是其他权限，则调用requestOtherPermissions
  */
 public class PermissionUtil {
-    public static void requestOtherPermissions(Context context,String permission,DialogInterface.OnClickListener secondDialogListener){
+    public static void requestOtherPermissions(Context context,String permission,PermissionUtil.PermissionRequestSuccessCallBack permissionRequestSuccessCallBack){
         if (context == null || permission == null){
             return;
         }
@@ -40,15 +40,15 @@ public class PermissionUtil {
             @Override
             public void onHasPermission() {
                 //已经获取到
+                permissionRequestSuccessCallBack.onHasPermission();
             }
 
             @Override
             public void onUserHasAlreadyTurnedDown(String... permission) {
                 //被用户主动去设置中拒绝了，此时需要向用户描述下权限，然后再次请求获取权限
                 //说明上次用户点击拒绝了，此时应该展示申请权限的原因，然后再去申请
-                DialogUtil.selfShowTwoBtnDialog(context, "您有未申请的权限，刚刚拒绝了", PermissionConstants.requestOtherPermissionsDes + PermissionUtil.morePermissionToZh(permission),
+                DialogUtil.showTwoBtnDialog(context, "您有未申请的权限，刚刚拒绝了", PermissionConstants.requestOtherPermissionsDes + PermissionUtil.morePermissionToZh(permission),
                         "同意申请",
-                        "拒绝申请",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -56,15 +56,14 @@ public class PermissionUtil {
                                 PermissionUtil.toAppSetting(context);
                                 //PermissionUtil.requestMorePermissions(context,permission,requestCode);
                             }
-                        },secondDialogListener);
+                        });
             }
 
             @Override
             public void onUserHasAlreadyTurnedDownAndDontAsk(String... permission) {
                 //被用户在弹出来的权限申请中”禁止“了，此时需要进入”设置页面“
-                DialogUtil.selfShowTwoBtnDialog(context, "您有未申请的权限", PermissionConstants.requestOtherPermissionsDes + PermissionUtil.morePermissionToZh(permission),
+                DialogUtil.showTwoBtnDialog(context, "您有未申请的权限", PermissionConstants.requestOtherPermissionsDes + PermissionUtil.morePermissionToZh(permission),
                         "同意申请",
-                        "拒绝申请",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -72,7 +71,7 @@ public class PermissionUtil {
                                 PermissionUtil.toAppSetting(context);
                                 //PermissionUtil.requestMorePermissions(context,permission,requestCode);
                             }
-                        },secondDialogListener);
+                        });
             }
         });
     }
@@ -83,7 +82,7 @@ public class PermissionUtil {
         if (context == null){
             return;
         }
-        PermissionUtil.checkMorePermissions(context, PermissionConstants.allPermissions, new PermissionUtil.PermissionCheckCallBack() {
+        PermissionUtil.checkMorePermissions(context, PermissionConstants.mustPermissions, new PermissionUtil.PermissionCheckCallBack() {
             @Override
             public void onHasPermission() {
                 //权限已经获取了 啥也不用做

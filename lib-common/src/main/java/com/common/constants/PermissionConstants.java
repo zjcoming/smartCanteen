@@ -23,6 +23,19 @@ public class PermissionConstants {
     };
 
     /**
+     * 必要权限
+     */
+    public static  String[] mustPermissions = {
+            write_external_storage
+    };
+    /**
+     * 其他权限
+     */
+    public static  String[] otherPermissions = {
+            camera
+    };
+
+    /**
      * 权限申请的code
      */
     public static final int mustPermissionRequestCode = 1;

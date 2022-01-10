@@ -16,6 +16,7 @@ public class BaseAppConstants {
     private static boolean isLogin;//用户是否登录
     private static String userPhone;//已经登录的用户的手机号
     private static String userPwd;//已经登录的用户的密码
+    private static String userIconUrl;//用户头像的url
     private static String token = "";//不能为null
 
     public static void updateLogin(boolean isLogin, String userPhone, String userPwd,String token){
@@ -25,6 +26,7 @@ public class BaseAppConstants {
         BaseAppConstants.userPwd = userPwd;
         BaseAppConstants.token = token;
     }
+
     public static String getToken() {
         return token;
     }
@@ -54,5 +56,13 @@ public class BaseAppConstants {
 
     public static void setUserPwd(String userPwd) {
         BaseAppConstants.userPwd = userPwd;
+    }
+
+    public static String getUserIconUrl() {
+        return userIconUrl;
+    }
+
+    public static void setUserIconUrl(String userIconUrl) {
+        BaseAppConstants.userIconUrl = userIconUrl;
     }
 }

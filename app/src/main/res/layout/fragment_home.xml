@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/home_select_board_bg"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
