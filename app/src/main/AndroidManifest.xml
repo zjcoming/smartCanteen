@@ -21,15 +21,17 @@
         <activity android:name=".AdActivity" />
         <activity
             android:name=".NavigationActivity"
-            android:exported="true" />
-        <activity
-            android:name=".SplashActivity"
-            android:exported="true"> <!-- exported: 是否支持其它应用调用当前组件 -->
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true"> <!-- exported: 是否支持其它应用调用当前组件 -->
+
         </activity>
         <activity
             android:name=".MainActivity"
