@@ -44,11 +44,11 @@ abstract class BaseFragment<VIEW: ViewBinding>: Fragment() {
         _binding = null
     }
 
-    protected open fun initViews() {}
+    abstract fun initViews()
 
     protected open fun initData() {}
 
-    protected open fun initListener() {}
+    abstract fun initListener()
 
 
 }
