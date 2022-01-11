@@ -50,7 +50,6 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
         binding.rvRightMenu.addItemDecoration(
             FloatDecoration(
                 ItemShopDetailsMenuRightGroupBinding.inflate(UIUtils.getLayoutInflater(this),binding.rvRightMenu,false),
-                binding.rvRightMenu,
                 object : FloatDecoration.DecorationCallback<ItemShopDetailsMenuRightGroupBinding> {
                     override fun getDecorationFlag(position: Int): String {
                         return rightMenuData[position].groupName
@@ -108,9 +107,7 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
                 }
             }
         })
-    }
 
-    override fun initListener() {
         binding.placeTab.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab?.position == 1){
@@ -130,6 +127,6 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
             }
 
         })
-
     }
+
 }

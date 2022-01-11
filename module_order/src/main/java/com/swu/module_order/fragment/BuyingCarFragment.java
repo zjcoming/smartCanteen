@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,11 +53,7 @@ public class BuyingCarFragment extends BaseFragment<FragmentBuyingCarBinding> {
     }
 
     @Override
-    protected void init() {
-    }
-
-    @Override
-    protected void initData() {
+    protected void initListener() {
         //模拟数据
         for (int i = 1; i < 21; i++) {
             carData.add(new BuyingCarBean("水煮肉片"+i,"￥18.88","小份","微辣",1));
@@ -68,6 +65,7 @@ public class BuyingCarFragment extends BaseFragment<FragmentBuyingCarBinding> {
         carAdapter.setOnClickListener(new BuyingCarAdapter.OnClickCallback() {
             @Override
             public void onItemClick(View view, int position) {
+                Toast.makeText(getActivity(), "[onItemClick]+[position] = "+position, Toast.LENGTH_SHORT).show();
                 LogUtil.e("[onItemClick]");
                 carAdapter.notifyDataSetChanged();
             }
@@ -75,12 +73,14 @@ public class BuyingCarFragment extends BaseFragment<FragmentBuyingCarBinding> {
             @Override
             public void onAddItemClick(View view, int position) {
                 LogUtil.e("[onAddItemClick]");
+                Toast.makeText(getActivity(), "[onAddItemClick]+[position] = "+position, Toast.LENGTH_SHORT).show();
                 carAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onSubItemClick(View view, int position) {
                 LogUtil.e("[onSubItemClick]");
+                Toast.makeText(getActivity(), "[onSubItemClick]+[position] = "+position, Toast.LENGTH_SHORT).show();
                 carAdapter.notifyDataSetChanged();
             }
         });
@@ -93,6 +93,5 @@ public class BuyingCarFragment extends BaseFragment<FragmentBuyingCarBinding> {
         View root = inflater.inflate(R.layout.fragment_buying_car,container,false);
         recyclerView = root.findViewById(R.id.rv_buy_car);
         return root;
-//        recyclerView = getBinding().rvBuyCar;
     }
 }
