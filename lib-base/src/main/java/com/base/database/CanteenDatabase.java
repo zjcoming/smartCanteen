@@ -28,7 +28,7 @@ import com.base.dao.UserDao;
 @Database(entities = { UserBean.class }, version = 1,exportSchema = false)
 public abstract class CanteenDatabase extends RoomDatabase {
 
-    //生命UserDao
+    //声明UserDao
     public abstract UserDao getUserDao();
 
     private static final String DB_NAME = "CanteenDatabase.db";

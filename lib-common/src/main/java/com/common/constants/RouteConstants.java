@@ -2,7 +2,7 @@ package com.common.constants;
 
 /**
  * @ClassName RouteConstants
- * @Author zhangjun
+ * @Author zhangJun
  * @Date 2021/11/28 15:46
  * @Description 封装ARouter 跳转路径
  */

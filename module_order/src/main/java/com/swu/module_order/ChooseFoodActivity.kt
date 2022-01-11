@@ -7,15 +7,18 @@ import com.base.BaseActivity
 import com.base.recyclerview.BaseAdapter
 import com.base.util.UIUtils
 import com.base.util.updateLayoutParams
+import com.common.util.FragmentUtil
+import com.google.android.material.tabs.TabLayout
 import com.swu.module_order.adapter.LeftMenuAdapter
 import com.swu.module_order.adapter.RightMenuAdapter
 import com.swu.module_order.databinding.ActivityChooseFoodBinding
 import com.swu.module_order.databinding.ItemShopDetailsMenuRightGroupBinding
+import com.swu.module_order.fragment.BuyingCarFragment
 import com.swu.module_order.util.MockDataUtil
 import com.swu.module_order.widget.CenterLayoutManager
 
 class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
-
+    lateinit var mFragmentUtil:FragmentUtil
     private val places = arrayOf("一楼", "二楼", "三楼")
     private val leftMenuData = MockDataUtil.getLeftMenuData()
     private val rightMenuData = MockDataUtil.getRightMenuData()
@@ -23,7 +26,12 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
     private val rightMenuAdapter = RightMenuAdapter(this, rightMenuData)
     private val leftRvLayoutManager = CenterLayoutManager(this)
     private var mRvState = RecyclerView.State()
+    private val mCarFragment = BuyingCarFragment()
     override fun initData() {
+        //FragmentUtil
+        mFragmentUtil = FragmentUtil(binding.fragmentContainer.id);
+        mFragmentUtil.bind(this);
+
         for (i in places.indices) {
             binding.placeTab.addTab(binding.placeTab.newTab().setText(places[i]))
         }
@@ -47,6 +55,7 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
                     override fun getDecorationFlag(position: Int): String {
                         return rightMenuData[position].groupName
                     }
+
                     override fun onBindView(
                         binding: ItemShopDetailsMenuRightGroupBinding,
                         position: Int
@@ -101,4 +110,26 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
         })
     }
 
+    override fun initListener() {
+        binding.placeTab.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                if (tab?.position == 1){
+                    mFragmentUtil.startFragment(mCarFragment)
+                }else if (tab?.position == 2){
+                    mFragmentUtil.closeFragment(mCarFragment)
+                }
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+        })
+
+    }
 }
