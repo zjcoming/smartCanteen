@@ -1,8 +1,8 @@
-package com.common.util;
+package com.common;
 
 /**
  * @ClassName Api
- * @Author zhangjun
+ * @Author zhangJun
  * @Date 2021/11/27 15:53
  * @Description api相关的配置都在这里
  */

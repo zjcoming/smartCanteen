@@ -38,6 +38,10 @@ public class LogUtil {
         getMethodNames(new Throwable().getStackTrace());
         Log.e(className, createLog(message));
     }
+    //重载 author：zhangJun
+    public static void e(String tag,String message){
+        Log.e(tag, createLog(message));
+    }
 
     public static void i(String message){
         getMethodNames(new Throwable().getStackTrace());

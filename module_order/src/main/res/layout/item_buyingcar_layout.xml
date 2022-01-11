@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_food"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/food_place"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="菜品名称XXXX"
+        android:textSize="18sp"
+        android:textColor="#FF222831"
+        app:layout_constraintStart_toEndOf="@+id/iv_food"
+        app:layout_constraintTop_toTopOf="@+id/iv_food" />
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="@+id/tv_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name">
+
+        <TextView
+            android:id="@+id/tv_scale"
+            android:layout_width="wrap_content"
+            android:text="大份"
+            android:textSize="8sp"
+            android:layout_marginTop="3dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_favor"
+            android:textSize="8sp"
+            android:text="微辣"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:text="￥99.99"
+        android:textColor="#FF222831"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_food"
+        app:layout_constraintStart_toStartOf="@+id/tv_name" />
+
+    <LinearLayout
+        android:layout_width="58dp"
+        android:layout_height="25dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_price">
+        <TextView
+            android:id="@+id/tv_sub"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_weight="1"
+            android:background="@drawable/minus_tv_icon"/>
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#222831"
+            android:text="1"/>
+        <TextView
+            android:id="@+id/tv_add"
+            android:layout_width="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/tv_add_icon"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
