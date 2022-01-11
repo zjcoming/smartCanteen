@@ -1,6 +1,7 @@
 package com.base;
 
 import android.app.Application;
+import android.os.StrictMode;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 
@@ -24,8 +25,15 @@ public class BaseApplication extends Application {
         ARouter.openDebug();//上线之后需要关闭
         ARouter.init(BaseApplication.this);
         Bmob.initialize(this, BMOB_APP_ID);
-    }
 
+        //解决相机问题
+        solveCameraBug();//不加此方法，调用相机时会报错
+    }
+    private void solveCameraBug(){
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
+    }
     @Override
     public void onTerminate() {
         super.onTerminate();

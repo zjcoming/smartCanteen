@@ -1,17 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/teal_700"
     android:layout_height="match_parent"
-    tools:context=".fragment.UserFragment">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    tools:context=".fragment.UserFragment"
+    android:paddingTop="60dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+    <RelativeLayout
+        android:id="@+id/my_top"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="UserFragment"
-        android:textColor="#EC0808"
-        android:textStyle="bold" />
+        >
+        <LinearLayout
+            android:id="@+id/my_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/my_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="您还未登录"
+                android:textSize="20sp"
+                android:textColor="#9E9E9E"/>
+            <TextView
+                android:id="@+id/my_below_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="今天是西荣食堂与你相遇的第n天"
+                android:textSize="10sp"
+                android:textColor="#9E9E9E"/>
+        </LinearLayout>
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/my_icon_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/my_text"
+            android:layout_alignLeft="@+id/my_text"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="-2dp"
+            android:paddingLeft="-5dp"
+            android:paddingRight="-5dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/my_icon_bg" />
+
+        <com.common.selfview.MyCircleImage
+            android:id="@+id/my_icon"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_alignTop="@+id/my_text"
+            android:layout_alignRight="@+id/my_icon_bg"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:src="@drawable/my_icon" />
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/my_center_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:padding="5dp"
+        android:src="@drawable/my_centeractivity"
+        android:scaleType="fitXY"
+        android:layout_below="@+id/my_top"
+        android:layout_alignLeft="@+id/my_top"
+        android:layout_above="@id/my_bottom_linearlayout"
+        />
+    <LinearLayout
+        android:id="@+id/my_bottom_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/my_bottom"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignLeft="@+id/my_center_activity"
+        android:layout_alignParentBottom="true"
+        >
+        <ImageView
+            android:id="@+id/my_self_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/my_self_info"/>
+        <ImageView
+            android:id="@+id/my_history_buy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/my_history_buy"/>
+        <ImageView
+            android:id="@+id/my_msg_center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/my_msg_center"/>
+        <ImageView
+            android:id="@+id/my_self_love"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/my_love"/>
+    </LinearLayout>
+</RelativeLayout>

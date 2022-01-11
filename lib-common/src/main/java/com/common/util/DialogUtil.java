@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.view.KeyEvent;
 
+import com.base.ApplicationContext;
+import com.base.util.UIUtils;
 import com.common.constants.BaseAppConstants;
 
 /**
@@ -42,6 +44,7 @@ public class DialogUtil {
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"您取消了权限授予");
                 dialog.dismiss();
             }
         });

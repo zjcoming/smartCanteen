@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.base.ApplicationContext;
 import com.base.BaseApplication;
+import com.common.util.MMKVUtil;
 
 /**
  * Created by 刘金豪 on 2021/11/26
@@ -25,6 +26,7 @@ public class BaseAppConstants {
         BaseAppConstants.userPwd = userPwd;
         BaseAppConstants.token = token;
     }
+
     public static String getToken() {
         return token;
     }
@@ -55,4 +57,5 @@ public class BaseAppConstants {
     public static void setUserPwd(String userPwd) {
         BaseAppConstants.userPwd = userPwd;
     }
+
 }
