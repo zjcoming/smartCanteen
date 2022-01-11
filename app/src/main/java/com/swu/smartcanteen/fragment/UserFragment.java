@@ -45,7 +45,6 @@ import static android.app.Activity.RESULT_OK;
 public class UserFragment extends BaseFragment<FragmentUserBinding> implements View.OnClickListener {
     private Bitmap userIconBitmap;//用户头像
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
