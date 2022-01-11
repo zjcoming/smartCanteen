@@ -32,6 +32,52 @@ import java.util.List;
  *                                            如果是其他权限，则调用requestOtherPermissions
  */
 public class PermissionUtil {
+    /**
+     * 需要同时申请多个“其他权限”时
+     */
+    public static void requestOtherMorePermissions(Context context,String[] permissions,PermissionUtil.PermissionRequestSuccessCallBack permissionRequestSuccessCallBack){
+        if (context == null || permissions == null){
+            return;
+        }
+        PermissionUtil.checkMorePermissions(context,permissions,new PermissionUtil.PermissionCheckCallBack() {
+            @Override
+            public void onHasPermission() {
+                //已经获取到
+                permissionRequestSuccessCallBack.onHasPermission();
+            }
+
+            @Override
+            public void onUserHasAlreadyTurnedDown(String... permission) {
+                //被用户主动去设置中拒绝了，此时需要向用户描述下权限，然后再次请求获取权限
+                //说明上次用户点击拒绝了，此时应该展示申请权限的原因，然后再去申请
+                DialogUtil.showTwoBtnDialog(context, "您有未申请的权限，刚刚拒绝了", PermissionConstants.requestOtherPermissionsDes + PermissionUtil.morePermissionToZh(permission),
+                        "同意申请",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //申请权限
+                                PermissionUtil.toAppSetting(context);
+                                //PermissionUtil.requestMorePermissions(context,permission,requestCode);
+                            }
+                        });
+            }
+
+            @Override
+            public void onUserHasAlreadyTurnedDownAndDontAsk(String... permission) {
+                //被用户在弹出来的权限申请中”禁止“了，此时需要进入”设置页面“
+                DialogUtil.showTwoBtnDialog(context, "您有未申请的权限", PermissionConstants.requestOtherPermissionsDes + PermissionUtil.morePermissionToZh(permission),
+                        "同意申请",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //申请权限
+                                PermissionUtil.toAppSetting(context);
+                                //PermissionUtil.requestMorePermissions(context,permission,requestCode);
+                            }
+                        });
+            }
+        });
+    }
     public static void requestOtherPermissions(Context context,String permission,PermissionUtil.PermissionRequestSuccessCallBack permissionRequestSuccessCallBack){
         if (context == null || permission == null){
             return;
@@ -129,6 +175,10 @@ public class PermissionUtil {
             return "存储";
         }else if (permission.equals("android.permission.CAMERA")){
             return "相机";
+        }else if (permission.equals("android.permission.CAMERA")){
+            return "相机";
+        }else if (permission.equals("android.permission.MOUNT_UNMOUNT_FILESYSTEMS") || permission.equals("android.permission.READ_EXTERNAL_STORAGE")){
+            return "读取sd卡";
         }
 
         return "";

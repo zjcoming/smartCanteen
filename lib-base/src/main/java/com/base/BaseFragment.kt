@@ -17,10 +17,8 @@ abstract class BaseFragment<VIEW: ViewBinding>: Fragment() {
     val binding:VIEW get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        init()
+        initData()
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,7 +32,7 @@ abstract class BaseFragment<VIEW: ViewBinding>: Fragment() {
         super.onActivityCreated(savedInstanceState)
         //将Fragment大小设置为屏幕大小减去底部导航栏大小
         setRealSize()
-        initData()
+        initViews()
         initListener()
     }
 
@@ -46,7 +44,7 @@ abstract class BaseFragment<VIEW: ViewBinding>: Fragment() {
         _binding = null
     }
 
-    protected open fun init() {}
+    protected open fun initViews() {}
 
     protected open fun initData() {}
 

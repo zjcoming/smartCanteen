@@ -16,33 +16,37 @@
             android:id="@+id/my_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
+            android:paddingLeft="20dp"
             android:orientation="vertical"
             >
             <TextView
+                android:id="@+id/my_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="您还未登录"
-                android:textSize="27sp"
+                android:textSize="20sp"
                 android:textColor="#9E9E9E"/>
             <TextView
+                android:id="@+id/my_below_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="今天是西荣食堂与你相遇的第n天"
                 android:textSize="10sp"
                 android:textColor="#9E9E9E"/>
         </LinearLayout>
+
         <ImageView
             android:id="@+id/my_icon_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="-5dp"
-            android:paddingRight="-5dp"
-            android:src="@drawable/my_icon_bg"
-            android:scaleType="fitXY"
             android:layout_below="@+id/my_text"
             android:layout_alignLeft="@+id/my_text"
-            />
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="-2dp"
+            android:paddingLeft="-5dp"
+            android:paddingRight="-5dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/my_icon_bg" />
 
         <com.common.selfview.MyCircleImage
             android:id="@+id/my_icon"
@@ -83,21 +87,25 @@
         android:layout_alignParentBottom="true"
         >
         <ImageView
+            android:id="@+id/my_self_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/my_self_info"/>
         <ImageView
+            android:id="@+id/my_history_buy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/my_history_buy"/>
         <ImageView
+            android:id="@+id/my_msg_center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/my_msg_center"/>
         <ImageView
+            android:id="@+id/my_self_love"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

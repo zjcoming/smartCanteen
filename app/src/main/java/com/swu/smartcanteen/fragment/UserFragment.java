@@ -21,9 +21,11 @@ import android.widget.TextView;
 import com.base.ApplicationContext;
 import com.base.BaseFragment;
 import com.base.util.UIUtils;
+import com.bumptech.glide.Glide;
 import com.common.constants.BaseAppConstants;
 import com.common.constants.PermissionConstants;
 import com.common.selfview.MyCircleImage;
+import com.common.util.ImageUtil;
 import com.common.util.MMKVUtil;
 import com.common.util.PermissionUtil;
 import com.swu.smartcanteen.R;
@@ -42,24 +44,52 @@ import static android.app.Activity.RESULT_OK;
  */
 public class UserFragment extends BaseFragment<FragmentUserBinding> implements View.OnClickListener {
     private Bitmap userIconBitmap;//用户头像
-    private ImageView userIcon;//用户头像
-    private static String path = "/sdcard/myuserIcon/";// sd路径
-    public UserFragment() {
-        // Required empty public constructor
-    }
 
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        userIcon = getActivity().findViewById(R.id.my_icon);
+        initALLViews();//初始化控件以及其点击事件
+    }
+    private void initALLViews(){
+        //初始化头像
+        initUserIcon();
+        //初始化头像左边的欢迎textView
+        initHelloTextView();
         //注册所有控件的点击事件
         registerAllOnclickListener();
     }
+    /**
+     * 初始化userIcon
+     */
+    public void initUserIcon(){
+        //获取本地保存的用户头像
+        userIconBitmap = ImageUtil.getPhotoFromStorage("userIcon");
+        if (userIconBitmap != null){
+            Glide.with(ApplicationContext.getContext()).load(ImageUtil.getPhotoFromStorage("userIcon")).into(getBinding().myIcon);//从本地加载图片
+        }
+    }
 
+    /**
+     * 初始化欢迎TextView
+     */
+    public void initHelloTextView(){
+        //查看是否登录
+        if(true || BaseAppConstants.isIsLogin()){
+            //已经登录，则更换名字
+            getBinding().myUserName.setText("Hey! 屁眼峻！");
+            getBinding().myBelowUserName.setText("今天是与你相遇的第n天");
+        }
+    }
     public void registerAllOnclickListener(){
         //注册用户头像的点击事件
-        userIcon.setOnClickListener(this::onClick);
+        getBinding().myIcon.setOnClickListener(this::onClick);
+
+        //注册下面四个菜单的点击事件
+        getBinding().mySelfInfo.setOnClickListener(this::onClick);
+        getBinding().myHistoryBuy.setOnClickListener(this::onClick);
+        getBinding().myMsgCenter.setOnClickListener(this::onClick);
+        getBinding().mySelfLove.setOnClickListener(this::onClick);
     }
 
     @Override
@@ -68,89 +98,37 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
             case R.id.my_icon:
                 showTypeDialog();
                 break;
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case 1:
-                if (resultCode == RESULT_OK) {
-                    cropPhoto(data.getData());// 裁剪图片
-                }
-
+            case R.id.my_self_info:
+                clickMySelfInfo();
                 break;
-            case 2:
-                if (resultCode == RESULT_OK) {
-                    File temp = new File(Environment.getExternalStorageDirectory() + "/userIcon.jpg");
-                    cropPhoto(Uri.fromFile(temp));// 裁剪图片
-                }
-
+            case R.id.my_history_buy:
+                clickMyHistoryBuy();
                 break;
-            case 3:
-                if (data != null) {
-                    Bundle extras = data.getExtras();
-                    userIconBitmap = extras.getParcelable("data");
-                    if (userIconBitmap != null) {
-                        setPicToView(userIconBitmap);// 保存在SD卡中
-                        userIcon.setImageBitmap(userIconBitmap);// 用ImageButton显示出来
-                    }
-                }
+            case R.id.my_msg_center:
+                clickMyMsgCenter();
+                break;
+            case R.id.my_self_love:
+                clickMySelfLove();
                 break;
             default:
                 break;
-
         }
-        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void clickMySelfInfo(){
+        UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"您点击了个人信息");
+    }
+    private void clickMyHistoryBuy(){
+        UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"您点击了历史订单");
+    }
+    private void clickMyMsgCenter(){
+        UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"您点击了消息中心");
+    }
+    private void clickMySelfLove(){
+        UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"您点击了我的喜爱");
     }
 
 
-    /**
-     * 调用系统的裁剪功能
-     *
-     * @param uri
-     */
-    public void cropPhoto(Uri uri) {
-        BaseAppConstants.setUserIconUrl(uri.toString());//保存url
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        intent.putExtra("crop", "true");
-        // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        // outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", 250);
-        intent.putExtra("outputY", 250);
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, 3);
-    }
-
-    private void setPicToView(Bitmap mBitmap) {
-        String sdStatus = Environment.getExternalStorageState();
-        if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
-            return;
-        }
-        FileOutputStream b = null;
-        File file = new File(path);
-        file.mkdirs();// 创建文件夹
-        String fileName = path + "userIcon.jpg";// 图片名字
-        try {
-            b = new FileOutputStream(fileName);
-            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                // 关闭流
-                if (b != null){
-                    b.flush();
-                    b.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     private void showTypeDialog() {
         //显示对话框
@@ -191,6 +169,58 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
         dialog.show();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    cropPhoto(data.getData());// 裁剪图片
+                }
 
+                break;
+            case 2:
+                if (resultCode == RESULT_OK) {
+                    File temp = new File(Environment.getExternalStorageDirectory() + "/userIcon.jpg");
+                    cropPhoto(Uri.fromFile(temp));// 裁剪图片
+                }
+
+                break;
+            case 3:
+                if (data != null) {
+                    Bundle extras = data.getExtras();
+                    userIconBitmap = extras.getParcelable("data");
+                    if (userIconBitmap != null) {
+                        //保存到本地
+                        ImageUtil.savePhotoToStorage(userIconBitmap,"userIcon");
+                        //显示到头像上
+                        getBinding().myIcon.setImageBitmap(userIconBitmap);
+                    }
+                }
+                break;
+            default:
+                break;
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * 调用系统的裁剪功能
+     *
+     * @param uri
+     */
+    public void cropPhoto(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        // aspectX aspectY 是宽高的比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        // outputX outputY 是裁剪图片宽高
+        intent.putExtra("outputX", 250);
+        intent.putExtra("outputY", 250);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, 3);
+    }
 
 }
