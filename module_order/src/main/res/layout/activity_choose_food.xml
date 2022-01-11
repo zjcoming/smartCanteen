@@ -74,6 +74,11 @@
                 android:layout_weight="3.5"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
