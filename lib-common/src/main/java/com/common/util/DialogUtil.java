@@ -1,19 +1,35 @@
 package com.common.util;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.TextView;
 
 import com.base.ApplicationContext;
+import com.base.BaseDialog;
 import com.base.util.UIUtils;
 import com.common.constants.BaseAppConstants;
+import com.swu.lib_common.R;
 
 /**
  * Created by 刘金豪 on 2021/11/26
  * desc: 展示各种Dialog的工具类
  */
 public class DialogUtil {
+    /**
+     * 返回自定义布局的dialog
+     */
+    public static Dialog showSelfDialog(Context context,int res){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
+        final AlertDialog dialog = builder.create();
+        View view = View.inflate(context, res, null);
+        dialog.setView(view);
+        dialog.setCanceledOnTouchOutside(false);//点击外面 dialog不能消失
+        return dialog;
+    }
     /**
      * 只有一个按钮的dialog
      */
