@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.base.BaseFragment;
 import com.swu.module_order.adapter.ConfirmOrderGoodsAdapter;
 import com.swu.module_order.databinding.FragmentConfirmOrderBinding;
-
+import com.swu.module_order.decoration.GoodItemDecoration;
 import java.util.ArrayList;
 /**
  * Created by 刘金豪 on 2021/1/11
@@ -39,5 +39,6 @@ public class ConfirmOrderFragment extends BaseFragment<FragmentConfirmOrderBindi
 
         ConfirmOrderGoodsAdapter adapter = new ConfirmOrderGoodsAdapter(getContext(), mDatas);
         getBinding().confirmOrderRecyclerview.setAdapter(adapter);
+        getBinding().confirmOrderRecyclerview.addItemDecoration(new GoodItemDecoration());
     }
 }
