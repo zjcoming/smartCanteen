@@ -5,32 +5,30 @@ import android.graphics.Color
 import android.os.Build
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.recyclerview.widget.RecyclerView
 import com.base.recyclerview.BaseAdapter
-import com.base.recyclerview.BaseCustomView
 import com.base.recyclerview.BaseHolder
 import com.swu.module_order.R
 import com.swu.module_order.databinding.LeftMenuItemLayoutBinding
 import com.swu.module_order.model.LeftMenuBean
-import com.swu.module_order.util.MockDataUtil
 import com.swu.module_order.widget.LeftMenuItemView
 
 /**
  * Created by chenxiong
  * date 1/8/22
  */
-class LeftMenuAdapter(private val context: Context, private val leftMenuData: List<LeftMenuBean>): BaseAdapter() {
+class LeftMenuAdapter(private val context: Context, private val leftMenuData: List<LeftMenuBean>): BaseAdapter<LeftMenuItemLayoutBinding>() {
     private var curSelectPos = 0
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder {
-        return BaseHolder(LeftMenuItemView(context))
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<LeftMenuItemLayoutBinding> {
+        val leftMenuItemView = LeftMenuItemView(context)
+        return BaseHolder(leftMenuItemView, leftMenuItemView.getVBinding())
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    override fun onBindViewHolder(holder: BaseHolder, position: Int) {
+    override fun onBindViewHolder(holder: BaseHolder<LeftMenuItemLayoutBinding>, position: Int) {
         super.onBindViewHolder(holder, position)
         holder.bind(leftMenuData[position])
-        initViewStatus((holder.itemView as BaseCustomView<LeftMenuBean, LeftMenuItemLayoutBinding>).getMBinding()){
-                binding->
+        initViewStatus(holder.binding){ binding->
             binding.root.setBackgroundColor(
                 if (leftMenuData[position].selected) Color.parseColor("#FFFFFF") else context.getColor(
                     R.color.rv_left_bg_not_selected)
@@ -47,5 +45,13 @@ class LeftMenuAdapter(private val context: Context, private val leftMenuData: Li
     override fun getItemCount() = leftMenuData.size
 
     fun getCurSelectPos() = curSelectPos
+
+    override fun initInnerClickListener(
+        holder: BaseHolder<LeftMenuItemLayoutBinding>,
+        position: Int
+    ) {
+        holder.binding.root.setOnClickListener {
+            clickOutCallBack?.onItemClick(position) }
+    }
 
 }

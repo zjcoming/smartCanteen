@@ -8,7 +8,6 @@ import com.base.BaseFragment
 import com.base.recyclerview.BaseAdapter
 import com.base.util.UIUtils
 import com.base.util.updateLayoutParams
-import com.common.util.FragmentUtil
 import com.swu.module_order.FloatDecoration
 import com.swu.module_order.R
 import com.swu.module_order.adapter.LeftMenuAdapter
@@ -67,7 +66,7 @@ class ChooseFoodFragment(private val mContext: Context) : BaseFragment<FragmentC
                 height = binding.scrollView.height
             }
         }
-        leftMenuAdapter.setItemClickCallBack(object : BaseAdapter.OnClickCallBack {
+        leftMenuAdapter.setItemClickOutCallBack(object : BaseAdapter.OnClickOutCallBack {
             override fun onItemClick(position: Int) {
                 for (i in rightMenuData.indices) {
                     if (leftMenuData[position].title == rightMenuData[i].groupName) {
@@ -102,8 +101,13 @@ class ChooseFoodFragment(private val mContext: Context) : BaseFragment<FragmentC
             }
         })
         binding.searchView.setOnClickListener {
-            jumpToFragment(SearchFragment())
+            jumpToFragment(SearchFragment(), R.anim.page_alpha_in)
         }
+        rightMenuAdapter.setItemClickOutCallBack(object :BaseAdapter.OnClickOutCallBack{
+            override fun onItemClick(position: Int) {
+                jumpToFragment(FoodDetailFragment(), R.anim.page_from_right_to_left_in)
+            }
+        })
     }
 
 }

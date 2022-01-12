@@ -2,6 +2,7 @@ package com.base.recyclerview
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 
 /**
  * Created by chenxiong
@@ -28,13 +29,12 @@ import androidx.recyclerview.widget.RecyclerView
     }
 }
  */
-class BaseHolder(itemView: ICustomView<*>) : RecyclerView.ViewHolder(itemView as View) {
+class BaseHolder<VB: ViewBinding> (itemView: ICustomView<*>, val binding: VB) : RecyclerView.ViewHolder(itemView as View) {
 
     private  var mItemView: ICustomView<IBaseCustomViewModel> = itemView as ICustomView<IBaseCustomViewModel>
 
     fun bind(viewModelI: IBaseCustomViewModel) {
         mItemView.setData(viewModelI)
     }
-
 
 }

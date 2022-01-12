@@ -55,7 +55,7 @@ abstract class BaseCustomView<DATA : IBaseCustomViewModel, VIEW : ViewBinding> @
         setDataToView(data)
     }
 
-    fun getMBinding() = binding
+    fun getVBinding() = binding
 
     protected abstract fun setDataToView(data: DATA)
 

@@ -11,10 +11,10 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
         FragmentUtil.getInstance().startFragment(
             this,
             ChooseFoodFragment(this).apply {
-                setJumpFragmentCallBack {
+                setJumpFragmentCallBack { fragment, anim ->
                     FragmentUtil.getInstance().startFragment(
-                        requireActivity(), it, R.id.container,
-                        R.anim.page_from_bottom_to_top_in
+                        requireActivity(), fragment, R.id.container,
+                        anim
                     )
                 }
             },

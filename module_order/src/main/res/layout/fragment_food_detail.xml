@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.FoodDetailFragment"
+    android:background="@color/grey2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/im_big_food"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/food_detail_place"/>
+            <at.markushi.ui.CircleButton
+                android:id="@+id/back_btn"
+                android:layout_width="32dip"
+                android:layout_height="32dip"
+                android:layout_margin="15dp"
+                app:cb_color="#12666666"
+                app:cb_pressedRingWidth="0dip"
+                android:src="@drawable/back_down_arrow_24"/>
+        </FrameLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/iv_star"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/normal_star"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/food_title" />
+
+            <TextView
+                android:id="@+id/food_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="75dp"
+                android:text="菜品名称菜品名称菜品名称菜品名称菜品名称菜品名称菜品名称"
+                android:textColor="#222831"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="收藏"
+                android:textColor="#FF9E9E9E"
+                android:textSize="10sp"
+                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintEnd_toEndOf="@+id/iv_star"
+                app:layout_constraintStart_toStartOf="@+id/iv_star"
+                app:layout_constraintTop_toBottomOf="@+id/iv_star" />
+
+            <LinearLayout
+                android:id="@+id/tag_container"
+                android:layout_width="0dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="@+id/food_title"
+                app:layout_constraintRight_toRightOf="@id/food_title"
+                app:layout_constraintTop_toBottomOf="@id/food_title" />
+
+            <TextView
+                android:id="@+id/tv_sale_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="月销990"
+                android:textColor="#FF222831"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/tag_container"
+                app:layout_constraintTop_toBottomOf="@+id/tag_container" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="20dp"
+                android:text="￥18.88"
+                android:textColor="#FF222831"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_sale_count"
+                app:layout_constraintTop_toBottomOf="@+id/tv_sale_count" />
+
+            <TextView
+                android:id="@+id/package_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="月销990"
+                android:textColor="#FF222831"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_price" />
+
+            <Button
+                android:id="@+id/choose_btn"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/round_corner_bg"
+                android:backgroundTint="#FFFF4949"
+                android:text="选规格"
+                android:textColor="#FF222831"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/iv_star" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_marginTop="5dp"
+            tools:ignore="RtlSymmetry"
+            android:background="@color/white">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="掌柜描述："/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="主料："/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="荤素："/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="制作方法："/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="份量："/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="口味："/>
+                </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/food_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="为生活加分"
+                    />
+                <TextView
+                    android:id="@+id/food_material"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="鸡肉"
+                    />
+                <TextView
+                    android:id="@+id/food_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="荤"
+                    />
+                <TextView
+                    android:id="@+id/food_made"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="油炸"
+                    />
+                <TextView
+                    android:id="@+id/count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1个"
+                    />
+                <TextView
+                    android:id="@+id/flavor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="原味"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
