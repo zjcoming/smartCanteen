@@ -37,7 +37,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     }
 
     @Override
-    protected void initListener() {
+    public void initListener() {
+
+    }
+
+    @Override
+    public void initViews() {
 
     }
 }

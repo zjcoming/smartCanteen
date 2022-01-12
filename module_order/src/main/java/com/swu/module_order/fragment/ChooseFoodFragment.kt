@@ -1,5 +1,6 @@
 package com.swu.module_order.fragment
 
+import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -7,7 +8,9 @@ import com.base.BaseFragment
 import com.base.recyclerview.BaseAdapter
 import com.base.util.UIUtils
 import com.base.util.updateLayoutParams
+import com.common.util.FragmentUtil
 import com.swu.module_order.FloatDecoration
+import com.swu.module_order.R
 import com.swu.module_order.adapter.LeftMenuAdapter
 import com.swu.module_order.adapter.RightMenuAdapter
 import com.swu.module_order.databinding.FragmentChooseFoodBinding
@@ -15,14 +18,14 @@ import com.swu.module_order.databinding.ItemShopDetailsMenuRightGroupBinding
 import com.swu.module_order.util.MockDataUtil
 import com.swu.module_order.widget.CenterLayoutManager
 
-class ChooseFoodFragment : BaseFragment<FragmentChooseFoodBinding>() {
+class ChooseFoodFragment(private val mContext: Context) : BaseFragment<FragmentChooseFoodBinding>() {
 
     private val places = arrayOf("一楼", "二楼", "三楼")
     private val leftMenuData = MockDataUtil.getLeftMenuData()
     private val rightMenuData = MockDataUtil.getRightMenuData()
-    private val leftMenuAdapter = LeftMenuAdapter(requireActivity(), leftMenuData)
-    private val rightMenuAdapter = RightMenuAdapter(requireActivity(), rightMenuData)
-    private val leftRvLayoutManager = CenterLayoutManager(requireActivity())
+    private val leftMenuAdapter = LeftMenuAdapter(mContext, leftMenuData)
+    private val rightMenuAdapter = RightMenuAdapter(mContext, rightMenuData)
+    private val leftRvLayoutManager = CenterLayoutManager(mContext)
     private var mRvState = RecyclerView.State()
     override fun initViews() {
         for (i in places.indices) {
@@ -34,14 +37,14 @@ class ChooseFoodFragment : BaseFragment<FragmentChooseFoodBinding>() {
         }
         binding.rvRightMenu.apply {
             adapter = rightMenuAdapter
-            layoutManager = LinearLayoutManager(requireActivity())
+            layoutManager = LinearLayoutManager(mContext)
         }
     }
 
     override fun initListener() {
         binding.rvRightMenu.addItemDecoration(
             FloatDecoration(
-                ItemShopDetailsMenuRightGroupBinding.inflate(UIUtils.getLayoutInflater(requireActivity()),binding.rvRightMenu,false),
+                ItemShopDetailsMenuRightGroupBinding.inflate(UIUtils.getLayoutInflater(mContext),binding.rvRightMenu,false),
                 object : FloatDecoration.DecorationCallback<ItemShopDetailsMenuRightGroupBinding> {
                     override fun getDecorationFlag(position: Int): String {
                         return rightMenuData[position].groupName
@@ -98,6 +101,9 @@ class ChooseFoodFragment : BaseFragment<FragmentChooseFoodBinding>() {
                 }
             }
         })
+        binding.searchView.setOnClickListener {
+            jumpToFragment(SearchFragment())
+        }
     }
 
 }

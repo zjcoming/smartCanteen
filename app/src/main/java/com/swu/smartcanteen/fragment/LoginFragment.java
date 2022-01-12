@@ -29,6 +29,7 @@ import com.common.util.MMKVUtil;
 import com.swu.smartcanteen.MainActivity;
 import com.swu.smartcanteen.NavigationActivity;
 import com.swu.smartcanteen.R;
+import com.swu.smartcanteen.databinding.FragmentLoginBinding;
 
 import java.util.HashMap;
 
@@ -38,7 +39,7 @@ import io.reactivex.annotations.NonNull;
  * Created by 刘金豪 on 2021/11/26
  * desc: 登录的Fragment
  */
-public class LoginFragment extends BaseFragment {
+public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
     View root;
     //Login页面的所有控件
     EditText loginByTeleOrId;
@@ -270,4 +271,8 @@ public class LoginFragment extends BaseFragment {
         activity.changeFragment(fragmentNum);
     }
 
+    @Override
+    public void initListener() {
+
+    }
 }

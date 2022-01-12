@@ -15,6 +15,7 @@ import com.base.util.inflateBindingWithGeneric
 abstract class BaseFragment<VIEW: ViewBinding>: Fragment() {
     private var _binding: VIEW? = null
     val binding:VIEW get() = _binding!!
+    private var jumpFragmentCallBack: ((Fragment)->Unit)? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initData()
@@ -42,6 +43,15 @@ abstract class BaseFragment<VIEW: ViewBinding>: Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    protected fun jumpToFragment(fragment: Fragment) {
+        jumpFragmentCallBack?.invoke(fragment)
+    }
+
+    @JvmName("setJumpFragmentCallBack1")
+    fun setJumpFragmentCallBack(jumpCallBack:((Fragment)->Unit)?) {
+        this.jumpFragmentCallBack = jumpCallBack
     }
 
     abstract fun initViews()

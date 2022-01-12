@@ -12,12 +12,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-        <androidx.appcompat.widget.SearchView
+        <LinearLayout
+            android:id="@+id/search_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"/>
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/back_arrow_24"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7.5"
+                android:background="@drawable/top_search_title_bg"
+                app:drawableStartCompat="@drawable/ic_baseline_search_24"
+                 />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="搜索"
+                android:gravity="center"
+                />
+        </LinearLayout>
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

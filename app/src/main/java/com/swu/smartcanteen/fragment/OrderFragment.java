@@ -35,4 +35,14 @@ public class OrderFragment extends BaseFragment<FragmentOrderBinding> {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_order, container, false);
     }
+
+    @Override
+    public void initViews() {
+
+    }
+
+    @Override
+    public void initListener() {
+
+    }
 }
