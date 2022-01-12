@@ -14,6 +14,7 @@ import com.swu.module_order.adapter.LeftMenuAdapter
 import com.swu.module_order.adapter.RightMenuAdapter
 import com.swu.module_order.databinding.ActivityChooseFoodBinding
 import com.swu.module_order.databinding.ItemShopDetailsMenuRightGroupBinding
+import com.swu.module_order.fragment.BuyCarBottomFragment
 import com.swu.module_order.fragment.BuyingCarFragment
 import com.swu.module_order.fragment.ConfirmOrderFragment
 import com.swu.module_order.util.MockDataUtil
@@ -21,6 +22,7 @@ import com.swu.module_order.widget.CenterLayoutManager
 
 class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
     lateinit var mFragmentUtil:FragmentUtil
+    lateinit var mFragmentUtilFloat:FragmentUtil
     private val places = arrayOf("一楼", "二楼", "三楼")
     private val leftMenuData = MockDataUtil.getLeftMenuData()
     private val rightMenuData = MockDataUtil.getRightMenuData()
@@ -29,6 +31,7 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
     private val leftRvLayoutManager = CenterLayoutManager(this)
     private var mRvState = RecyclerView.State()
     private val mCarFragment = BuyingCarFragment()
+    private val mFloatCar = BuyCarBottomFragment()
     private val mConfirmOrderFragment = ConfirmOrderFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,8 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
         //FragmentUtil
         mFragmentUtil = FragmentUtil(binding.fragmentContainer.id);
         mFragmentUtil.bind(this);
+        mFragmentUtilFloat = FragmentUtil(binding.fragmentFloatingCarContainer.id)
+        mFragmentUtilFloat.bind(this)
 
         for (i in places.indices) {
             binding.placeTab.addTab(binding.placeTab.newTab().setText(places[i]))
@@ -50,7 +55,8 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
             adapter = rightMenuAdapter
             layoutManager = LinearLayoutManager(this@ChooseFoodActivity)
         }
-        mFragmentUtil.startFragment(mConfirmOrderFragment)
+//        mFragmentUtil.startFragment(mCarFragment)
+        mFragmentUtilFloat.startFragment(mFloatCar)
     }
 
     override fun initListener() {

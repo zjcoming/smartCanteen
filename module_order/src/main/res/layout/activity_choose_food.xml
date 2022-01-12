@@ -78,7 +78,13 @@
         android:id="@+id/fragment_container"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="500dp"/>
+    <FrameLayout
+        android:id="@+id/fragment_floating_car_container"
+        android:layout_gravity="bottom"
+        android:background="@color/go_pay_white"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
