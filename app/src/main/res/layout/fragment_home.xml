@@ -22,23 +22,25 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="-43dp"
+        android:layout_marginBottom="0dp"
         android:background="@drawable/home_select_board_bg"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        android:layout_marginTop="-43dp">
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/take_out"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginStart="21dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="21dp"
+            android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/home_card_selecter_fore"
@@ -49,21 +51,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="22dp"
                     android:layout_marginEnd="26dp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:src="@drawable/take_out" />
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2.7"
                     android:layout_gravity="center_vertical|end"
                     android:layout_marginEnd="20dp"
+                    android:layout_weight="2.7"
                     android:src="@drawable/take_out_text" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -72,34 +75,36 @@
             android:id="@+id/pre_order"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginStart="21dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="21dp"
+            android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/home_card_selecter_fore"
             app:cardCornerRadius="15dp"
             app:cardElevation="4dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="22dp"
                     android:layout_marginEnd="26dp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:src="@drawable/pre_order" />
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2.7"
                     android:layout_gravity="center_vertical|end"
                     android:layout_marginEnd="20dp"
+                    android:layout_weight="2.7"
                     android:src="@drawable/pre_order_text" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -108,11 +113,11 @@
             android:id="@+id/in_canteen"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginStart="21dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="21dp"
             android:layout_marginBottom="40dp"
+            android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/home_card_selecter_fore"
@@ -123,21 +128,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="22dp"
                     android:layout_marginEnd="26dp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:src="@drawable/in_canteen" />
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2.7"
                     android:layout_gravity="center_vertical|end"
                     android:layout_marginEnd="20dp"
+                    android:layout_weight="2.7"
                     android:src="@drawable/in_canteen_text" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

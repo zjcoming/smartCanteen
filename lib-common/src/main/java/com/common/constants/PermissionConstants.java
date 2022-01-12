@@ -19,6 +19,8 @@ public class PermissionConstants {
 
     /**
      * 用数组保存所有的权限
+     *
+     * 如有新增权限，则需要在此添加
      */
     public static final String[] allPermissions = {
             write_external_storage,
@@ -29,12 +31,16 @@ public class PermissionConstants {
 
     /**
      * 必要权限
+     *
+     * 如有新增必要权限，则需要在此添加
      */
     public static  String[] mustPermissions = {
             write_external_storage
     };
     /**
      * 其他权限
+     *
+     * 如有新增其他权限，则需要在此添加
      */
     public static  String[] otherPermissions = {
             camera,

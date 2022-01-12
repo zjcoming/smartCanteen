@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".fragment.ConfirmOrderFragment">
     <ImageView
         android:id="@+id/confirm_order_eatMode"
@@ -42,20 +43,25 @@
         android:layout_alignLeft="@+id/confirm_order_eatMode"
         android:layout_alignRight="@+id/confirm_order_eatMode"
         />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/confirm_order_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/confirm_order_buymode"
         android:layout_above="@+id/confirm_order_buycar"
+        android:layout_below="@id/confirm_order_buymode"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="7dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/item_good_shape"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp">
 
     </androidx.recyclerview.widget.RecyclerView>
+
     <ImageView
         android:id="@+id/confirm_order_buycar"
         android:layout_width="match_parent"

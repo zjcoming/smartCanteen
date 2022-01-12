@@ -2,6 +2,7 @@ package com.common.util;
 
 import android.content.Context;
 
+import com.base.ApplicationContext;
 import com.tencent.mmkv.MMKV;
 
 import java.util.HashMap;
@@ -24,6 +25,9 @@ public class MMKVUtil {
     //使用Map来保存不同context下的MMKV实例
     private static Map mmkvMap = new HashMap<Context,MMKV>();
 
+    public static MMKV getMMKV(){
+        return getMMKV(ApplicationContext.getContext());
+    }
     //得到MMKV实例
     public static MMKV getMMKV(Context mContext){
         if(mmkvMap.get(mContext) == null){

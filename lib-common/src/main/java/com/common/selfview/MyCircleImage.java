@@ -17,7 +17,7 @@ import androidx.annotation.Nullable;
 
 /**
  * Created by 刘金豪 on 2021/1/10
- * desc: 圆形图片
+ * desc: 圆形图片自定义View
  */
 public class MyCircleImage extends androidx.appcompat.widget.AppCompatImageView{
     //画笔

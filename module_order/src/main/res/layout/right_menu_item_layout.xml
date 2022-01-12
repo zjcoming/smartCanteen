@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/iv_food"
+        android:id="@+id/item_food_img"
         android:layout_width="82dp"
         android:layout_height="82dp"
         android:layout_marginStart="8dp"
@@ -18,14 +18,14 @@
         android:scaleType="centerCrop"/>
 
     <TextView
-        android:id="@+id/tv_name"
+        android:id="@+id/item_food_name"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:layout_marginStart="8dp"
         android:text="菜品名称。。。。。"
         android:textColor="#FF222831"
-        app:layout_constraintStart_toEndOf="@+id/iv_food"
-        app:layout_constraintTop_toTopOf="@+id/iv_food" />
+        app:layout_constraintStart_toEndOf="@+id/item_food_img"
+        app:layout_constraintTop_toTopOf="@+id/item_food_img" />
 
     <LinearLayout
         android:id="@+id/tag_container"
@@ -33,8 +33,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+        app:layout_constraintStart_toStartOf="@+id/item_food_name"
+        app:layout_constraintTop_toBottomOf="@+id/item_food_name" />
     <TextView
         android:id="@+id/tv_sale_count"
         android:layout_width="wrap_content"
@@ -43,18 +43,18 @@
         android:textSize="10sp"
         android:text="月销990"
         android:textColor="#FF222831"
-        app:layout_constraintStart_toStartOf="@+id/tv_name"
+        app:layout_constraintStart_toStartOf="@+id/item_food_name"
         app:layout_constraintTop_toBottomOf="@+id/tag_container"/>
 
     <TextView
-        android:id="@+id/tv_price"
+        android:id="@+id/item_food_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:text="￥99.99"
         android:textColor="#FF222831"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_name"
+        app:layout_constraintStart_toStartOf="@+id/item_food_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_sale_count" />
 
     <LinearLayout
@@ -64,7 +64,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_price">
+        app:layout_constraintTop_toTopOf="@+id/item_food_price">
         <TextView
             android:id="@+id/tv_minus"
             android:layout_width="0dp"
@@ -72,7 +72,7 @@
             android:layout_weight="1"
             android:background="@drawable/minus_tv_icon"/>
         <TextView
-            android:id="@+id/tv_count"
+            android:id="@+id/item_food_count"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -80,7 +80,7 @@
             android:textColor="#222831"
             android:text="1"/>
         <TextView
-            android:id="@+id/tv_add"
+            android:id="@+id/item_food_add"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
