@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.base.ApplicationContext;
 import com.swu.module_order.R;
 import com.swu.module_order.model.BuyingCarBean;
 
@@ -102,13 +101,13 @@ public class BuyingCarAdapter extends RecyclerView.Adapter<BuyingCarAdapter.Buyi
         private TextView sub;
         public BuyingCarViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.tv_name);
-            scale = itemView.findViewById(R.id.tv_scale);
-            favor = itemView.findViewById(R.id.tv_favor);
-            price = itemView.findViewById(R.id.tv_price);
-            count = itemView.findViewById(R.id.tv_count);
-            add = itemView.findViewById(R.id.tv_add);
-            sub = itemView.findViewById(R.id.tv_sub);
+            name = itemView.findViewById(R.id.item_food_name);
+            scale = itemView.findViewById(R.id.item_food_consumption);
+            favor = itemView.findViewById(R.id.item_food_flavor);
+            price = itemView.findViewById(R.id.item_food_price);
+            count = itemView.findViewById(R.id.item_food_count);
+            add = itemView.findViewById(R.id.item_food_add);
+            sub = itemView.findViewById(R.id.item_food_sub);
         }
     }
     public interface OnClickCallback{

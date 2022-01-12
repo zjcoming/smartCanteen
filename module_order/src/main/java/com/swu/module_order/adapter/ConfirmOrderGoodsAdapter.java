@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.common.viewholder.ConfirmOrderViewHolder;
+
 import com.swu.module_order.R;
+import com.swu.module_order.viewholder.ConfirmOrderViewHolder;
 
 import java.util.ArrayList;
 
@@ -29,14 +30,15 @@ public class ConfirmOrderGoodsAdapter extends RecyclerView.Adapter<RecyclerView.
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(mContext).inflate(R.layout.confirm_order_viewholder_layout,parent,false);
+        View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_buyingcar_layout,parent,false);
         return new ConfirmOrderViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ConfirmOrderViewHolder viewHolder = (ConfirmOrderViewHolder)holder;
-        viewHolder.mTv.setText(mDatas.get(position));
+        viewHolder.foodName.setText(mDatas.get(position));
+        viewHolder.foodCount.setText(position+1+"");
     }
 
     @Override
