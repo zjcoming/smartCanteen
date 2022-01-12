@@ -28,6 +28,7 @@ import com.common.constants.RouteConstants;
 import com.common.handler.RequestHandler;
 import com.common.util.MMKVUtil;
 import com.common.util.PermissionUtil;
+import com.common.widget.PrivacyDialog;
 import com.swu.smartcanteen.databinding.ActivitySplashBinding;
 
 import java.util.HashMap;
@@ -60,7 +61,22 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
         //设置动画
         setAnimation(this);
 
-        //看看是否有自动登录的
+        String isAgreePrivacy = MMKVUtil.getMMKV().decodeString("isAgreePrivacy","false");
+        if(isAgreePrivacy != null && !isAgreePrivacy.equals("true")){
+            //用户没有同意隐私协议
+            PrivacyDialog privacyDialog = new PrivacyDialog(this, new PrivacyDialog.PrivacyDialogListenser() {
+                @Override
+                public void agree() {
+                    MMKVUtil.getMMKV().encode("isAgreePrivacy","true");//保存到本地，表明用户已经同意了隐私协议
+                    jump();
+                }
+            });
+            privacyDialog.show();
+        }else {
+            jump();
+        }
+    }
+    public void jump(){
         String autoLoginId = MMKVUtil.getMMKV(getApplicationContext()).decodeString("auto_login_id");
         if (autoLoginId != null && !autoLoginId.equals("")){
             //说明有自动登录的，则直接取出id登录
@@ -91,7 +107,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                         }, 1000);
                     }
                 }
-        },new UserBean("", "", autoLoginPwd, autoLoginId, "", 0));
+            },new UserBean("", "", autoLoginPwd, autoLoginId, "", 0));
         }else {
             //没有自动登录，则跳转到广告页面
             new Handler().postDelayed(new Runnable() {
@@ -102,7 +118,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
             }, 1000);
         }
     }
-
     //设置动画
     public static void setAnimation(Activity activity){
         //设置动画

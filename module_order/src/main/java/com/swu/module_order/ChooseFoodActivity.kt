@@ -1,5 +1,6 @@
 package com.swu.module_order
 
+import android.os.Bundle
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import com.swu.module_order.adapter.RightMenuAdapter
 import com.swu.module_order.databinding.ActivityChooseFoodBinding
 import com.swu.module_order.databinding.ItemShopDetailsMenuRightGroupBinding
 import com.swu.module_order.fragment.BuyingCarFragment
+import com.swu.module_order.fragment.ConfirmOrderFragment
 import com.swu.module_order.util.MockDataUtil
 import com.swu.module_order.widget.CenterLayoutManager
 
@@ -27,6 +29,11 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
     private val leftRvLayoutManager = CenterLayoutManager(this)
     private var mRvState = RecyclerView.State()
     private val mCarFragment = BuyingCarFragment()
+    private val mConfirmOrderFragment = ConfirmOrderFragment()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
     override fun initData() {
         //FragmentUtil
         mFragmentUtil = FragmentUtil(binding.fragmentContainer.id);
@@ -43,7 +50,7 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
             adapter = rightMenuAdapter
             layoutManager = LinearLayoutManager(this@ChooseFoodActivity)
         }
-
+        mFragmentUtil.startFragment(mConfirmOrderFragment)
     }
 
     override fun initListener() {

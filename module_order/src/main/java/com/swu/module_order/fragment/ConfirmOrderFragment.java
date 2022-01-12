@@ -13,7 +13,10 @@ import com.swu.module_order.adapter.ConfirmOrderGoodsAdapter;
 import com.swu.module_order.databinding.FragmentConfirmOrderBinding;
 
 import java.util.ArrayList;
-
+/**
+ * Created by 刘金豪 on 2021/1/11
+ * desc: 确定订单页面
+ */
 public class ConfirmOrderFragment extends BaseFragment<FragmentConfirmOrderBinding> {
 
     @Override

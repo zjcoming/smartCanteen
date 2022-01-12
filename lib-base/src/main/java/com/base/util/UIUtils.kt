@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.base.ApplicationContext
 
 /**
  * Created by chenxiong
@@ -17,6 +18,9 @@ object UIUtils {
 
     fun showToast(context: Context, content: String) {
         Toast.makeText(context,content,Toast.LENGTH_SHORT).show()
+    }
+    fun showToast(content: String) {
+        Toast.makeText(ApplicationContext.getContext(),content,Toast.LENGTH_SHORT).show()
     }
 
     fun getLayoutInflater(context: Context) = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
