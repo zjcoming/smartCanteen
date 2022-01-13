@@ -10,7 +10,7 @@ import com.base.util.inflateBindingWithGeneric
  * Created by chenxiong
  * date 11/26/21
  */
-abstract class BaseActivity<VIEW: ViewBinding>: AppCompatActivity() {
+abstract class BaseActivity<VIEW : ViewBinding>: AppCompatActivity() {
     lateinit var binding: VIEW
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,8 +25,8 @@ abstract class BaseActivity<VIEW: ViewBinding>: AppCompatActivity() {
     abstract fun initListener()
 
     //跳转并可设置传参
-    inline fun <reified T: BaseActivity<ViewBinding>> startActivityAndFinish(parseParamsCall: Intent.()->Unit = {}) {
-        Intent(this,T::class.java).let { intent ->
+    inline fun <reified T : BaseActivity<ViewBinding>> startActivityAndFinish(parseParamsCall: Intent.() -> Unit = {}) {
+        Intent(this, T::class.java).let { intent ->
             intent.parseParamsCall()
             startActivity(intent)
         }

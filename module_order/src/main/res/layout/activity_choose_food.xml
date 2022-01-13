@@ -1,85 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChooseFoodActivity"
-    android:fillViewport="true"
-    android:overScrollMode="never">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-        <androidx.appcompat.widget.SearchView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"/>
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="119dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="29dp"
-                    android:layout_marginEnd="20dp"
-                    android:src="@drawable/choose_food_place"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="119dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="29dp"
-                    android:src="@drawable/choose_food_place"/>
-            </LinearLayout>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/place_tab"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_collapseMode="pin"/>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_left_menu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/rv_left_bg_not_selected"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_right_menu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3.5"/>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_gravity="bottom"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"/>
-
-
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    android:id="@+id/container"
+    />

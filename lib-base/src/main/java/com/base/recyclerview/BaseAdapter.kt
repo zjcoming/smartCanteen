@@ -1,31 +1,32 @@
 package com.base.recyclerview
 
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 
 /**
  * Created by chenxiong
  * date 1/8/22
  */
-abstract class BaseAdapter: RecyclerView.Adapter<BaseHolder>() {
+abstract class BaseAdapter<VB: ViewBinding> : RecyclerView.Adapter<BaseHolder<VB>>() {
 
-    protected var clickCallBack: OnClickCallBack? = null
+    protected var clickOutCallBack: OnClickOutCallBack? = null
 
-    fun setItemClickCallBack(onClickCallBack: OnClickCallBack) {
-        clickCallBack = onClickCallBack
+    fun setItemClickOutCallBack(onClickOutCallBack: OnClickOutCallBack) {
+        clickOutCallBack = onClickOutCallBack
     }
 
-    override fun onBindViewHolder(holder: BaseHolder, position: Int) {
-        holder.itemView.setOnClickListener {
-            clickCallBack?.onItemClick(position)
-        }
-        //如果需要在Adapter内部设置点击事件的回调，请在super.onBindViewHolder(holder, position)前设置监听
+    override fun onBindViewHolder(holder: BaseHolder<VB>, position: Int) {
+        initInnerClickListener(holder, position)
     }
 
     inline fun <reified VB> initViewStatus(vb: VB, block:(VB) -> Unit?) {
              block.invoke(vb)
     }
 
-    interface OnClickCallBack{
+    interface OnClickOutCallBack{
         fun onItemClick(position: Int)
     }
+
+    protected open fun initInnerClickListener(holder: BaseHolder<VB>, position: Int) {}
+
 }

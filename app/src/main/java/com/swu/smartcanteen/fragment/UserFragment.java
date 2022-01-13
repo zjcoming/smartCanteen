@@ -222,4 +222,13 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
         startActivityForResult(intent, 3);
     }
 
+    @Override
+    public void initViews() {
+
+    }
+
+    @Override
+    public void initListener() {
+
+    }
 }

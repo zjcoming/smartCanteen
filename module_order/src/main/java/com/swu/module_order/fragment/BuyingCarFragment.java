@@ -53,7 +53,7 @@ public class BuyingCarFragment extends BaseFragment<FragmentBuyingCarBinding> {
     }
 
     @Override
-    protected void initListener() {
+    public void initListener() {
         //模拟数据
         for (int i = 1; i < 21; i++) {
             carData.add(new BuyingCarBean("水煮肉片"+i,"￥18.88","小份","微辣",1));
@@ -93,5 +93,10 @@ public class BuyingCarFragment extends BaseFragment<FragmentBuyingCarBinding> {
         View root = inflater.inflate(R.layout.fragment_buying_car,container,false);
         recyclerView = root.findViewById(R.id.rv_buy_car);
         return root;
+    }
+
+    @Override
+    public void initViews() {
+
     }
 }

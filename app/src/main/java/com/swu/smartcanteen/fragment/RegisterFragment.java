@@ -176,4 +176,9 @@ public class RegisterFragment extends BaseFragment {
 
         return true;
     }
+
+    @Override
+    public void initListener() {
+
+    }
 }

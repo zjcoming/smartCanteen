@@ -30,6 +30,7 @@ import com.common.util.RandomCode;
 import com.swu.smartcanteen.MainActivity;
 import com.swu.smartcanteen.NavigationActivity;
 import com.swu.smartcanteen.R;
+import com.swu.smartcanteen.databinding.FragmentLoginByPhoneBinding;
 
 import java.util.HashMap;
 
@@ -41,7 +42,7 @@ import kotlin.jvm.functions.Function1;
  * Created by 刘金豪 on 2021/11/26
  * desc: 手机验证码登录 和 忘记密码的Fragment
  */
-public class LoginByPhoneFragment extends BaseFragment {
+public class LoginByPhoneFragment extends BaseFragment<FragmentLoginByPhoneBinding> {
     //验证码登录or忘记密码
     TextView phoneloginOrforgetpassword;
     //登录or验证
@@ -286,5 +287,10 @@ public class LoginByPhoneFragment extends BaseFragment {
     public void changeRegisterFrag(int fragmentNum){
         MainActivity activity = (MainActivity) getActivity();
         activity.changeFragment(fragmentNum);
+    }
+
+    @Override
+    public void initListener() {
+
     }
 }

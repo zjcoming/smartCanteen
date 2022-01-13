@@ -1,7 +1,6 @@
 apply from: '../config.gradle'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-android.kotlinOptions.jvmTarget = 1.8
 android.defaultConfig {
     kapt {
         arguments {arg("AROUTER_MODULE_NAME", project.getName())}

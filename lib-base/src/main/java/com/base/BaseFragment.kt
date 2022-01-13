@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.AnimRes
+import androidx.annotation.AnimatorRes
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.base.util.inflateBindingWithGeneric
@@ -12,9 +14,10 @@ import com.base.util.inflateBindingWithGeneric
  * Created by chenxiong
  * date 11/26/21
  */
-abstract class BaseFragment<VIEW: ViewBinding>: Fragment() {
+abstract class BaseFragment<VIEW : ViewBinding>: Fragment() {
     private var _binding: VIEW? = null
     val binding:VIEW get() = _binding!!
+    private var jumpFragmentCallBack: ((Fragment,Int)->Unit)? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initData()
@@ -44,11 +47,20 @@ abstract class BaseFragment<VIEW: ViewBinding>: Fragment() {
         _binding = null
     }
 
-    protected open fun initViews() {}
+    protected fun jumpToFragment(fragment: Fragment, @AnimatorRes @AnimRes inAnim: Int) {
+        jumpFragmentCallBack?.invoke(fragment, inAnim)
+    }
+
+    @JvmName("setJumpFragmentCallBack1")
+    fun setJumpFragmentCallBack(jumpCallBack: ((Fragment, Int) -> Unit)?) {
+        this.jumpFragmentCallBack = jumpCallBack
+    }
+
+    abstract fun initViews()
 
     protected open fun initData() {}
 
-    protected open fun initListener() {}
+    abstract fun initListener()
 
 
 }
