@@ -22,7 +22,6 @@ import com.swu.module_order.widget.CenterLayoutManager
 
 class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
     lateinit var mFragmentUtil:FragmentUtil
-    lateinit var mFragmentUtilFloat:FragmentUtil
     private val places = arrayOf("一楼", "二楼", "三楼")
     private val leftMenuData = MockDataUtil.getLeftMenuData()
     private val rightMenuData = MockDataUtil.getRightMenuData()
@@ -41,8 +40,6 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
         //FragmentUtil
         mFragmentUtil = FragmentUtil(binding.fragmentContainer.id);
         mFragmentUtil.bind(this);
-        mFragmentUtilFloat = FragmentUtil(binding.fragmentFloatingCarContainer.id)
-        mFragmentUtilFloat.bind(this)
 
         for (i in places.indices) {
             binding.placeTab.addTab(binding.placeTab.newTab().setText(places[i]))
@@ -56,7 +53,6 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
             layoutManager = LinearLayoutManager(this@ChooseFoodActivity)
         }
 //        mFragmentUtil.startFragment(mCarFragment)
-        mFragmentUtilFloat.startFragment(mFloatCar)
     }
 
     override fun initListener() {
