@@ -15,7 +15,7 @@
             <option value="$PROJECT_DIR$/lib-base" />
             <option value="$PROJECT_DIR$/lib-common" />
             <option value="$PROJECT_DIR$/module_order" />
-            <option value="$PROJECT_DIR$/order" />
+            <option value="$PROJECT_DIR$/module_person" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
