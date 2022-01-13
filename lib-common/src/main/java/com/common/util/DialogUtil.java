@@ -30,7 +30,7 @@ public class DialogUtil {
      */
     public static HashMap<Context,Dialog> loadingDialogHashMap = new HashMap<>();
     /**
-     * 展示加载dialog
+     * 展示loadingDialog
      *
      * 根据context来缓存。如果不想用缓存好的，可以在isUseCache传入false，就会重新创建一个dialog
      *
