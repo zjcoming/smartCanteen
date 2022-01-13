@@ -9,4 +9,7 @@
     <string name="privacy_dialog_content">感谢您使用智慧食堂！我们非常重视您的个人信息和隐私保护。为了更好地保障您的个人权益，在您使用我们的产品前，请您认真阅读《用户协议》和《隐私协议》的全部内容，同意并接受全部条款后开始使用我们的产品和服务。我们会严格按照政策内容使用和保护您的个人信息，感谢您的信任。</string>
     <string name="privacy_dialog_proto">《隐私协议》</string>
     <string name="privacy_dialog_user">《用户协议》</string>
+    <string name="hint_name">请输入名称</string>
+    <string name="hint_phone">请输入手机号码</string>
+    <string name="hint_address">请更改地址设置</string>
 </resources>

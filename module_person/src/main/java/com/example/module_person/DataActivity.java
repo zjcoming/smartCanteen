@@ -5,41 +5,38 @@ import android.app.Activity;
 import android.os.Build;
 import android.view.WindowManager;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.base.BaseActivity;
-import com.base.BaseFragment;
-import com.common.util.FragmentUtil;
-import com.example.module_person.data.DataFragment;
+import com.common.util.FragmentHelper;
 import com.example.module_person.widget.TopBarFragment;
-import com.swu.module_person.R;
 import com.swu.module_person.databinding.ActivityDataBinding;
 
 
 
 public class DataActivity extends BaseActivity<ActivityDataBinding> {
 
-    private DataFragment dataFragment;
+    private TopBarFragment mFragment;
     private FragmentActivity fa = this;
 
     @Override
     public void initData() {
 //
-        dataFragment = new DataFragment();
+        mFragment = new TopBarFragment();
     }
 
     @Override
     public void initListener() {
-        dataFragment.setJumpFragmentCallBack1(new BaseFragment.FragmentJumpListener() {
-            @Override
-            public void jumpToFragment(@NonNull Fragment fragment, int anim) {
-                FragmentUtil.getInstance().startFragment(dataFragment.requireActivity(), fragment, R.id.top_container);
-            }
-        });
+//        dataFragment.setJumpFragmentCallBack1(new BaseFragment.FragmentJumpListener() {
+//            @Override
+//            public void jumpToFragment(@NonNull Fragment fragment, int anim) {
+//                FragmentUtil.getInstance().startFragment(dataFragment.requireActivity(), fragment, R.id.top_container);
+//            }
+//        });
+//
+//        FragmentUtil.getInstance().startFragment(this,dataFragment,binding.mContainer.getId());
 
-        FragmentUtil.getInstance().startFragment(this,dataFragment,binding.mContainer.getId());
+        new FragmentHelper().bind(this).startFragment(mFragment,getBinding().topContainer.getId());
 
     }
 
