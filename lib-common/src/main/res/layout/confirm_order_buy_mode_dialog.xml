@@ -7,7 +7,8 @@
     android:paddingRight="35dp"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
     <LinearLayout
         android:id="@+id/buy_mode_dialog_wechat"
         android:layout_width="match_parent"
@@ -30,7 +31,7 @@
             android:padding="20dp"
             android:gravity="center"
             android:text="微信付款"
-            android:textColor="@color/white"/>
+            android:textColor="@color/blue"/>
     </LinearLayout>
 
     <LinearLayout
@@ -55,6 +56,6 @@
             android:padding="20dp"
             android:gravity="center"
             android:text="支付宝付款"
-            android:textColor="@color/white"/>
+            android:textColor="@color/blue"/>
     </LinearLayout>
 </LinearLayout>
