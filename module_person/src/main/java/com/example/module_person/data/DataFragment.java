@@ -1,5 +1,6 @@
 package com.example.module_person.data;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.base.BaseFragment;
@@ -21,10 +22,12 @@ import kotlin.jvm.functions.Function2;
      private TopBarFragment topBarFragment;
     @Override
     public void initViews() {
+        topBarFragment = new TopBarFragment();
     }
 
     @Override
     public void initListener() {
 
+        jumpToFragment(topBarFragment,R.anim.top_in);
     }
 }

@@ -5,38 +5,41 @@ import android.app.Activity;
 import android.os.Build;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.base.BaseActivity;
 import com.base.BaseFragment;
 import com.common.util.FragmentUtil;
 import com.example.module_person.data.DataFragment;
+import com.example.module_person.widget.TopBarFragment;
+import com.swu.module_person.R;
 import com.swu.module_person.databinding.ActivityDataBinding;
 
-import kotlin.Unit;
-import kotlin.jvm.functions.Function2;
 
 
 public class DataActivity extends BaseActivity<ActivityDataBinding> {
 
-    private DataFragment mFragment;
+    private DataFragment dataFragment;
+    private FragmentActivity fa = this;
 
     @Override
     public void initData() {
 //
+        dataFragment = new DataFragment();
     }
 
     @Override
     public void initListener() {
-        mFragment = new DataFragment();
-        mFragment.setJumpFragmentCallBack1(new Function2<Fragment, Integer, Unit>() {
+        dataFragment.setJumpFragmentCallBack1(new BaseFragment.FragmentJumpListener() {
             @Override
-            public Unit invoke(Fragment fragment, Integer integer) {
-                FragmentUtil.getInstance().startFragment(DataActivity.this, fragment, binding.mContainer.getId(), integer);
-                return null;
+            public void jumpToFragment(@NonNull Fragment fragment, int anim) {
+                FragmentUtil.getInstance().startFragment(dataFragment.requireActivity(), fragment, R.id.top_container);
             }
         });
-        FragmentUtil.getInstance().startFragment(this,mFragment,binding.mContainer.getId());
+
+        FragmentUtil.getInstance().startFragment(this,dataFragment,binding.mContainer.getId());
 
     }
 
