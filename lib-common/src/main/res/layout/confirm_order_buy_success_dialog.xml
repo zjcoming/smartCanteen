@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="35dp"
+    android:paddingRight="35dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:orientation="vertical"
+    >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:scaleType="fitCenter"
+        android:src="@drawable/confirm_order_buysuccess_logo" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:src="@drawable/confirm_order_buysuccess_text"/>
+    <TextView
+        android:id="@+id/dialog_buysuccess_pricetv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:textColor="@color/blue"
+        android:text="￥  300"
+        android:textSize="15sp">
+    </TextView>
+    <ImageView
+        android:id="@+id/dialog_buysuccess_goback"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:src="@drawable/confirm_order_buysuccess_goback"/>
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.swu.module_order.fragment;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,13 +26,17 @@ import java.util.ArrayList;
  * desc: 确定订单页面
  */
 public class ConfirmOrderFragment extends BaseFragment<FragmentConfirmOrderBinding> implements View.OnClickListener {
+    public ConfirmOrderFragment(Context context){
 
+    }
 
     @Override
     public void initViews() {
         //初始化商品列表
         initGoods();
         getBinding().confirmOrderBuymode.setOnClickListener(this);
+
+
     }
     public void initGoods(){
         ArrayList<String> mDatas = new ArrayList<>();
@@ -54,7 +59,9 @@ public class ConfirmOrderFragment extends BaseFragment<FragmentConfirmOrderBindi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.confirm_order_buymode:
-                clickBuyMode();
+                //clickBuyMode();
+                Dialog dialog = DialogUtil.showSelfDialog(getContext(), R.layout.confirm_order_buy_success_dialog);
+                dialog.show();
                 break;
             default:
                 break;

@@ -24,4 +24,11 @@
 <!--    <color name="white">#FFFFFFFF</color>-->
 <!--    <color name="white">#FFFFFFFF</color>-->
 
+
+    <!-- 悬浮购物车去结算-->
+    <color name="go_pay_black">#222831</color>
+    <color name="go_pay_red">#FF4949</color>
+    <color name="go_pay_white">#FFFFFF</color>
+    <color name="go_pay_discount">#FFFFFF</color>
+
 </resources>

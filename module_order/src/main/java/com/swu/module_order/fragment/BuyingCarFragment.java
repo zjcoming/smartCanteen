@@ -39,10 +39,10 @@ public class BuyingCarFragment extends BaseFragment<FragmentBuyingCarBinding> {
         Animation animation;
         if (enter){
             animation = AnimationUtils.loadAnimation(getContext(),R.anim.buyingcar_in);
-            animation.setInterpolator(new AccelerateDecelerateInterpolator());//速度曲线，先加速后减速
+//            animation.setInterpolator(new AccelerateDecelerateInterpolator());//速度曲线，先加速后减速
         }else {
             animation = AnimationUtils.loadAnimation(getContext(),R.anim.buyingcar_out);
-            animation.setInterpolator(new AccelerateDecelerateInterpolator());//速度曲线，先加速后减速
+//            animation.setInterpolator(new AccelerateDecelerateInterpolator());//速度曲线，先加速后减速
         }
         return animation;
     }
