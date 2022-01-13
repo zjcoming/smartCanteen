@@ -15,7 +15,8 @@
         android:icon="@drawable/app_logo"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ChooseFoodActivity">
+        <activity android:name=".ChooseFoodActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

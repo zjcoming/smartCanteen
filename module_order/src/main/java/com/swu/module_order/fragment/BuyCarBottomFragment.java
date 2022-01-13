@@ -20,15 +20,15 @@ public class BuyCarBottomFragment extends BaseFragment<FragmentBuyCarBottomBindi
     private TextView goPay;
     private FragmentUtil fragmentUtil;
     @Override
-    protected void initViews() {
+    public void initViews() {
         selectList = getBinding().checkSelectList;
         goPay = getBinding().goPay;
-        fragmentUtil = new FragmentUtil();
+        fragmentUtil = FragmentUtil.getInstance();
 
     }
 
     @Override
-    protected void initListener() {
+    public void initListener() {
         selectList.setOnClickListener(view -> {
             LogUtil.e("购物车");
             Toast.makeText(getContext(), "购物车", Toast.LENGTH_SHORT).show();
