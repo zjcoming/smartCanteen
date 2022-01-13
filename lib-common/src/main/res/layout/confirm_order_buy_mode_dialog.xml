@@ -22,16 +22,17 @@
             android:scaleType="center"
             android:src="@drawable/confirm_order_buy_mode_wechat"
             />
+
         <TextView
             android:id="@+id/buy_mode_wechat"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="8"
-            android:paddingTop="20dp"
-            android:padding="20dp"
             android:gravity="center"
+            android:padding="20dp"
+            android:paddingTop="20dp"
             android:text="微信付款"
-            android:textColor="@color/blue"/>
+            android:textColor="@color/blue" />
     </LinearLayout>
 
     <LinearLayout

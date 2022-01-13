@@ -60,6 +60,8 @@ public class ConfirmOrderFragment extends BaseFragment<FragmentConfirmOrderBindi
         switch (v.getId()){
             case R.id.confirm_order_buymode:
                 //clickBuyMode();
+                Dialog dialog = DialogUtil.showSelfDialog(getContext(), R.layout.confirm_order_buy_success_dialog);
+                dialog.show();
                 break;
             default:
                 break;
