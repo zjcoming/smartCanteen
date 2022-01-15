@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyTitleBar">
+        <attr name="imgleft" format="integer" />
+        <attr name="imgright" format="integer" />
+        <attr name="texttitle" format="string" />
+        <attr name="textright" format="string" />
+        <attr name="is_head_back" format="boolean" />
+    </declare-styleable>
+</resources>

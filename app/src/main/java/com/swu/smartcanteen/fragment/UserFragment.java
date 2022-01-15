@@ -18,12 +18,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.ApplicationContext;
 import com.base.BaseFragment;
 import com.base.util.UIUtils;
 import com.bumptech.glide.Glide;
 import com.common.constants.BaseAppConstants;
 import com.common.constants.PermissionConstants;
+import com.common.constants.RouteConstants;
 import com.common.selfview.MyCircleImage;
 import com.common.util.ImageUtil;
 import com.common.util.MMKVUtil;
@@ -42,6 +45,7 @@ import static android.app.Activity.RESULT_OK;
  * Created by 刘金豪 on 2022/1/10
  * desc: 登录的Fragment
  */
+@Route(path = RouteConstants.Module_app.PAGER_USER_FRAGMENT)
 public class UserFragment extends BaseFragment<FragmentUserBinding> implements View.OnClickListener {
     private Bitmap userIconBitmap;//用户头像
 
@@ -122,6 +126,7 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
     }
     private void clickMyMsgCenter(){
         UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"您点击了消息中心");
+        ARouter.getInstance().build(RouteConstants.Module_person.PAGER_MESSAGE_FRAGMENT).navigation();
     }
     private void clickMySelfLove(){
         UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"您点击了我的喜爱");

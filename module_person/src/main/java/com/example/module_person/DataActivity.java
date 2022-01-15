@@ -5,41 +5,49 @@ import android.app.Activity;
 import android.os.Build;
 import android.view.WindowManager;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.base.BaseActivity;
-import com.base.BaseFragment;
 import com.common.util.FragmentUtil;
-import com.example.module_person.data.DataFragment;
+import com.example.module_person.fragment.AddAddressFragment;
+import com.example.module_person.fragment.AddressListFragment;
+import com.example.module_person.fragment.PersonDataFragment;
+import com.example.module_person.viewmodel.PersonDataViewModel;
 import com.example.module_person.widget.TopBarFragment;
-import com.swu.module_person.R;
 import com.swu.module_person.databinding.ActivityDataBinding;
 
 
 
 public class DataActivity extends BaseActivity<ActivityDataBinding> {
 
-    private DataFragment dataFragment;
-    private FragmentActivity fa = this;
+    private TopBarFragment dataTop;
+    private TopBarFragment setTop;
+    private TopBarFragment addTop;
+    private TopBarFragment fixTop;
+    private AddressListFragment addressListFragment;
+    private PersonDataFragment personDataFragment;
+    private AddAddressFragment addAddressFragment;
 
+    private PersonDataViewModel personDataViewModel;
     @Override
     public void initData() {
-//
-        dataFragment = new DataFragment();
+
+        personDataViewModel = new ViewModelProvider(this).get(PersonDataViewModel.class);
+        dataTop = personDataViewModel.dataTop;
+        setTop = personDataViewModel.setTop;
+        addTop = personDataViewModel.addTop;
+        fixTop = personDataViewModel.fixTop;
+        addAddressFragment = personDataViewModel.addAddressFragment;
+        personDataFragment = personDataViewModel.personDataFragment;
+        addressListFragment = personDataViewModel.addressListFragment;
+
+        FragmentUtil.getInstance().startFragment(DataActivity.this,dataTop,binding.topContainer.getId());
+        FragmentUtil.getInstance().startFragment(DataActivity.this,personDataFragment,binding.contentContainer.getId());
     }
 
     @Override
     public void initListener() {
-        dataFragment.setJumpFragmentCallBack1(new BaseFragment.FragmentJumpListener() {
-            @Override
-            public void jumpToFragment(@NonNull Fragment fragment, int anim) {
-                FragmentUtil.getInstance().startFragment(dataFragment.requireActivity(), fragment, R.id.top_container);
-            }
-        });
 
-        FragmentUtil.getInstance().startFragment(this,dataFragment,binding.mContainer.getId());
 
     }
 

@@ -52,6 +52,45 @@ public class FragmentUtil {
             transaction.commitNowAllowingStateLoss();
         }
     }
+    /**
+     * @author zhangJun
+     * @param hostActivity 寄主activity
+     * @param fromFragment 从那个Fragment切换
+     * @param toFragment 切换到哪一个Fragment
+     * @param containerId 占位控件id
+     */
+    public void switchFragment(FragmentActivity hostActivity, Fragment fromFragment, Fragment toFragment, int containerId){
+        FragmentManager fragmentManager = hostActivity.getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        Fragment targetFragment = fragmentManager.findFragmentByTag(toFragment.getClass().getCanonicalName());
+        transaction.hide(fromFragment);//隐藏上个Fragment
+        if(!toFragment.isAdded()) {
+            transaction.add(containerId, toFragment);
+        }else if (!toFragment.isVisible()) {
+            transaction.show(toFragment);
+        }
+        transaction.commitNowAllowingStateLoss();
+    }
+
+    /**
+     * 带动画
+     * @param hostActivity
+     * @param fromFragment
+     * @param toFragment
+     * @param containerId
+     * @param inAnim
+     */
+    public void switchFragment(FragmentActivity hostActivity, Fragment fromFragment, Fragment toFragment, int containerId,@AnimatorRes @AnimRes int inAnim){
+        FragmentTransaction transaction =hostActivity.getSupportFragmentManager().beginTransaction();
+        transaction.hide(fromFragment);//隐藏上个Fragment
+        if(!toFragment.isAdded()) {
+            transaction.add(containerId, toFragment);
+        }
+        transaction.setCustomAnimations(inAnim, 0);
+        transaction.show(toFragment).commitAllowingStateLoss();
+    }
+
+
     //带出现动画的方式
     public void startFragment(FragmentActivity hostActivity, Fragment fragment, int containerId, @AnimatorRes @AnimRes int inAnim) {
         if (hostActivity != null && containerId != 0) {

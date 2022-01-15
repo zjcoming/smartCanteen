@@ -31,4 +31,7 @@
     <color name="go_pay_white">#FFFFFF</color>
     <color name="go_pay_discount">#FFFFFF</color>
 
+    <!-- 个人资料页面-->
+    <color name="data_back_gray">#B5b5b5</color>
+    <color name="data_back_black">#383838</color>
 </resources>
