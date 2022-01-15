@@ -16,16 +16,9 @@ public class RouteConstants {
         public static final String PAGER_MAIN = MAIN + "/Main";
     }
 
-    //advanceBook 路径模板
-    public static class Module_advanceBook {
-        private static final String MAIN = "/advanceBook";
+    public static class Module_order {
+        private static final String MAIN = "/module_order";
+        public static final String PAGER_CHOOSE_FOOD = MAIN + "/ChooseFood";
     }
-    //inCanteen 路径模板
-    public static class Module_inCanteen {
-        private static final String MAIN = "/inCanteen";
-    }
-    //takeout 路径模板
-    public static class Module_takeout {
-        private static final String MAIN = "/takeout";
-    }
+
 }

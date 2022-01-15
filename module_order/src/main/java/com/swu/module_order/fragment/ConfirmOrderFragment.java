@@ -1,5 +1,6 @@
 package com.swu.module_order.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -55,16 +56,12 @@ public class ConfirmOrderFragment extends BaseFragment<FragmentConfirmOrderBindi
         getBinding().confirmOrderRecyclerview.addItemDecoration(new GoodItemDecoration());
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.confirm_order_buymode:
-                //clickBuyMode();
-                Dialog dialog = DialogUtil.showSelfDialog(getContext(), R.layout.confirm_order_buy_success_dialog);
-                dialog.show();
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.confirm_order_buymode) {//clickBuyMode();
+            Dialog dialog = DialogUtil.showSelfDialog(getContext(), R.layout.confirm_order_buy_success_dialog);
+            dialog.show();
         }
     }
 
