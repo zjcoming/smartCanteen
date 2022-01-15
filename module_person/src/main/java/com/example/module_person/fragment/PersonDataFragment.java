@@ -1,4 +1,4 @@
-package com.example.module_person.dataFragment;
+package com.example.module_person.fragment;
 
 import androidx.lifecycle.ViewModelProvider;
 

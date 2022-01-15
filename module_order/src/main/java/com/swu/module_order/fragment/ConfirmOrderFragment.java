@@ -35,8 +35,8 @@ public class ConfirmOrderFragment extends BaseFragment<FragmentConfirmOrderBindi
         //初始化商品列表
         initGoods();
         getBinding().confirmOrderBuymode.setOnClickListener(this);
-
-
+        getBinding().confirmOrderBuymode.setVisibility(View.GONE);
+        getBinding().confirmOrderBuycar.setVisibility(View.GONE);
     }
     public void initGoods(){
         ArrayList<String> mDatas = new ArrayList<>();

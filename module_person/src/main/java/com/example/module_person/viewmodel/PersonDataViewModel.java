@@ -2,9 +2,9 @@ package com.example.module_person.viewmodel;
 
 
 import com.base.BaseViewModel;
-import com.example.module_person.dataFragment.AddAddressFragment;
-import com.example.module_person.dataFragment.AddressListFragment;
-import com.example.module_person.dataFragment.PersonDataFragment;
+import com.example.module_person.fragment.AddAddressFragment;
+import com.example.module_person.fragment.AddressListFragment;
+import com.example.module_person.fragment.PersonDataFragment;
 import com.example.module_person.widget.TopBarFragment;
 import com.example.module_person.widget.TopFragmentType;
 

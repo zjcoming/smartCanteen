@@ -9,9 +9,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.base.BaseActivity;
 import com.common.util.FragmentUtil;
-import com.example.module_person.dataFragment.AddAddressFragment;
-import com.example.module_person.dataFragment.AddressListFragment;
-import com.example.module_person.dataFragment.PersonDataFragment;
+import com.example.module_person.fragment.AddAddressFragment;
+import com.example.module_person.fragment.AddressListFragment;
+import com.example.module_person.fragment.PersonDataFragment;
 import com.example.module_person.viewmodel.PersonDataViewModel;
 import com.example.module_person.widget.TopBarFragment;
 import com.swu.module_person.databinding.ActivityDataBinding;

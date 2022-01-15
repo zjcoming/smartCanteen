@@ -1,17 +1,11 @@
-package com.example.module_person.dataFragment;
+package com.example.module_person.fragment;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import com.base.BaseFragment;
 import com.common.util.FragmentUtil;
@@ -21,10 +15,7 @@ import com.example.module_person.viewmodel.PersonDataViewModel;
 import com.swu.module_person.R;
 import com.swu.module_person.databinding.FragmentAddressListBinding;
 
-import org.xmlpull.v1.XmlPullParser;
-
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 public class AddressListFragment extends BaseFragment<FragmentAddressListBinding> {
 

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="com.example.module_person.dataFragment.AddAddressFragment">
+    tools:context="com.example.module_person.fragment.AddAddressFragment">
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
