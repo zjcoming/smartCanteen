@@ -2,11 +2,15 @@ package com.example.module_person.widget;
 
 
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.base.BaseFragment;
 import com.common.util.FragmentUtil;
+import com.example.module_person.dataFragment.PersonDataFragment;
 import com.example.module_person.viewmodel.PersonDataViewModel;
 import com.swu.module_person.R;
 import com.swu.module_person.databinding.FragmentTopBarBinding;
