@@ -20,7 +20,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
         android:gravity="center_vertical"
-        android:text="个人资料"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="24sp" />
 

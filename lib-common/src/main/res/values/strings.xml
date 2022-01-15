@@ -12,4 +12,18 @@
     <string name="hint_name">请输入名称</string>
     <string name="hint_phone">请输入手机号码</string>
     <string name="hint_address">请更改地址设置</string>
+    <string name="save_btn">保存</string>
+    <string name="address_set">地址设置</string>
+    <string name="address_cur_address">当前地址</string>
+    <string name="address_other_address">其他地址</string>
+    <string name="address_add_address">+ 添加地址</string>
+
+    <string name="address_contacts">联系人</string>
+    <string name="address_contacts_phone">联系手机</string>
+    <string name="address_address">收货地址</string>
+
+    <string name="address_hint_contacts">建议填写真实姓名</string>
+    <string name="address_hint_address">例如X栋XXX室</string>
+    <string name="address_hint_phone">请输入手机号</string>
+    <string name="address_default">设为当前默认地址</string>
 </resources>

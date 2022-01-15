@@ -5,10 +5,14 @@ import android.app.Activity;
 import android.os.Build;
 import android.view.WindowManager;
 
-import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.base.BaseActivity;
-import com.common.util.FragmentHelper;
+import com.common.util.FragmentUtil;
+import com.example.module_person.dataFragment.AddAddressFragment;
+import com.example.module_person.dataFragment.AddressListFragment;
+import com.example.module_person.dataFragment.PersonDataFragment;
+import com.example.module_person.viewmodel.PersonDataViewModel;
 import com.example.module_person.widget.TopBarFragment;
 import com.swu.module_person.databinding.ActivityDataBinding;
 
@@ -16,27 +20,34 @@ import com.swu.module_person.databinding.ActivityDataBinding;
 
 public class DataActivity extends BaseActivity<ActivityDataBinding> {
 
-    private TopBarFragment mFragment;
-    private FragmentActivity fa = this;
+    private TopBarFragment dataTop;
+    private TopBarFragment setTop;
+    private TopBarFragment addTop;
+    private TopBarFragment fixTop;
+    private AddressListFragment addressListFragment;
+    private PersonDataFragment personDataFragment;
+    private AddAddressFragment addAddressFragment;
 
+    private PersonDataViewModel personDataViewModel;
     @Override
     public void initData() {
-//
-        mFragment = new TopBarFragment();
+
+        personDataViewModel = new ViewModelProvider(this).get(PersonDataViewModel.class);
+        dataTop = personDataViewModel.dataTop;
+        setTop = personDataViewModel.setTop;
+        addTop = personDataViewModel.addTop;
+        fixTop = personDataViewModel.fixTop;
+        addAddressFragment = personDataViewModel.addAddressFragment;
+        personDataFragment = personDataViewModel.personDataFragment;
+        addressListFragment = personDataViewModel.addressListFragment;
+
+        FragmentUtil.getInstance().startFragment(DataActivity.this,dataTop,binding.topContainer.getId());
+        FragmentUtil.getInstance().startFragment(DataActivity.this,personDataFragment,binding.contentContainer.getId());
     }
 
     @Override
     public void initListener() {
-//        dataFragment.setJumpFragmentCallBack1(new BaseFragment.FragmentJumpListener() {
-//            @Override
-//            public void jumpToFragment(@NonNull Fragment fragment, int anim) {
-//                FragmentUtil.getInstance().startFragment(dataFragment.requireActivity(), fragment, R.id.top_container);
-//            }
-//        });
-//
-//        FragmentUtil.getInstance().startFragment(this,dataFragment,binding.mContainer.getId());
 
-        new FragmentHelper().bind(this).startFragment(mFragment,getBinding().topContainer.getId());
 
     }
 

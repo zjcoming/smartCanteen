@@ -1,0 +1,141 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.example.module_person.dataFragment.AddAddressFragment">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:text="@string/address_contacts"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/et_address_user_name"
+                android:maxLines="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:background="@null"
+                android:hint="@string/address_hint_contacts"
+                android:theme="@style/MyEditTextRegister" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:text="@string/address_contacts_phone"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_address_user_phone"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:maxLines="1"
+                android:inputType="phone"
+                android:background="@null"
+                android:hint="@string/address_hint_phone" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:lines="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:text="@string/address_address"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_address_user_address"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:maxLines="1"
+                android:background="@null"
+                android:hint="@string/address_hint_address" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+            <net.igenius.customcheckbox.CustomCheckBox
+                android:id="@+id/address_check_box"
+                android:layout_width="20dp"
+                app:duration="100"
+                app:stroke_width="1dp"
+                app:color_checked="@color/black"
+                android:layout_marginStart="30dp"
+                android:layout_gravity="center"
+                android:layout_height="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:text="@string/address_default"
+                android:layout_marginStart="5dp"
+                android:gravity="center_vertical"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btn_save"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:background="@drawable/data_btn_add_shape"
+        android:text="@string/save_btn"
+        android:layout_height="50dp" />
+
+</LinearLayout>

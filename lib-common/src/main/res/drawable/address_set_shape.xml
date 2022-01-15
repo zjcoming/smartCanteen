@@ -1,0 +1,7 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <stroke android:color="@color/go_pay_black"/>
+    <solid android:color="@color/go_pay_white"/>
+    <stroke android:width="6px"/>
+
+</shape>
