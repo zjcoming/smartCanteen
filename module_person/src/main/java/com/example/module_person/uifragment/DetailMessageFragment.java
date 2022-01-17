@@ -1,18 +1,13 @@
-package com.example.module_person.fragment;
+package com.example.module_person.uifragment;
 
-import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.BaseFragment;
 import com.common.constants.RouteConstants;
-import com.common.util.FragmentUtil;
+import com.common.constants.TargetFragmentConstants;
+import com.common.selfview.MyTitleBar;
 import com.swu.module_person.databinding.FragmentDetailMessageBinding;
 
 
@@ -24,7 +19,19 @@ import com.swu.module_person.databinding.FragmentDetailMessageBinding;
 public class DetailMessageFragment extends BaseFragment<FragmentDetailMessageBinding> {
     @Override
     public void initViews() {
-        getBinding().detailMessageTitlebar.setOnMyLeftTitleBarListener(() -> ARouter.getInstance().build(RouteConstants.Module_person.PAGER_MESSAGE_FRAGMENT).navigation());
+        getBinding().titleBar.setOnMyTitleBarListener(new MyTitleBar.OnMyTitleBarListener() {
+            @Override
+            public void onLeftClick() {
+                ARouter.getInstance().build(RouteConstants.Module_person.PAGER_UI_ACTIVITY)
+                        .withString("targetFragment", TargetFragmentConstants.MESSAGE_FRAGMENT)
+                        .navigation();
+            }
+
+            @Override
+            public void onRightClick(View v) {
+
+            }
+        });
         getBinding().detailMessageTitle.setText("谢靖是傻逼");
         getBinding().detailMessageContent.setText("这是消息的内容");
         getBinding().detailMessageTime.setText("15:40");

@@ -1,7 +1,6 @@
 package com.swu.smartcanteen.fragment;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -9,12 +8,11 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -26,18 +24,15 @@ import com.base.util.UIUtils;
 import com.bumptech.glide.Glide;
 import com.common.constants.BaseAppConstants;
 import com.common.constants.PermissionConstants;
+import com.common.constants.TargetFragmentConstants;
 import com.common.constants.RouteConstants;
-import com.common.selfview.MyCircleImage;
+import com.common.util.FragmentUtil;
 import com.common.util.ImageUtil;
-import com.common.util.MMKVUtil;
 import com.common.util.PermissionUtil;
 import com.swu.smartcanteen.R;
 import com.swu.smartcanteen.databinding.FragmentUserBinding;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -126,7 +121,12 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
     }
     private void clickMyMsgCenter(){
         UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"您点击了消息中心");
-        ARouter.getInstance().build(RouteConstants.Module_person.PAGER_MESSAGE_FRAGMENT).navigation();
+        getActivity().finish();
+        ARouter.getInstance().build(RouteConstants.Module_person.PAGER_UI_ACTIVITY)
+                .withString("targetFragment", TargetFragmentConstants.MESSAGE_FRAGMENT)
+                .navigation();
+//        Fragment messageFragment = (Fragment)ARouter.getInstance().build(RouteConstants.Module_person.PAGER_MESSAGE_FRAGMENT).navigation();
+//        FragmentUtil.getInstance().startFragment(getActivity(),messageFragment, com.swu.module_person.R.id.container);
     }
     private void clickMySelfLove(){
         UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"您点击了我的喜爱");

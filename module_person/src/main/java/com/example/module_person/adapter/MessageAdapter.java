@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.common.constants.RouteConstants;
+import com.common.constants.TargetFragmentConstants;
 import com.example.module_person.viewholder.MessageViewHolder;
 import com.swu.lib_common.R;
 
@@ -44,7 +45,7 @@ public class MessageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
         messageViewHolder.time.setText("15:50");
         messageViewHolder.title.setText("草泥马ging");
         messageViewHolder.content.setText("谢靖是个傻逼");
-        messageViewHolder.itemView.setOnClickListener(v -> ARouter.getInstance().build(RouteConstants.Module_person.PAGER_DETAIL_MESSAGE_FRAGMENT).navigation());
+        messageViewHolder.itemView.setOnClickListener(v -> ARouter.getInstance().build(RouteConstants.Module_person.PAGER_UI_ACTIVITY).withString("targetFragment", TargetFragmentConstants.DETAIL_MESSAGE_FRAGMENT).navigation());
     }
 
     @Override
