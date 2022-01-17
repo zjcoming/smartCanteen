@@ -1,6 +1,5 @@
 package com.swu.smartcanteen;
 
-import android.Manifest;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -8,15 +7,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.base.ApplicationContext;
 import com.base.BaseActivity;
-import com.base.util.UIUtils;
 import com.common.constants.RouteConstants;
-import com.common.util.PermissionUtil;
+import com.common.util.FragmentUtil;
 import com.swu.smartcanteen.databinding.ActivityNavigationBinding;
 import com.swu.smartcanteen.fragment.HomeFragment;
 import com.swu.smartcanteen.fragment.OrderFragment;
@@ -32,6 +30,12 @@ import java.util.List;
  */
 @Route(path = RouteConstants.Module_app.PAGER_NAVIGATION)
 public class NavigationActivity extends BaseActivity<ActivityNavigationBinding> {
+    /**
+     * 其他页面跳转到此Activity的时候，显示什么页面
+     */
+    @Autowired
+    String targetFragment;
+
     //创建一个list用于保存三个Fragment
     private List<Fragment> fragments;
     UserFragment userFragment;
@@ -50,9 +54,18 @@ public class NavigationActivity extends BaseActivity<ActivityNavigationBinding> 
         //依赖注入
         ARouter.getInstance().inject(this);
         init();
-        initBar();
+        if (targetFragment != null && !targetFragment.equals("")){
+            switchFragment(0,1);
+            initBar(1);
+            lastFragment = 1;
+        }else {
+            //默认显示首页
+            initBar(0);
+            lastFragment = 0;
+        }
         pressMenu();
     }
+
     /**
      * 进行相关fragment初始化 并添加到list中
      */
@@ -66,20 +79,21 @@ public class NavigationActivity extends BaseActivity<ActivityNavigationBinding> 
             fragments.add(userFragment);
             fragments.add(orderFragment);
             lastFragment = 0;
-            loadHome(homeFragment);
+            loadFragment(homeFragment);
         }
     }
 
     /**
      * 初始话底部导航bar
      */
-    private void initBar() {
+    private void initBar(int position) {
         bar = findViewById(R.id.bottom_navigation_bar);
+        bar.clearAll();
         bar
                 .addItem(new BottomNavigationItem(R.drawable.home_selector, R.string.home))
                 .addItem(new BottomNavigationItem(R.drawable.user_selector, R.string.user))
                 .addItem(new BottomNavigationItem(R.drawable.order_selector, R.string.order))
-                .setFirstSelectedPosition(0)
+                .setFirstSelectedPosition(position)
                 .initialise();
     }
 
@@ -146,7 +160,7 @@ public class NavigationActivity extends BaseActivity<ActivityNavigationBinding> 
      * 一进来就默认加载首页
      * @param fragment
      */
-    private void loadHome(Fragment fragment){
+    private void loadFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(binding.container.getId(),fragment);

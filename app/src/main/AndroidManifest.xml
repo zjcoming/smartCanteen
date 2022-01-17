@@ -42,7 +42,7 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity android:name=".RegisterActivity" />
-
+        <activity android:name="com.swu.module_order.ChooseFoodActivity"/>
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.swu.smartcanteen.BmobContentProvider" />
