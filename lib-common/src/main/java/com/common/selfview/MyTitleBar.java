@@ -159,6 +159,10 @@ public class MyTitleBar extends LinearLayout {
         }
     }
 
+    public TextView getTitle() {
+        return title;
+    }
+
     public void isShowRight(boolean isShow){
         if(isShow){
             tvRight.setVisibility(VISIBLE);
