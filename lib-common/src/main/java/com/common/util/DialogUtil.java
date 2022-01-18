@@ -39,6 +39,7 @@ public class DialogUtil {
      *         //进行网络请求。。。。
      *         //在成功或失败的回调中
      * loadingDialog.dismiss();
+     *
      */
     public static Dialog createLoadingDialog(Context context, String msg, boolean cancelable,boolean isUseCache) {
         //检查看有没有缓存
@@ -70,7 +71,7 @@ public class DialogUtil {
         window.setGravity(Gravity.CENTER);
         window.setAttributes(lp);
         window.setWindowAnimations(R.style.PopWindowAnimStyle);
-        loadingDialog.show();
+        //loadingDialog.show();
         loadingDialogHashMap.put(context,loadingDialog);//放入到缓存中
         return loadingDialog;
     }

@@ -19,6 +19,19 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class RequestHandler {
     /**
+     * 获取用户的所有数据(只是测试，目前还没有这个接口）
+     * @param observer
+     * @param userBean
+     */
+    public static void getUserInfo(Observer<ResponseModel<HashMap<String,String>>> observer, UserBean userBean){
+        UserLoginService userLoginService = RetrofitUtil.getService(UserLoginService.class, LoginAndRegisterConstants.BASE_URL);
+        Observable<ResponseModel<HashMap<String,String>>> observable = userLoginService.login(userBean);
+        observable.subscribeOn(Schedulers.newThread())//启动新线程 请求网络
+                .observeOn(AndroidSchedulers.mainThread())//切换回主线程进行返回数据的处理
+                .subscribe(observer);
+    }
+
+    /**
      * 点击登录按钮
      * @param observer
      * @param userBean
