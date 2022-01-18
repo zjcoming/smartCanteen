@@ -1,9 +1,15 @@
 package com.example.module_person.uifragment;
 
+import android.app.Dialog;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -12,12 +18,18 @@ import com.base.BaseFragment;
 import com.common.constants.RouteConstants;
 import com.common.constants.TargetFragmentConstants;
 import com.common.selfview.MyTitleBar;
+import com.common.util.DialogUtil;
 import com.example.module_person.adapter.MessageAdapter;
+import com.example.module_person.viewmodel.MessageViewModel;
 import com.swu.module_person.R;
 import com.swu.module_person.databinding.FragmentMessageBinding;
 
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by 刘金豪 on 2021/1/15
@@ -25,6 +37,39 @@ import java.util.ArrayList;
  */
 @Route(path = RouteConstants.Module_person.PAGER_MESSAGE_FRAGMENT)
 public class MessageFragment extends BaseFragment<FragmentMessageBinding> {
+    MessageViewModel messageViewModel;
+
+    /**
+     * 初始化viewModel
+     */
+    public void initViewModel(){
+        //得到viewModel
+        messageViewModel = new ViewModelProvider(this).get(MessageViewModel.class);
+
+        //监听viewmodel里面的数据变化
+        messageViewModel.getAllMessages().observe(this, new Observer<ArrayList<HashMap<String, String>>>() {
+            @Override
+            public void onChanged(ArrayList<HashMap<String, String>> hashMaps) {
+                //当 消息 数据发生变化时，改变RecyclerView中显示的数据
+                getBinding().messageMessageRecyclerview.setAdapter(new MessageAdapter(getActivity(),getContext(),hashMaps));
+            }
+        });
+        messageViewModel.getLoadingLiveData().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                //监听是否显示“加载中”dialog
+                Dialog loadingDialog = DialogUtil.createLoadingDialog(getContext(), "加载中", true, true);
+                if (aBoolean){
+                    loadingDialog.show();
+                }else {
+                    loadingDialog.dismiss();
+                }
+            }
+        });
+
+        //添加观察者，把messageViewModel作为生命周期观察者
+        getLifecycle().addObserver(messageViewModel);
+    }
 
 
     @Override
@@ -38,28 +83,19 @@ public class MessageFragment extends BaseFragment<FragmentMessageBinding> {
                         .withString("targetFragment", TargetFragmentConstants.USER_FRAGMENT).navigation();
 
             }
-
             @Override
-            public void onRightClick(View v) {
-
-            }
+            public void onRightClick(View v) { }
         });
-        ArrayList<String> mDatas = new ArrayList<>();
 
-        for (int i = 1; i <= 100; i++) {
-            mDatas.add("第 " + i + " 个item");
-        }
-        getBinding().messageMessageRecyclerview.setAdapter(new MessageAdapter(getActivity(),getContext(),mDatas));
-        //线性布局
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext()){
-            @Override
-            public boolean canScrollVertically() {
-                return true;
-            }
-        };
+        //RecyclerView的线性布局
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         getBinding().messageMessageRecyclerview.setLayoutManager(linearLayoutManager);
+
+        //控件初始化完成后，初始化ViewModel
+        initViewModel();
     }
+
 
     @Override
     public void onResume() {
@@ -77,7 +113,8 @@ public class MessageFragment extends BaseFragment<FragmentMessageBinding> {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     // 监听到返回按钮点击事件
                     ARouter.getInstance().build(RouteConstants.Module_app.PAGER_NAVIGATION)
-                            .withString("targetFragment", TargetFragmentConstants.USER_FRAGMENT).navigation();
+                            .withString("targetFragment", TargetFragmentConstants.USER_FRAGMENT)
+                            .navigation();
                     return true;
                 }
                 return false;
@@ -89,6 +126,4 @@ public class MessageFragment extends BaseFragment<FragmentMessageBinding> {
     public void initListener() {
 
     }
-
-
 }

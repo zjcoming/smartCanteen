@@ -1,7 +1,11 @@
 package com.example.module_person.uifragment;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.BaseFragment;
@@ -10,6 +14,12 @@ import com.common.constants.TargetFragmentConstants;
 import com.common.selfview.MyTitleBar;
 import com.swu.module_person.databinding.FragmentDetailMessageBinding;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.Serializable;
+import java.util.HashMap;
+
 
 /**
  * Created by 刘金豪 on 2021/1/15
@@ -17,6 +27,11 @@ import com.swu.module_person.databinding.FragmentDetailMessageBinding;
  */
 @Route(path = RouteConstants.Module_person.PAGER_DETAIL_MESSAGE_FRAGMENT)
 public class DetailMessageFragment extends BaseFragment<FragmentDetailMessageBinding> {
+    String time;
+    String title;
+    String content;
+    HashMap<String,String> msgDetail;
+
     @Override
     public void initViews() {
         getBinding().titleBar.setOnMyTitleBarListener(new MyTitleBar.OnMyTitleBarListener() {
@@ -26,15 +41,28 @@ public class DetailMessageFragment extends BaseFragment<FragmentDetailMessageBin
                         .withString("targetFragment", TargetFragmentConstants.MESSAGE_FRAGMENT)
                         .navigation();
             }
-
             @Override
             public void onRightClick(View v) {
-
             }
         });
-        getBinding().detailMessageTitle.setText("谢靖是傻逼");
-        getBinding().detailMessageContent.setText("这是消息的内容");
-        getBinding().detailMessageTime.setText("15:40");
+
+        getBinding().detailMessageTime.setText(time);
+        getBinding().detailMessageTitle.setText(title);
+        getBinding().detailMessageContent.setText(content);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        //取出参数，用于显示message
+        if (getArguments() != null){
+            msgDetail = (HashMap<String,String>)getArguments().getSerializable("msgDetail");
+            time = msgDetail.get("time");
+            title = msgDetail.get("title");
+            content = msgDetail.get("content");
+        }
+
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override

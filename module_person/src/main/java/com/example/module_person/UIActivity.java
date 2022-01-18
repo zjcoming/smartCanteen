@@ -14,13 +14,23 @@ import com.example.module_person.uifragment.DetailMessageFragment;
 import com.example.module_person.uifragment.MessageFragment;
 import com.swu.module_person.R;
 import com.swu.module_person.databinding.ActivityUIBinding;
+
+import java.io.Serializable;
+import java.util.HashMap;
+
 @Route(path = RouteConstants.Module_person.PAGER_UI_ACTIVITY)
 public class UIActivity extends BaseActivity<ActivityUIBinding> {
     @Autowired
     String targetFragment;
 
     MessageFragment messageFragment;
+
+    /**
+     * 与detailMessageFragment相关的集合
+     */
     DetailMessageFragment detailMessageFragment;
+    @Autowired
+    HashMap<String,String> msgDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +38,7 @@ public class UIActivity extends BaseActivity<ActivityUIBinding> {
         setContentView(R.layout.activity_u_i);
         //依赖注入
         ARouter.getInstance().inject(this);
+
         messageFragment = new MessageFragment();
         detailMessageFragment = new DetailMessageFragment();
     }
@@ -38,13 +49,15 @@ public class UIActivity extends BaseActivity<ActivityUIBinding> {
         if (targetFragment == null){
             return;
         }
-        Log.v("ljh",targetFragment);
         switch (targetFragment){
             case TargetFragmentConstants.MESSAGE_FRAGMENT:
                 //显示消息Fragment
                 FragmentUtil.getInstance().startFragment(this,messageFragment,R.id.ui_content_container);
                 break;
             case TargetFragmentConstants.DETAIL_MESSAGE_FRAGMENT:
+                Bundle args = new Bundle();
+                args.putSerializable("msgDetail", msgDetail);
+                detailMessageFragment.setArguments(args);
                 //显示消息Fragment
                 FragmentUtil.getInstance().startFragment(this,detailMessageFragment,R.id.ui_content_container);
                 break;
