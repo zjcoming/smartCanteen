@@ -1,4 +1,4 @@
-package com.base.dao
+package com.base
 
 import androidx.room.*
 import androidx.sqlite.db.SimpleSQLiteQuery
