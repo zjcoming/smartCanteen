@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.BaseActivity;
 import com.common.constants.TargetFragmentConstants;
 import com.common.constants.RouteConstants;
+import com.common.requestbase.AppObserver;
 import com.common.util.FragmentUtil;
 import com.example.module_person.uifragment.DetailMessageFragment;
 import com.example.module_person.uifragment.MessageFragment;
@@ -18,6 +19,12 @@ import com.swu.module_person.databinding.ActivityUIBinding;
 import java.io.Serializable;
 import java.util.HashMap;
 
+import io.reactivex.annotations.NonNull;
+
+/**
+ * Created by 刘金豪 on 2021/1/10
+ * desc: 控制person模块的界面展示
+ */
 @Route(path = RouteConstants.Module_person.PAGER_UI_ACTIVITY)
 public class UIActivity extends BaseActivity<ActivityUIBinding> {
     @Autowired
@@ -41,6 +48,7 @@ public class UIActivity extends BaseActivity<ActivityUIBinding> {
 
         messageFragment = new MessageFragment();
         detailMessageFragment = new DetailMessageFragment();
+
     }
 
     @Override
@@ -55,6 +63,7 @@ public class UIActivity extends BaseActivity<ActivityUIBinding> {
                 FragmentUtil.getInstance().startFragment(this,messageFragment,R.id.ui_content_container);
                 break;
             case TargetFragmentConstants.DETAIL_MESSAGE_FRAGMENT:
+                //传递参数
                 Bundle args = new Bundle();
                 args.putSerializable("msgDetail", msgDetail);
                 detailMessageFragment.setArguments(args);
