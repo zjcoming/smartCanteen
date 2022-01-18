@@ -1,41 +1,34 @@
 package com.swu.smartcanteen;
 
-import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.base.ApplicationContext;
 import com.base.BaseActivity;
 import com.base.bean.UserBean;
 import com.base.util.UIUtils;
 import com.common.requestbase.AppObserver;
 import com.common.requestbase.ResponseModel;
-import com.common.constants.BaseAppConstants;
+import com.common.constants.BaseUserInfo;
 import com.common.constants.RouteConstants;
 import com.common.handler.RequestHandler;
 import com.common.util.MMKVUtil;
-import com.common.util.PermissionUtil;
 import com.common.widget.PrivacyDialog;
 import com.swu.smartcanteen.databinding.ActivitySplashBinding;
 
 import java.util.HashMap;
 
 import io.reactivex.annotations.NonNull;
-
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 @Route(path = RouteConstants.Module_app.PAGER_SPLASH)
 public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
@@ -94,7 +87,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                     } else if (result != null && result.equals("SUCCESS")){
                         //登录成功
                         String token = response.getData().get("token");
-                        BaseAppConstants.updateLogin(true,autoLoginId,autoLoginPwd,token);
+                        String uid = response.getData().get("uid");
+                        BaseUserInfo.updateLogin(true,uid,autoLoginId,autoLoginPwd,token);
                         //如果勾选了”记住密码“或者”自动登录“，则需要把该账号密码保存到本地
                         //自动登录的优先级高
 
@@ -107,7 +101,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                         }, 1000);
                     }
                 }
-            },new UserBean("", "", autoLoginPwd, autoLoginId, "", 0));
+            },new UserBean(autoLoginId,autoLoginPwd));
         }else {
             //没有自动登录，则跳转到广告页面
             new Handler().postDelayed(new Runnable() {

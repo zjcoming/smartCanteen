@@ -8,7 +8,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -22,11 +21,10 @@ import com.base.ApplicationContext;
 import com.base.BaseFragment;
 import com.base.util.UIUtils;
 import com.bumptech.glide.Glide;
-import com.common.constants.BaseAppConstants;
+import com.common.constants.BaseUserInfo;
 import com.common.constants.PermissionConstants;
 import com.common.constants.TargetFragmentConstants;
 import com.common.constants.RouteConstants;
-import com.common.util.FragmentUtil;
 import com.common.util.ImageUtil;
 import com.common.util.PermissionUtil;
 import com.swu.smartcanteen.R;
@@ -73,7 +71,7 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
      */
     public void initHelloTextView(){
         //查看是否登录
-        if(true || BaseAppConstants.isIsLogin()){
+        if(true || BaseUserInfo.isIsLogin()){
             //已经登录，则更换名字
             getBinding().myUserName.setText("Hey! 屁眼峻！");
             getBinding().myBelowUserName.setText("今天是与你相遇的第n天");

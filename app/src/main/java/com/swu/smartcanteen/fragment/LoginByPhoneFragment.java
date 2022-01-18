@@ -22,7 +22,7 @@ import com.base.util.UIUtils;
 import com.common.anim.LoginRegisterFragmentAnimation;
 import com.common.requestbase.AppObserver;
 import com.common.requestbase.ResponseModel;
-import com.common.constants.BaseAppConstants;
+import com.common.constants.BaseUserInfo;
 import com.common.constants.LoginAndRegisterConstants;
 import com.common.handler.RequestHandler;
 import com.common.util.BtnCountDownUtil;
@@ -249,7 +249,8 @@ public class LoginByPhoneFragment extends BaseFragment<FragmentLoginByPhoneBindi
                                             } else if (result != null && result.equals("SUCCESS")){
                                                 //登录成功
                                                 String token = response.getData().get("token");
-                                                BaseAppConstants.updateLogin(true,firstEditString,"",token);
+                                                String uid = response.getData().get("uid");
+                                                BaseUserInfo.updateLogin(true,uid,firstEditString,"",token);
 
                                                 UIUtils.INSTANCE.showToast(getContext(), "登录成功");
                                                 //登录成功，短暂停留后进入主页面
@@ -266,11 +267,7 @@ public class LoginByPhoneFragment extends BaseFragment<FragmentLoginByPhoneBindi
                                         public void onComplete() {
                                             LoginAndRegisterConstants.IS_LOGIN_BY_PHONE = "false";
                                         }
-                                    },new UserBean("",
-                                            "",
-                                            "",
-                                            firstEditString,
-                                            "", 0));
+                                    },new UserBean(firstEditString, ""));
                                 }else {
                                     //用户输入的验证码错误
                                     UIUtils.INSTANCE.showToast(getContext(), "验证码输入有误，请重新输入");

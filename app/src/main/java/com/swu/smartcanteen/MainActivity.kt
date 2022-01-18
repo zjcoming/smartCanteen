@@ -5,12 +5,10 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Switch
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.base.BaseActivity
-import com.common.constants.BaseAppConstants
 import com.common.constants.LoginAndRegisterConstants
 import com.common.constants.RouteConstants
 import com.common.util.RetrofitUtil

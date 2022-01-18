@@ -1,6 +1,5 @@
 package com.common.interceptor;
 
-import com.common.constants.BaseAppConstants;
 import com.common.constants.LoginAndRegisterConstants;
 
 import java.io.IOException;
