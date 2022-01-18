@@ -14,6 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:layout_marginTop="2dp"
             android:background="@color/white"
             android:orientation="horizontal">
 
@@ -42,6 +43,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:layout_marginTop="2dp"
             android:background="@color/white"
             android:orientation="horizontal">
 
@@ -71,6 +73,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:layout_marginTop="2dp"
             android:background="@color/white"
             android:orientation="horizontal">
 
@@ -100,6 +103,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:layout_marginTop="2dp"
             android:background="@color/white"
             android:orientation="horizontal">
             <net.igenius.customcheckbox.CustomCheckBox
