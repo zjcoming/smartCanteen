@@ -1,8 +1,6 @@
 package com.swu.smartcanteen;
 
-import android.Manifest;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -12,11 +10,8 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.base.ApplicationContext;
 import com.base.BaseActivity;
-import com.base.util.UIUtils;
 import com.common.constants.RouteConstants;
-import com.common.util.PermissionUtil;
 import com.swu.smartcanteen.databinding.ActivityNavigationBinding;
 import com.swu.smartcanteen.fragment.HomeFragment;
 import com.swu.smartcanteen.fragment.OrderFragment;

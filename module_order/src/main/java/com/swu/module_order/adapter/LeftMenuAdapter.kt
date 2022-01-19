@@ -9,14 +9,14 @@ import com.base.recyclerview.BaseAdapter
 import com.base.recyclerview.BaseHolder
 import com.swu.module_order.R
 import com.swu.module_order.databinding.LeftMenuItemLayoutBinding
-import com.swu.module_order.model.LeftMenuBean
+import com.base.bean.LeftMenuModel
 import com.swu.module_order.widget.LeftMenuItemView
 
 /**
  * Created by chenxiong
  * date 1/8/22
  */
-class LeftMenuAdapter(private val context: Context, private val leftMenuData: List<LeftMenuBean>): BaseAdapter<LeftMenuItemLayoutBinding>() {
+class LeftMenuAdapter(private val context: Context, private val leftMenuData: List<LeftMenuModel>): BaseAdapter<LeftMenuItemLayoutBinding>() {
     private var curSelectPos = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<LeftMenuItemLayoutBinding> {

@@ -1,12 +1,13 @@
-package com.swu.module_order.model
+package com.base.bean
 
 import com.base.recyclerview.IBaseCustomViewModel
+import com.google.gson.annotations.SerializedName
 
 /**
  * Created by chenxiong
  * date 1/8/22
  */
-data class RightMenuBean(
+data class RightMenuModel(
     val groupName: String,
     val foodName: String,
     val tags: List<String>,
