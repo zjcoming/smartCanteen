@@ -21,7 +21,7 @@ import com.base.util.UIUtils;
 import com.common.anim.LoginRegisterFragmentAnimation;
 import com.common.requestbase.AppObserver;
 import com.common.requestbase.ResponseModel;
-import com.common.constants.BaseAppConstants;
+import com.common.constants.BaseUserInfo;
 import com.common.constants.LoginAndRegisterConstants;
 import com.common.handler.RequestHandler;
 import com.common.util.CheckUtil;
@@ -174,7 +174,8 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
                                 } else if (result != null && result.equals("SUCCESS")){
                                     //登录成功
                                     String token = response.getData().get("token");
-                                    BaseAppConstants.updateLogin(true,telephoneOrId,userpassword,token);
+                                    String uid = response.getData().get("uid");
+                                    BaseUserInfo.updateLogin(true,uid,telephoneOrId,userpassword,token);
                                     //如果勾选了”记住密码“或者”自动登录“，则需要把该账号密码保存到本地
                                     //自动登录的优先级高
                                     if(quickLogin != null && quickLogin.isChecked()){
@@ -202,7 +203,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
                                     }, 800);
                                 }
                             }
-                        },new UserBean("", "", userpassword, telephoneOrId, "", 0));
+                        },new UserBean(telephoneOrId,userpassword ));
                     }
                 }
             }

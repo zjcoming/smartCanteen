@@ -1,17 +1,14 @@
 package com.common.interceptor;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.util.Log;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.ApplicationContext;
-import com.common.constants.BaseAppConstants;
+import com.common.constants.BaseUserInfo;
 import com.common.constants.LoginAndRegisterConstants;
 import com.common.constants.RouteConstants;
 import com.common.util.DialogUtil;
 import com.common.util.LogUtil;
-import com.common.util.MMKVUtil;
 
 import java.io.IOException;
 
@@ -29,7 +26,7 @@ public class TokenInterceptor implements Interceptor {
     public Response intercept(Interceptor.Chain chain) throws IOException {
         Request request = chain.request()
                 .newBuilder()
-                .header("token",BaseAppConstants.getToken())
+                .header("token", BaseUserInfo.getToken())
                 .build();
         Response response = chain.proceed(request);
 

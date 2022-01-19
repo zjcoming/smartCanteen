@@ -122,11 +122,7 @@ public class RegisterFragment extends BaseFragment {
 
                                         }
                                     }
-                                },new UserBean("",
-                                        "",
-                                        passWord.getText().toString(),
-                                        telePhone.getText().toString(),
-                                        "", 0));
+                                },new UserBean(telePhone.getText().toString(), passWord.getText().toString()));
                             }else {
                                 //用户输入的验证码错误
                                 UIUtils.INSTANCE.showToast(getContext(), "验证码输入有误，请重新输入");
