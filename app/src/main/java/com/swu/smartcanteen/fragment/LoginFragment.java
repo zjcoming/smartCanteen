@@ -176,6 +176,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
                                     String token = response.getData().get("token");
                                     String uid = response.getData().get("uid");
                                     BaseUserInfo.updateLogin(true,uid,telephoneOrId,userpassword,token);
+
                                     //如果勾选了”记住密码“或者”自动登录“，则需要把该账号密码保存到本地
                                     //自动登录的优先级高
                                     if(quickLogin != null && quickLogin.isChecked()){

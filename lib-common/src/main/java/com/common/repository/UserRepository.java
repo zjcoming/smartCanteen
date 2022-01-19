@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
+import okhttp3.RequestBody;
 
 /**
  * Created by 刘金豪 on 2021/1/18
@@ -33,9 +34,16 @@ public class UserRepository {
     }
 
     /**
-     * 通过telephone，获取用户的所有数据
+     * 通过uid，获取用户的所有数据
      */
-    public void getUserFromServer(Observer<ResponseModel<HashMap<String,String>>> observer, UserBean userBean){
-        RequestHandler.getUserInfo(observer,userBean);
+    public void getUserFromServer(Observer<ResponseModel<UserBean>> observer, String uid){
+        RequestHandler.getUserInfo(observer,uid);
+    }
+
+    /**
+     * 设置用户头像
+     */
+    public void setUserIconToServer(Observer<ResponseModel<HashMap<String,String>>> observer, RequestBody multiBody){
+        RequestHandler.setUserPhoto(observer,multiBody);
     }
 }

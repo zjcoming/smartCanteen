@@ -1,9 +1,17 @@
 package com.common.constants;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import com.base.ApplicationContext;
 import com.base.bean.UserBean;
+import com.common.repository.UserRepository;
+import com.common.requestbase.AppObserver;
+import com.common.requestbase.ResponseModel;
+
+import java.util.HashMap;
+
+import io.reactivex.annotations.NonNull;
 
 /**
  * Created by 刘金豪 on 2021/11/26
@@ -13,16 +21,9 @@ import com.base.bean.UserBean;
  */
 public class BaseUserInfo {
     private static boolean isLogin;//用户是否登录
-    private static UserBean userBean;
+    private static UserBean userBean = new UserBean();
     private static String token = "";//不能为null
 
-    public static void updateLogin(boolean isLogin, String userPhone, String userPwd,String token){
-        Toast.makeText(ApplicationContext.getContext(), isLogin ? "登录成功" : "登录失败", Toast.LENGTH_SHORT).show();
-        BaseUserInfo.isLogin = isLogin;
-        BaseUserInfo.token = token;
-        userBean.setTelephone(userPhone);
-        userBean.setPassword(userPwd);
-    }
     public static void updateLogin(boolean isLogin, String userid,String userPhone, String userPwd,String token){
         Toast.makeText(ApplicationContext.getContext(), isLogin ? "登录成功" : "登录失败", Toast.LENGTH_SHORT).show();
         BaseUserInfo.isLogin = isLogin;
@@ -30,6 +31,22 @@ public class BaseUserInfo {
         userBean.setUid(userid);
         userBean.setTelephone(userPhone);
         userBean.setPassword(userPwd);
+
+        //登录成功后，需要请求用户的所有数据
+        UserRepository.getUserRepository().getUserFromServer(new AppObserver<ResponseModel<UserBean>>() {
+            @Override
+            public void onData(@NonNull ResponseModel<UserBean> o) {
+                if (o == null){
+                    return;
+                }
+
+                userBean.setCreateTime(o.getData().getCreateTime());
+                userBean.setDefaultAddress(o.getData().getDefaultAddress());
+                userBean.setProfilePhoto(o.getData().getProfilePhoto());
+                userBean.setScore(o.getData().getScore());
+                userBean.setUsername(o.getData().getUsername());
+            }
+        },userid);
     }
 
     public static UserBean getUserBean() {

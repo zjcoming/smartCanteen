@@ -1,17 +1,23 @@
 package com.common.handler;
 
+import android.util.Log;
+
 import com.base.bean.UserBean;
 import com.common.requestbase.ResponseModel;
 import com.common.constants.LoginAndRegisterConstants;
+import com.common.retrofitservice.UserInfoService;
 import com.common.retrofitservice.UserLoginService;
 import com.common.util.RetrofitUtil;
 
+import java.io.File;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 
 /**
  * Created by 刘金豪 on 2021/11/26
@@ -19,13 +25,21 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class RequestHandler {
     /**
-     * 获取用户的所有数据(只是测试，目前还没有这个接口）
-     * @param observer
-     * @param userBean
+     * 设置用户头像
      */
-    public static void getUserInfo(Observer<ResponseModel<HashMap<String,String>>> observer, UserBean userBean){
-        UserLoginService userLoginService = RetrofitUtil.getService(UserLoginService.class, LoginAndRegisterConstants.BASE_URL);
-        Observable<ResponseModel<HashMap<String,String>>> observable = userLoginService.login(userBean);
+    public static void setUserPhoto(Observer<ResponseModel<HashMap<String,String>>> observer, RequestBody requestBody){
+        UserInfoService userInfoService = RetrofitUtil.getService(UserInfoService.class, LoginAndRegisterConstants.BASE_URL);
+        Observable<ResponseModel<HashMap<String,String>>> observable = userInfoService.setUserPhoto(requestBody);
+        observable.subscribeOn(Schedulers.newThread())//启动新线程 请求网络
+                .observeOn(AndroidSchedulers.mainThread())//切换回主线程进行返回数据的处理
+                .subscribe(observer);
+    }
+    /**
+     * 获取用户的所有数据
+     */
+    public static void getUserInfo(Observer<ResponseModel<UserBean>> observer, String uid){
+        UserInfoService userInfoService = RetrofitUtil.getService(UserInfoService.class, LoginAndRegisterConstants.BASE_URL);
+        Observable<ResponseModel<UserBean>> observable = userInfoService.getUserInfo(uid);
         observable.subscribeOn(Schedulers.newThread())//启动新线程 请求网络
                 .observeOn(AndroidSchedulers.mainThread())//切换回主线程进行返回数据的处理
                 .subscribe(observer);

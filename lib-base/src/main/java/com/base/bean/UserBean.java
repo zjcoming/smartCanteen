@@ -28,6 +28,9 @@ public class UserBean implements Serializable{
     private Date createTime;//创建时间
     private int defaultAddress;//默认地址
 
+    public UserBean(){
+
+    }
     public UserBean(String telephone,String password){
         this.telephone = telephone;
         this.password = password;

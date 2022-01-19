@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -61,7 +62,11 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
     public void initUserIcon(){
         //获取本地保存的用户头像
         userIconBitmap = ImageUtil.getPhotoFromStorage("userIcon");
-        if (userIconBitmap != null){
+        if (userIconBitmap == null){
+            //说明本地没保存 需要从服务器加载用户头像
+            //示例url：https://marsyr-210522.oss-cn-chengdu.aliyuncs.com/SWU_canteen/20220119114836258.jpg
+            Glide.with(ApplicationContext.getContext()).load(BaseUserInfo.getUserBean().getProfilePhoto()).into(getBinding().myIcon);//从本地加载图片
+        }else {
             Glide.with(ApplicationContext.getContext()).load(ImageUtil.getPhotoFromStorage("userIcon")).into(getBinding().myIcon);//从本地加载图片
         }
     }
@@ -194,6 +199,8 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
                     if (userIconBitmap != null) {
                         //保存到本地
                         ImageUtil.savePhotoToStorage(userIconBitmap,"userIcon");
+                        //保存到服务器
+                        ImageUtil.savePhotoToServer("userIcon",true);
                         //显示到头像上
                         getBinding().myIcon.setImageBitmap(userIconBitmap);
                     }

@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 
 /**
  * Created by 刘金豪 on 2021/11/26
- * desc: 这是使用UserBean与后端进行交互的类，使用了retrofit
+ * desc: 用户登录相关的请求接口
  */
 
 public interface UserLoginService {
