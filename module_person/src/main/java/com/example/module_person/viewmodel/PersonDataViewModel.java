@@ -15,10 +15,6 @@ import com.example.module_person.widget.TopFragmentType;
  * @Description
  */
 public class PersonDataViewModel extends BaseViewModel {
-    public TopBarFragment dataTop = TopBarFragment.getInstance(TopFragmentType.PERSON_DATA);
-    public TopBarFragment setTop = TopBarFragment.getInstance(TopFragmentType.SET_ADDRESS);
-    public TopBarFragment addTop = TopBarFragment.getInstance(TopFragmentType.ADD_ADDRESS);
-    public TopBarFragment fixTop = TopBarFragment.getInstance(TopFragmentType.FIX_ADDRESS);
     public AddressListFragment addressListFragment = new AddressListFragment();
     public PersonDataFragment personDataFragment = new PersonDataFragment();
     public AddAddressFragment addAddressFragment = new AddAddressFragment();

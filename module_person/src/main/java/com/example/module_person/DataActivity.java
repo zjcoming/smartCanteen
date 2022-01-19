@@ -33,15 +33,10 @@ public class DataActivity extends BaseActivity<ActivityDataBinding> {
     public void initData() {
 
         personDataViewModel = new ViewModelProvider(this).get(PersonDataViewModel.class);
-        dataTop = personDataViewModel.dataTop;
-        setTop = personDataViewModel.setTop;
-        addTop = personDataViewModel.addTop;
-        fixTop = personDataViewModel.fixTop;
         addAddressFragment = personDataViewModel.addAddressFragment;
         personDataFragment = personDataViewModel.personDataFragment;
         addressListFragment = personDataViewModel.addressListFragment;
 
-        FragmentUtil.getInstance().startFragment(DataActivity.this,dataTop,binding.topContainer.getId());
         FragmentUtil.getInstance().startFragment(DataActivity.this,personDataFragment,binding.contentContainer.getId());
     }
 
