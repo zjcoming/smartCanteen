@@ -5,6 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.example.module_person.dataFragment.AddAddressFragment">
+    <com.common.selfview.MyTitleBar
+        android:id="@+id/bt_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:texttitle="@string/top_person_add_address"
+        app:layout_constraintTop_toTopOf="parent" />
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"

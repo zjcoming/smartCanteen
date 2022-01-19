@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.module_person.DataActivity">
-    <FrameLayout
-        android:id="@+id/top_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/content_container"
