@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.BaseFragment;
+import com.base.model.MessageModel;
 import com.common.constants.RouteConstants;
 import com.common.constants.TargetFragmentConstants;
 import com.common.selfview.MyTitleBar;
@@ -18,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 
@@ -30,7 +32,7 @@ public class DetailMessageFragment extends BaseFragment<FragmentDetailMessageBin
     String time;
     String title;
     String content;
-    HashMap<String,String> msgDetail;
+    MessageModel msgDetail;
 
     @Override
     public void initViews() {
@@ -48,7 +50,7 @@ public class DetailMessageFragment extends BaseFragment<FragmentDetailMessageBin
 
         getBinding().detailMessageTime.setText(time);
         getBinding().detailMessageTitle.setText(title);
-        getBinding().detailMessageContent.setText(content);
+        getBinding().detailMessageContent.setText("  " + content);
     }
 
     @Nullable
@@ -56,10 +58,11 @@ public class DetailMessageFragment extends BaseFragment<FragmentDetailMessageBin
     public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //取出参数，用于显示message
         if (getArguments() != null){
-            msgDetail = (HashMap<String,String>)getArguments().getSerializable("msgDetail");
-            time = msgDetail.get("time");
-            title = msgDetail.get("title");
-            content = msgDetail.get("content");
+            msgDetail = (MessageModel)getArguments().getSerializable("msgDetail");
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            time = sdf.format(msgDetail.getTime());
+            title = msgDetail.getTitle();
+            content = msgDetail.getContent();
         }
 
         return super.onCreateView(inflater, container, savedInstanceState);

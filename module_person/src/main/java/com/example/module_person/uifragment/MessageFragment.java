@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.BaseFragment;
+import com.base.model.MessageModel;
 import com.common.constants.RouteConstants;
 import com.common.constants.TargetFragmentConstants;
 import com.common.selfview.MyTitleBar;
@@ -47,25 +48,26 @@ public class MessageFragment extends BaseFragment<FragmentMessageBinding> {
         messageViewModel = new ViewModelProvider(this).get(MessageViewModel.class);
 
         //监听viewmodel里面的数据变化
-        messageViewModel.getAllMessages().observe(this, new Observer<ArrayList<HashMap<String, String>>>() {
+        messageViewModel.getAllMessages().observe(this, new Observer<ArrayList<MessageModel>>() {
             @Override
-            public void onChanged(ArrayList<HashMap<String, String>> hashMaps) {
+            public void onChanged(ArrayList<MessageModel> messages) {
                 //当 消息 数据发生变化时，改变RecyclerView中显示的数据
-                getBinding().messageMessageRecyclerview.setAdapter(new MessageAdapter(getActivity(),getContext(),hashMaps));
+                getBinding().messageMessageRecyclerview.setAdapter(new MessageAdapter(getActivity(),getContext(),messages));
             }
         });
-        messageViewModel.getLoadingLiveData().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                //监听是否显示“加载中”dialog
-                Dialog loadingDialog = DialogUtil.createLoadingDialog(getContext(), "加载中", true, true);
-                if (aBoolean){
-                    loadingDialog.show();
-                }else {
-                    loadingDialog.dismiss();
-                }
-            }
-        });
+        //加载先不用了 效果不太好
+//        messageViewModel.getLoadingLiveData().observe(this, new Observer<Boolean>() {
+//            @Override
+//            public void onChanged(Boolean aBoolean) {
+//                //监听是否显示“加载中”dialog
+//                Dialog loadingDialog = DialogUtil.createLoadingDialog(getContext(), "加载中", true, true);
+//                if (aBoolean){
+//                    loadingDialog.show();
+//                }else {
+//                    loadingDialog.dismiss();
+//                }
+//            }
+//        });
 
         //添加观察者，把messageViewModel作为生命周期观察者
         getLifecycle().addObserver(messageViewModel);

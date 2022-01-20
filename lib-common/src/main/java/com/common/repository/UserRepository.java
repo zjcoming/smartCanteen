@@ -1,10 +1,12 @@
 package com.common.repository;
 
 import com.base.bean.UserBean;
+import com.base.model.MessageModel;
 import com.common.handler.RequestHandler;
 import com.common.requestbase.AppObserver;
 import com.common.requestbase.ResponseModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.reactivex.Observer;
@@ -45,5 +47,19 @@ public class UserRepository {
      */
     public void setUserIconToServer(Observer<ResponseModel<HashMap<String,String>>> observer, RequestBody multiBody){
         RequestHandler.setUserPhoto(observer,multiBody);
+    }
+
+    /**
+     * 得到用户的消息
+     */
+    public void getUserMessagesFromServer(Observer<ResponseModel<ArrayList<MessageModel>>> observer, String uid){
+        RequestHandler.getUserMessages(observer,uid);
+    }
+
+    /**
+     * 设置用户的消息
+     */
+    public void setUserMessageToServer(Observer<ResponseModel<HashMap<String,String>>> observer,MessageModel messageModel){
+        RequestHandler.setMessage(observer,messageModel);
     }
 }
