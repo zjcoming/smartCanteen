@@ -69,11 +69,10 @@ public class ImageUtil {
         }
     }
     /**
-     * 保存图片到服务器
+     * 保存头像到服务器
      * @param imgName 图片名字 最好有自己的规定 比如userID + imgName 组成 imgName
-     * @param isUserIcon 如果设置的是用户头像 就填true 其他的一律false
      */
-    public static void savePhotoToServer(String imgName,boolean isUserIcon){
+    public static void savePhotoToServer(String imgName){
         //图片路径
         String photoName = imgName + ".jpg";
         String photoPath = Environment.getExternalStorageDirectory() + "/smart_canteen/photo";
@@ -122,10 +121,8 @@ public class ImageUtil {
                 if (o == null || o.getData() == null){
                     return;
                 }
-                if (isUserIcon){
-                    //如果是用户的头像，则需要保存到BaseUserInfo类
-                    BaseUserInfo.getUserBean().setProfilePhoto(o.getData().get("profilePhoto"));
-                }
+                //如果是用户的头像，则需要保存到BaseUserInfo类
+                BaseUserInfo.getUserBean().setProfilePhoto(o.getData().get("profilePhoto"));
             }
         }, multiBody);
     }

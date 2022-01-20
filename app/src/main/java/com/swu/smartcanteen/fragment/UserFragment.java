@@ -200,7 +200,7 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
                         //保存到本地
                         ImageUtil.savePhotoToStorage(userIconBitmap,"userIcon");
                         //保存到服务器
-                        ImageUtil.savePhotoToServer("userIcon",true);
+                        ImageUtil.savePhotoToServer("userIcon");
                         //显示到头像上
                         getBinding().myIcon.setImageBitmap(userIconBitmap);
                     }
