@@ -59,8 +59,7 @@ public class DetailMessageFragment extends BaseFragment<FragmentDetailMessageBin
         //取出参数，用于显示message
         if (getArguments() != null){
             msgDetail = (MessageModel)getArguments().getSerializable("msgDetail");
-            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            time = sdf.format(msgDetail.getTime());
+            time = msgDetail.getTime();
             title = msgDetail.getTitle();
             content = msgDetail.getContent();
         }

@@ -19,6 +19,7 @@ import com.common.constants.TargetFragmentConstants;
 import com.common.repository.UserRepository;
 import com.common.requestbase.AppObserver;
 import com.common.requestbase.ResponseModel;
+import com.common.util.FormatUtil;
 import com.common.util.FragmentUtil;
 import com.example.module_person.viewholder.MessageViewHolder;
 import com.swu.lib_common.R;
@@ -38,6 +39,7 @@ public class MessageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private FragmentActivity mHostActivity;
     private Context mContext;
     private ArrayList<MessageModel> allMessages;
+
     public MessageAdapter(FragmentActivity mHostActivity,Context mContext, ArrayList<MessageModel> allMessages){
         this.mHostActivity = mHostActivity;
         this.mContext = mContext;
@@ -53,12 +55,10 @@ public class MessageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MessageViewHolder messageViewHolder = (MessageViewHolder) holder;
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String formatTime = sdf.format(allMessages.get(position).getTime());
-        messageViewHolder.time.setText(formatTime);
+
+        messageViewHolder.time.setText(allMessages.get(position).getTime());
         messageViewHolder.title.setText(allMessages.get(position).getTitle());
         messageViewHolder.content.setText(allMessages.get(position).getContent());
-        Log.v("ljhOnBind",allMessages.get(position).getId() + " " + allMessages.get(position).getIsRead());
 
         if(allMessages.get(position).getIsRead() == 1){
             //用户已读
@@ -76,7 +76,8 @@ public class MessageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
             public void onClick(View v) {
                 //发送请求，设置消息状态
                 allMessages.get(position).setIsRead(1);
-                Log.v("ljh",allMessages.get(position).getId() + " " + allMessages.get(position).getIsRead());
+                //allMessages.get(position).getTime().
+                //allMessages.get(position).setTime(sdf.format(allMessages.get(position).getTime()));
                 UserRepository.getUserRepository().setUserMessageToServer(new AppObserver<ResponseModel<HashMap<String,String>>>() {
                     @Override
                     public void onData(@io.reactivex.annotations.NonNull ResponseModel<HashMap<String, String>> o) {

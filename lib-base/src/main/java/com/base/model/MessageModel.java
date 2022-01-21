@@ -11,7 +11,8 @@ public class MessageModel implements Serializable {
     String id;
     String title;
     String content;
-    Date time;
+
+    String time;
     int isRead;//消息是否已读 1：已读 0：未读
 
     public String getId() {
@@ -38,11 +39,11 @@ public class MessageModel implements Serializable {
         this.content = content;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -52,5 +53,16 @@ public class MessageModel implements Serializable {
 
     public void setIsRead(int isRead) {
         this.isRead = isRead;
+    }
+
+    @Override
+    public String toString() {
+        return "MessageModel{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", time=" + time +
+                ", isRead=" + isRead +
+                '}';
     }
 }
