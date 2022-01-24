@@ -29,6 +29,7 @@ abstract class BaseFragment<VIEW : ViewBinding>: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = inflateBindingWithGeneric(layoutInflater, container, false)
+        _binding?.root?.isClickable = true
         return binding.root
     }
 

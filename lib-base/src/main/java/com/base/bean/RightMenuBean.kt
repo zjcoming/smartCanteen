@@ -1,6 +1,5 @@
 package com.base.bean
 
-import com.base.recyclerview.IBaseCustomViewModel
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -8,19 +7,29 @@ import com.google.gson.annotations.SerializedName
  * date 1/8/22
  */
 data class RightMenuBean(
-    @SerializedName("food_little_img_url")
+    @SerializedName("id")
+    val foodId: Int,
+    @SerializedName("iconImage")
     val littleImgUrl: String,
-    @SerializedName("food_name")
+    @SerializedName("detailImage")
+    val bigImgUrl: String,
+    @SerializedName("recommendImage")
+    val recommendImage: String,
+    @SerializedName("isRecommend")
+    val isRecommend: Int,
+    @SerializedName("name")
     val foodName: String,
-    @SerializedName("food_tags")
+    @SerializedName("tags")
     val tags: List<String>,
-    @SerializedName("sale_count")
+    @SerializedName("saleCount")
     val saleCount: Int,
-    @SerializedName("praise_degree")
+    @SerializedName("praiseDegree")
     val praiseDegree: Int,
     @SerializedName("food_price")
     val price: Float,
-    @SerializedName("food_total_count")
-    val foodCount: Int
+    @SerializedName("stock")
+    val foodCount: Int,
+    @SerializedName("floor")
+    val floor: Int
 )
 

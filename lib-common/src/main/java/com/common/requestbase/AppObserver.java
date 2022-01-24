@@ -12,7 +12,7 @@ import io.reactivex.disposables.Disposable;
  * Created by 刘金豪 on 2021/11/26
  * desc: 自定义Observer
  */
-public abstract class AppObserver<T> implements Observer {
+public abstract class AppObserver<T> implements Observer<T> {
 
     public abstract void onData(@NonNull T o);
     public void onFailed(@NonNull Throwable e){

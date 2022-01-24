@@ -1,15 +1,22 @@
 package com.swu.module_order.fragment
 
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.base.BaseFragment
+import com.base.bean.FoodListBean
 import com.base.recyclerview.BaseAdapter
 import com.base.util.UIUtils
 import com.base.util.updateLayoutParams
+import com.common.handler.RequestHandler
+import com.common.requestbase.AppObserver
+import com.common.requestbase.ResponseModel
 import com.swu.module_order.FloatDecoration
 import com.swu.module_order.R
+import com.swu.module_order.SearchActivity
 import com.swu.module_order.adapter.LeftMenuAdapter
 import com.swu.module_order.adapter.RightMenuAdapter
 import com.swu.module_order.databinding.FragmentChooseFoodBinding
@@ -26,6 +33,15 @@ class ChooseFoodFragment(private val mContext: Context) : BaseFragment<FragmentC
     private val rightMenuAdapter = RightMenuAdapter(mContext, rightMenuData)
     private val leftRvLayoutManager = CenterLayoutManager(mContext)
     private var mRvState = RecyclerView.State()
+
+    override fun initData() {
+        RequestHandler.fetchFoodList(object : AppObserver<ResponseModel<FoodListBean>>() {
+            override fun onData(o: ResponseModel<FoodListBean>) {
+                Log.e("cx",o.toString())
+            }
+        }, 1)
+    }
+
     override fun initViews() {
         for (i in places.indices) {
             binding.placeTab.addTab(binding.placeTab.newTab().setText(places[i]))
@@ -43,11 +59,16 @@ class ChooseFoodFragment(private val mContext: Context) : BaseFragment<FragmentC
     override fun initListener() {
         binding.rvRightMenu.addItemDecoration(
             FloatDecoration(
-                ItemShopDetailsMenuRightGroupBinding.inflate(UIUtils.getLayoutInflater(mContext),binding.rvRightMenu,false),
+                ItemShopDetailsMenuRightGroupBinding.inflate(
+                    UIUtils.getLayoutInflater(mContext),
+                    binding.rvRightMenu,
+                    false
+                ),
                 object : FloatDecoration.DecorationCallback<ItemShopDetailsMenuRightGroupBinding> {
                     override fun getDecorationFlag(position: Int): String {
                         return rightMenuData[position].groupName
                     }
+
                     override fun onBindView(
                         binding: ItemShopDetailsMenuRightGroupBinding,
                         position: Int
@@ -83,7 +104,8 @@ class ChooseFoodFragment(private val mContext: Context) : BaseFragment<FragmentC
         binding.rvRightMenu.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val position = (binding.rvRightMenu.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                val position =
+                    (binding.rvRightMenu.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                 if (leftMenuData[leftMenuAdapter.getCurSelectPos()].title != rightMenuData[position].groupName) {
                     for (i in leftMenuData.indices) {
                         if (leftMenuData[i].title == rightMenuData[position].groupName) {
@@ -100,10 +122,11 @@ class ChooseFoodFragment(private val mContext: Context) : BaseFragment<FragmentC
                 }
             }
         })
-        binding.searchView.setOnClickListener {
-            jumpToFragment(SearchFragment(), R.anim.page_alpha_in)
+        binding.tvSearch.setOnClickListener {
+            Intent(activity, SearchActivity::class.java).also { startActivity(it) }
+            activity?.overridePendingTransition(R.anim.page_from_bottom_to_top_in, 0)
         }
-        rightMenuAdapter.setItemClickOutCallBack(object :BaseAdapter.OnClickOutCallBack{
+        rightMenuAdapter.setItemClickOutCallBack(object : BaseAdapter.OnClickOutCallBack {
             override fun onItemClick(position: Int) {
                 jumpToFragment(FoodDetailFragment(), R.anim.page_from_right_to_left_in)
             }

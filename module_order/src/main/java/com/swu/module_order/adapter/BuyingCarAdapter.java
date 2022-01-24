@@ -1,6 +1,5 @@
 package com.swu.module_order.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +21,13 @@ import java.util.List;
  * @Date 2022/1/10 7:53 下午
  * @Description
  */
-public class BuyingCarAdapter extends RecyclerView.Adapter<BuyingCarAdapter.BuyingCarViewHolder>{
+public class BuyingCarAdapter extends RecyclerView.Adapter<CartBaseHolder>{
 
     private OnClickCallback onClickListener;
     private Context mContext;
+
+    private static final int HOLDER_TYPE_HEAD = 1;
+    private static final int HOLDER_TYPE_ITEM = 2;
 
     public void setOnClickListener(OnClickCallback onClickListener) {
         this.onClickListener = onClickListener;
@@ -40,47 +42,25 @@ public class BuyingCarAdapter extends RecyclerView.Adapter<BuyingCarAdapter.Buyi
 
     @NonNull
     @Override
-    public BuyingCarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View root = LayoutInflater.from(mContext).inflate(R.layout.item_buyingcar_layout,
-                parent,false);
-        return new BuyingCarViewHolder(root);
+    public CartBaseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View root;
+        if (viewType == HOLDER_TYPE_HEAD) {
+            root = LayoutInflater.from(mContext).inflate(R.layout.bottom_cart_detail_header_layout,
+                    parent,false);
+            return new BuyingHeadHolder(root);
+        } else {
+            root = LayoutInflater.from(mContext).inflate(R.layout.item_buyingcar_layout,
+                    parent,false);
+            return new BuyingCarViewHolder(root);
+        }
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BuyingCarViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.name.setText(carData.get(position).getFoodName());
-        holder.scale.setText(carData.get(position).getScale());
-        holder.favor.setText(carData.get(position).getFavor());
-        holder.price.setText(carData.get(position).getFoodPrice());
-        holder.count.setText(String.valueOf(carData.get(position).getFoodCount()));
-        //item事件点击
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onClickListener!=null){
-                    onClickListener.onItemClick(view, position);
-                }
-            }
-        });
-        //添加
-        holder.add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onClickListener!=null){
-                    onClickListener.onAddItemClick(view,position);
-                }
-            }
-        });
-        //删除购物车商品
-        holder.sub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onClickListener!=null){
-                    onClickListener.onSubItemClick(view,position);
-                }
-            }
-        });
+    public void onBindViewHolder(@NonNull CartBaseHolder holder, int position) {
+            holder.onBindViewHolder(position, carData.get(position));
     }
+
 
     @Override
     public int getItemCount() {
@@ -90,7 +70,18 @@ public class BuyingCarAdapter extends RecyclerView.Adapter<BuyingCarAdapter.Buyi
         return 0;
     }
 
-     static class BuyingCarViewHolder extends RecyclerView.ViewHolder{
+    @Override
+    public int getItemViewType(int position) {
+        int type;
+        if (position == 0) {
+            type = HOLDER_TYPE_HEAD;
+        } else {
+            type = HOLDER_TYPE_ITEM;
+        }
+        return type;
+    }
+
+    class BuyingCarViewHolder extends CartBaseHolder{
         private ImageView foodImg;
         private TextView name;
         private TextView scale;
@@ -109,10 +100,71 @@ public class BuyingCarAdapter extends RecyclerView.Adapter<BuyingCarAdapter.Buyi
             add = itemView.findViewById(R.id.item_food_add);
             sub = itemView.findViewById(R.id.item_food_sub);
         }
+
+        @Override
+        void onBindViewHolder(int position, BuyingCarBean carBean) {
+
+            name.setText(carBean.getFoodName());
+            scale.setText(carBean.getScale());
+            favor.setText(carBean.getFavor());
+            price.setText(carBean.getFoodPrice());
+            count.setText(String.valueOf(carBean.getFoodCount()));
+            //item事件点击
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onClickListener!=null){
+                        onClickListener.onItemClick(view, position);
+                    }
+                }
+            });
+            //添加
+            add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onClickListener!=null){
+                        onClickListener.onAddItemClick(view,position);
+                    }
+                }
+            });
+            //删除购物车商品
+            sub.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onClickListener!=null){
+                        onClickListener.onSubItemClick(view,position);
+                    }
+                }
+            });
+        }
+
     }
+
+    class BuyingHeadHolder extends CartBaseHolder {
+        private TextView cartInfo;
+        public BuyingHeadHolder(@NonNull View itemView) {
+            super(itemView);
+            cartInfo = itemView.findViewById(R.id.cart_info);
+        }
+
+        @Override
+        void onBindViewHolder(int position, BuyingCarBean carBean) {
+
+        }
+
+    }
+
     public interface OnClickCallback{
         void onItemClick(View view, int position);
         void onAddItemClick(View view, int position);
         void onSubItemClick(View view, int position);
     }
+}
+
+
+abstract class CartBaseHolder extends RecyclerView.ViewHolder{
+    public CartBaseHolder(@NonNull View itemView) {
+        super(itemView);
+    }
+    abstract void onBindViewHolder(int position, BuyingCarBean carBean);
 }

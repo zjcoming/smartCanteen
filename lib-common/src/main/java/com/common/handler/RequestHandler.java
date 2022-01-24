@@ -1,8 +1,11 @@
 package com.common.handler;
 
+import com.base.bean.FoodListBean;
+import com.base.bean.RightMenuBean;
 import com.base.bean.UserBean;
 import com.common.requestbase.ResponseModel;
 import com.common.constants.LoginAndRegisterConstants;
+import com.common.retrofitservice.FetchFoodDataService;
 import com.common.retrofitservice.UserLoginService;
 import com.common.util.RetrofitUtil;
 
@@ -67,6 +70,14 @@ public class RequestHandler {
         Observable<ResponseModel<HashMap<String,String>>> observable = userLoginService.resetPwd(userBean);
         observable.subscribeOn(Schedulers.newThread())//启动新线程 请求网络
                 .observeOn(AndroidSchedulers.mainThread())//切换回主线程进行返回数据的处理
+                .subscribe(observer);
+    }
+
+    public static void fetchFoodList(Observer<ResponseModel<FoodListBean>> observer, int floor) {
+        FetchFoodDataService foodDataService = RetrofitUtil.getService(FetchFoodDataService.class, LoginAndRegisterConstants.BASE_URL);
+        Observable<ResponseModel<FoodListBean>> observable = foodDataService.fetchFoodList(floor);
+        observable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
 }

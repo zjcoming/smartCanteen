@@ -20,6 +20,7 @@ abstract class BaseDialog<VIEW : ViewBinding>(context: Context, style: Int = R.s
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(getLayoutId(), null, false)
         binding = bindViewWithGeneric(view)
+        setContentView(view)
 
         initData()
         initListener()

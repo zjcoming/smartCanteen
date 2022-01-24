@@ -21,7 +21,7 @@ import androidx.annotation.Nullable;
  */
 public class MyCircleImage extends androidx.appcompat.widget.AppCompatImageView{
     //画笔
-    private Paint mPaint;
+    private Paint mPaint = new Paint();
     //圆形图片的半径
     private int mRadius;
     //图片的宿放比例
@@ -52,8 +52,6 @@ public class MyCircleImage extends androidx.appcompat.widget.AppCompatImageView{
     @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
-
-        mPaint = new Paint();
 
         Drawable drawable = getDrawable();
 
