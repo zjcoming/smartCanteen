@@ -14,6 +14,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.base.BaseFragment;
+import com.common.selfview.MyTitleBar;
 import com.common.util.FragmentUtil;
 import com.example.module_person.adapter.AddressListAdapter;
 import com.example.module_person.adapter.TestBean;
@@ -58,8 +59,22 @@ public class AddressListFragment extends BaseFragment<FragmentAddressListBinding
         getBinding().btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentUtil.getInstance().switchFragment(requireActivity(),AddressListFragment.this, personDataViewModel.addAddressFragment, R.id.content_container,com.swu.lib_common.R.anim.page_from_right_to_left_in);
-                FragmentUtil.getInstance().switchFragment(requireActivity(), personDataViewModel.setTop, personDataViewModel.addTop, R.id.top_container,com.swu.lib_common.R.anim.page_from_right_to_left_in);
+                FragmentUtil.getInstance().switchFragment(requireActivity(), personDataViewModel.addressListFragment, personDataViewModel.addAddressFragment, R.id.content_container, com.swu.lib_common.R.anim.page_from_right_to_left_in);
+            }
+        });
+        onBackClick();
+    }
+
+    private void onBackClick() {
+        getBinding().btBack.setOnMyTitleBarListener(new MyTitleBar.OnMyTitleBarListener() {
+            @Override
+            public void onLeftClick() {
+                FragmentUtil.getInstance().switchFragment(requireActivity(),personDataViewModel.addressListFragment,personDataViewModel.personDataFragment, R.id.content_container, com.swu.lib_common.R.anim.page_from_left_to_right_out);
+            }
+
+            @Override
+            public void onRightClick(View v) {
+
             }
         });
     }

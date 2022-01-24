@@ -1,19 +1,15 @@
 package com.swu.smartcanteen;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.BaseActivity;
-import com.common.constants.BaseAppConstants;
+import com.common.constants.BaseUserInfo;
 import com.common.constants.RouteConstants;
 import com.common.util.BtnCountDownUtil;
 import com.swu.smartcanteen.databinding.ActivityAdBinding;
@@ -40,7 +36,7 @@ public class AdActivity extends BaseActivity<ActivityAdBinding> {
         }, 3000);
     }
     public void jump(){
-        if (BaseAppConstants.getUserPhone() != null && !BaseAppConstants.getUserPhone().equals("")){
+        if (BaseUserInfo.isIsLogin()){
             //说明已经登录了，则跳转到主页
             ARouter.getInstance().build(RouteConstants.Module_app.PAGER_NAVIGATION).navigation();
         }else {

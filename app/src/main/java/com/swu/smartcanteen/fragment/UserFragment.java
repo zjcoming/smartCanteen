@@ -1,7 +1,6 @@
 package com.swu.smartcanteen.fragment;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -12,7 +11,6 @@ import androidx.annotation.Nullable;
 
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,20 +22,16 @@ import com.base.ApplicationContext;
 import com.base.BaseFragment;
 import com.base.util.UIUtils;
 import com.bumptech.glide.Glide;
-import com.common.constants.BaseAppConstants;
+import com.common.constants.BaseUserInfo;
 import com.common.constants.PermissionConstants;
+import com.common.constants.TargetFragmentConstants;
 import com.common.constants.RouteConstants;
-import com.common.selfview.MyCircleImage;
 import com.common.util.ImageUtil;
-import com.common.util.MMKVUtil;
 import com.common.util.PermissionUtil;
 import com.swu.smartcanteen.R;
 import com.swu.smartcanteen.databinding.FragmentUserBinding;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -68,7 +62,11 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
     public void initUserIcon(){
         //获取本地保存的用户头像
         userIconBitmap = ImageUtil.getPhotoFromStorage("userIcon");
-        if (userIconBitmap != null){
+        if (userIconBitmap == null){
+            //说明本地没保存 需要从服务器加载用户头像
+            //示例url：https://marsyr-210522.oss-cn-chengdu.aliyuncs.com/SWU_canteen/20220119114836258.jpg
+            Glide.with(ApplicationContext.getContext()).load(BaseUserInfo.getUserBean().getProfilePhoto()).into(getBinding().myIcon);//从本地加载图片
+        }else {
             Glide.with(ApplicationContext.getContext()).load(ImageUtil.getPhotoFromStorage("userIcon")).into(getBinding().myIcon);//从本地加载图片
         }
     }
@@ -78,7 +76,7 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
      */
     public void initHelloTextView(){
         //查看是否登录
-        if(true || BaseAppConstants.isIsLogin()){
+        if(true || BaseUserInfo.isIsLogin()){
             //已经登录，则更换名字
             getBinding().myUserName.setText("Hey! 屁眼峻！");
             getBinding().myBelowUserName.setText("今天是与你相遇的第n天");
@@ -126,7 +124,12 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
     }
     private void clickMyMsgCenter(){
         UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"您点击了消息中心");
-        ARouter.getInstance().build(RouteConstants.Module_person.PAGER_MESSAGE_FRAGMENT).navigation();
+        getActivity().finish();
+        ARouter.getInstance().build(RouteConstants.Module_person.PAGER_UI_ACTIVITY)
+                .withString("targetFragment", TargetFragmentConstants.MESSAGE_FRAGMENT)
+                .navigation();
+//        Fragment messageFragment = (Fragment)ARouter.getInstance().build(RouteConstants.Module_person.PAGER_MESSAGE_FRAGMENT).navigation();
+//        FragmentUtil.getInstance().startFragment(getActivity(),messageFragment, com.swu.module_person.R.id.container);
     }
     private void clickMySelfLove(){
         UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"您点击了我的喜爱");
@@ -196,6 +199,8 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
                     if (userIconBitmap != null) {
                         //保存到本地
                         ImageUtil.savePhotoToStorage(userIconBitmap,"userIcon");
+                        //保存到服务器
+                        ImageUtil.savePhotoToServer("userIcon");
                         //显示到头像上
                         getBinding().myIcon.setImageBitmap(userIconBitmap);
                     }

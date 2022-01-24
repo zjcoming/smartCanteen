@@ -26,4 +26,7 @@
     <string name="address_hint_address">例如X栋XXX室</string>
     <string name="address_hint_phone">请输入手机号</string>
     <string name="address_default">设为当前默认地址</string>
+    <string name="top_person_data">个人资料</string>
+    <string name="top_person_set_address">地址设置</string>
+    <string name="top_person_add_address">添加地址</string>
 </resources>

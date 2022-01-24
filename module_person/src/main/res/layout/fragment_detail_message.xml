@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.module_person.fragment.DetailMessageFragment">
+    tools:context="com.example.module_person.uifragment.DetailMessageFragment">
     <com.common.selfview.MyTitleBar
-        android:id="@+id/detail_message_titlebar"
+        android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:texttitle="消息详情" />
@@ -16,7 +16,7 @@
         android:paddingStart="10dp"
         tools:ignore="RtlSymmetry"
         android:layout_alignParentBottom="true"
-        android:layout_below="@id/detail_message_titlebar">
+        android:layout_below="@id/titleBar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,32 +25,36 @@
 
             <TextView
                 android:id="@+id/detail_message_title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:layout_marginTop="16dp" />
+                android:textSize="18sp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                />
 
             <TextView
                 android:id="@+id/detail_message_time"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:textColor="@color/black"
-                android:textSize="12sp"
-                android:layout_marginTop="4dp"/>
+                android:textSize="10sp"
+                android:layout_marginTop="4dp"
+                android:gravity="center"/>
             <TextView
                 android:id="@+id/detail_message_content"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:textColor="@color/black"
                 android:textSize="12sp"
-                android:layout_marginTop="4dp"/>
+                android:layout_marginTop="4dp"
+                android:gravity="left" />
 
         </LinearLayout>
 

@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @ClassName User
@@ -24,10 +25,22 @@ public class UserBean implements Serializable{
     private String telephone;//用户手机号
     private String profilePhoto;//用户头像
     private int score;//用户积分
+    private Date createTime;//创建时间
+    private int defaultAddress;//默认地址
 
+    public UserBean(){
 
+    }
+    public UserBean(String telephone,String password){
+        this.telephone = telephone;
+        this.password = password;
+    }
+    public UserBean(String uid,String telephone,String password){
+        this.uid = uid;
+        this.telephone = telephone;
+        this.password = password;
+    }
     //以下是toString方法，构造方法和set，get方法
-
     public UserBean(String uid, String username, String password, String telephone, String profilePhoto, int score) {
         this.uid = uid;
         this.username = username;
@@ -35,6 +48,23 @@ public class UserBean implements Serializable{
         this.telephone = telephone;
         this.profilePhoto = profilePhoto;
         this.score = score;
+    }
+
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public int getDefaultAddress() {
+        return defaultAddress;
+    }
+
+    public void setDefaultAddress(int defaultAddress) {
+        this.defaultAddress = defaultAddress;
     }
 
     public String getUid() {

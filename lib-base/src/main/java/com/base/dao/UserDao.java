@@ -2,6 +2,7 @@ package com.base.dao;
 
 import androidx.room.Dao;
 
+import com.base.BaseDao;
 import com.base.bean.UserBean;
 
 /**
@@ -11,6 +12,6 @@ import com.base.bean.UserBean;
  * @Description
  */
 @Dao
-public abstract class UserDao extends BaseDao<UserBean>{
+public abstract class UserDao extends BaseDao<UserBean> {
 
 }

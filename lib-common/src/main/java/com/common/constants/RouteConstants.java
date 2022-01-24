@@ -18,10 +18,11 @@ public class RouteConstants {
         public static final String PAGER_USER_FRAGMENT = MAIN + FRAGMENT + "/User";//跳转到UserFragment
     }
 
-    //persion 路径模板
+    //person 路径模板
     public static class Module_person {
         private static final String MAIN = "/person";
         private static final String FRAGMENT = "/fragment";
+        public static final String PAGER_UI_ACTIVITY = MAIN + "/UI";
         public static final String PAGER_MESSAGE_FRAGMENT = MAIN + FRAGMENT + "/Message";//MessageFragment
         public static final String PAGER_DETAIL_MESSAGE_FRAGMENT = MAIN + FRAGMENT + "/DetailMessage";//DetailMessageFragment
     }

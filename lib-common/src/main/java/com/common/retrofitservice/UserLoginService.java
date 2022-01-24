@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 
 /**
  * Created by 刘金豪 on 2021/11/26
- * desc: 这是使用UserBean与后端进行交互的类，使用了retrofit
+ * desc: 用户登录相关的请求接口
  */
 
 public interface UserLoginService {
@@ -24,10 +24,7 @@ public interface UserLoginService {
     //登录
     @POST("token")
     Observable<ResponseModel<HashMap<String,String>>> login(@Body UserBean user);
-    //手机验证码登录
+    //重置密码
     @POST("user/password")
     Observable<ResponseModel<HashMap<String,String>>> resetPwd(@Body UserBean user);
-    //发送验证码
-    @GET("code")
-    Observable<ResponseModel<HashMap<String,String>>> sendCode(@Query("telephone") String telephone);
 }

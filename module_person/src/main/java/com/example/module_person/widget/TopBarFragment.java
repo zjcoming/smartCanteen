@@ -36,24 +36,24 @@ public class TopBarFragment extends BaseFragment<FragmentTopBarBinding> {
         getBinding().ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (type){
-                    case TopFragmentType.PERSON_DATA:
-                        //
-                        break;
-                    case TopFragmentType.SET_ADDRESS:
-                        FragmentUtil.getInstance().switchFragment(requireActivity(), personDataViewModel.addressListFragment, personDataViewModel.personDataFragment, R.id.content_container, com.swu.lib_common.R.anim.page_from_left_to_right_out);
-                        FragmentUtil.getInstance().switchFragment(requireActivity(), personDataViewModel.setTop, personDataViewModel.dataTop, R.id.top_container,com.swu.lib_common.R.anim.page_from_left_to_right_out);
-                        break;
-                    case TopFragmentType.FIX_ADDRESS:
-                        FragmentUtil.getInstance().switchFragment(requireActivity(), personDataViewModel.addAddressFragment, personDataViewModel.addressListFragment, R.id.content_container,com.swu.lib_common.R.anim.page_from_left_to_right_out);
-                        FragmentUtil.getInstance().switchFragment(requireActivity(), personDataViewModel.fixTop, personDataViewModel.setTop, R.id.top_container,com.swu.lib_common.R.anim.page_from_left_to_right_out);
-                        break;
-                    case TopFragmentType.ADD_ADDRESS:
-                        FragmentUtil.getInstance().switchFragment(requireActivity(), personDataViewModel.addAddressFragment, personDataViewModel.addressListFragment, R.id.content_container,com.swu.lib_common.R.anim.page_from_left_to_right_out);
-                        FragmentUtil.getInstance().switchFragment(requireActivity(), personDataViewModel.addTop, personDataViewModel.setTop, R.id.top_container,com.swu.lib_common.R.anim.page_from_left_to_right_out);
-                        break;
-                    default:
-                }
+//                switch (type){
+//                    case TopFragmentType.PERSON_DATA:
+//                        //
+//                        break;
+//                    case TopFragmentType.SET_ADDRESS:
+//                        FragmentUtil.getInstance().switchFragment(requireActivity(), personDataViewModel.addressListFragment, personDataViewModel.personDataFragment, R.id.content_container, com.swu.lib_common.R.anim.page_from_left_to_right_out);
+//                        FragmentUtil.getInstance().switchFragment(requireActivity(), personDataViewModel.setTop, personDataViewModel.dataTop, R.id.top_container,com.swu.lib_common.R.anim.page_from_left_to_right_out);
+//                        break;
+//                    case TopFragmentType.FIX_ADDRESS:
+//                        FragmentUtil.getInstance().switchFragment(requireActivity(), personDataViewModel.addAddressFragment, personDataViewModel.addressListFragment, R.id.content_container,com.swu.lib_common.R.anim.page_from_left_to_right_out);
+//                        FragmentUtil.getInstance().switchFragment(requireActivity(), personDataViewModel.fixTop, personDataViewModel.setTop, R.id.top_container,com.swu.lib_common.R.anim.page_from_left_to_right_out);
+//                        break;
+//                    case TopFragmentType.ADD_ADDRESS:
+//                        FragmentUtil.getInstance().switchFragment(requireActivity(), personDataViewModel.addAddressFragment, personDataViewModel.addressListFragment, R.id.content_container,com.swu.lib_common.R.anim.page_from_left_to_right_out);
+//                        FragmentUtil.getInstance().switchFragment(requireActivity(), personDataViewModel.addTop, personDataViewModel.setTop, R.id.top_container,com.swu.lib_common.R.anim.page_from_left_to_right_out);
+//                        break;
+//                    default:
+//                }
             }
         });
 

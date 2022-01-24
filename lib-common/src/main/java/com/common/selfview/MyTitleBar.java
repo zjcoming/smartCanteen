@@ -3,6 +3,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -20,20 +21,19 @@ import com.swu.lib_common.R;
  * desc: 自定义标题栏
  */
 public class MyTitleBar extends LinearLayout {
-    //Title的属性值
+    /**
+     * 自定义属性
+     */
     private int imgleft;
     private int imgright;
+
     private String texttitle;
     private String textright;
     private boolean isHeadBack;
-    //Title的属性
     private ImageView ivLeft, ivRight;
     private TextView title, tvRight;
     private FrameLayout frRight;
     private FrameLayout flLeft;
-    //Title点击事件的回调
-    OnMyTitleBarListener onMyTitleBarListener;
-    OnMyLeftTitleBarListener onMyLeftTitleBarListener;
 
     public MyTitleBar(Context context) {
         this(context, null);
@@ -48,13 +48,13 @@ public class MyTitleBar extends LinearLayout {
         init(context, attrs);
     }
 
+
+
     private void init(Context context, AttributeSet attrs) {
         inflate(context, R.layout.title_bar, this);
-        //得到所有的view
         findViews();
 
         if (attrs != null) {
-            //得到自定义属性
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MyTitleBar);
             imgleft = a.getResourceId(R.styleable.MyTitleBar_imgleft, -1);
             imgright = a.getResourceId(R.styleable.MyTitleBar_imgright, -1);
@@ -66,10 +66,10 @@ public class MyTitleBar extends LinearLayout {
 
         if (imgleft != -1) {
             ivLeft.setImageResource(imgleft);
-            //setRippleBgLeft();
+            setRippleBgLeft();
         }
 
-        //设置能否返回
+        //如果能返回 则为true 默认为true
         if(isHeadBack){
             ivLeft.setVisibility(VISIBLE);
         }else {
@@ -82,23 +82,20 @@ public class MyTitleBar extends LinearLayout {
 
         if (imgright != -1) {
             ivRight.setImageResource(imgright);
+
             setRippleBgRight();
         }
 
-        //设置Title右边的文字
         if (!TextUtils.isEmpty(textright)) {
             tvRight.setText(textright);
-            //setRippleBgRight();
+            setRippleBgRight();
         }
 
-        //设置点击事件
         flLeft.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (onMyTitleBarListener != null) {
                     onMyTitleBarListener.onLeftClick();
-                }else if (onMyLeftTitleBarListener != null){
-                    onMyLeftTitleBarListener.onLeftClick();
                 }
             }
         });
@@ -115,10 +112,12 @@ public class MyTitleBar extends LinearLayout {
     }
 
     private void setRippleBgLeft() {
+
         BackgroundUtils.setRippleBackground(flLeft);
     }
 
     private void setRippleBgRight() {
+
         BackgroundUtils.setRippleBackground(frRight);
     }
 
@@ -141,26 +140,27 @@ public class MyTitleBar extends LinearLayout {
         flLeft = findViewById(R.id.fl_left);
     }
 
-    public void setOnMyTitleBarListener(OnMyTitleBarListener onMyTitleBarListener) {
-        this.onMyTitleBarListener = onMyTitleBarListener;
-    }
-    public void setOnMyLeftTitleBarListener(OnMyLeftTitleBarListener onMyLeftTitleBarListener) {
-        this.onMyLeftTitleBarListener = onMyLeftTitleBarListener;
-    }
-    //回调
     public interface OnMyTitleBarListener {
         void onLeftClick();
 
         void onRightClick(View v);
+
     }
-    //回调
-    public interface OnMyLeftTitleBarListener {
-        void onLeftClick();
+
+    OnMyTitleBarListener onMyTitleBarListener;
+
+    public void setOnMyTitleBarListener(OnMyTitleBarListener listener) {
+        this.onMyTitleBarListener = listener;
     }
+
     public void setTitle(String txt) {
         if (title != null && !TextUtils.isEmpty(txt)) {
             title.setText(txt);
         }
+    }
+
+    public TextView getTitle() {
+        return title;
     }
 
     public void isShowRight(boolean isShow){
