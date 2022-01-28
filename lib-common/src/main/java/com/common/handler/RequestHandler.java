@@ -1,9 +1,8 @@
 package com.common.handler;
 
 import com.base.bean.FoodListBean;
-import com.base.bean.RightMenuBean;
-import android.util.Log;
 
+import com.base.bean.FoodListPageBean;
 import com.base.bean.UserBean;
 import com.base.model.MessageModel;
 import com.common.requestbase.ResponseModel;
@@ -13,7 +12,6 @@ import com.common.retrofitservice.FetchFoodDataService;
 import com.common.retrofitservice.UserLoginService;
 import com.common.util.RetrofitUtil;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,7 +20,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 
 /**
  * Created by 刘金豪 on 2021/11/26
@@ -122,9 +119,9 @@ public class RequestHandler {
                 .subscribe(observer);
     }
 
-    public static void fetchFoodList(Observer<ResponseModel<FoodListBean>> observer, int floor) {
+    public static void fetchFoodList(Observer<ResponseModel<FoodListPageBean>> observer, int floor) {
         FetchFoodDataService foodDataService = RetrofitUtil.getService(FetchFoodDataService.class, LoginAndRegisterConstants.BASE_URL);
-        Observable<ResponseModel<FoodListBean>> observable = foodDataService.fetchFoodList(floor);
+        Observable<ResponseModel<FoodListPageBean>> observable = foodDataService.fetchFoodList(floor);
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

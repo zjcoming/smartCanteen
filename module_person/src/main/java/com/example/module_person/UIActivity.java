@@ -1,7 +1,6 @@
 package com.example.module_person;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -10,17 +9,11 @@ import com.base.BaseActivity;
 import com.base.model.MessageModel;
 import com.common.constants.TargetFragmentConstants;
 import com.common.constants.RouteConstants;
-import com.common.requestbase.AppObserver;
-import com.common.util.FragmentUtil;
+import com.base.util.FragmentUtil;
 import com.example.module_person.uifragment.DetailMessageFragment;
 import com.example.module_person.uifragment.MessageFragment;
 import com.swu.module_person.R;
 import com.swu.module_person.databinding.ActivityUIBinding;
-
-import java.io.Serializable;
-import java.util.HashMap;
-
-import io.reactivex.annotations.NonNull;
 
 /**
  * Created by 刘金豪 on 2021/1/10
@@ -61,7 +54,8 @@ public class UIActivity extends BaseActivity<ActivityUIBinding> {
         switch (targetFragment){
             case TargetFragmentConstants.MESSAGE_FRAGMENT:
                 //显示消息Fragment
-                FragmentUtil.getInstance().startFragment(this,messageFragment,R.id.ui_content_container);
+                openFragment(messageFragment);
+//                FragmentUtil.getInstance().startFragment(this,messageFragment,R.id.ui_content_container);
                 break;
             case TargetFragmentConstants.DETAIL_MESSAGE_FRAGMENT:
                 //传递参数
@@ -69,7 +63,8 @@ public class UIActivity extends BaseActivity<ActivityUIBinding> {
                 args.putSerializable("msgDetail", msgDetail);
                 detailMessageFragment.setArguments(args);
                 //显示消息Fragment
-                FragmentUtil.getInstance().startFragment(this,detailMessageFragment,R.id.ui_content_container);
+                openFragment(detailMessageFragment);
+//                FragmentUtil.getInstance().startFragment(this,detailMessageFragment,R.id.ui_content_container);
                 break;
             default:
                 //默认跳转到消息Fragment

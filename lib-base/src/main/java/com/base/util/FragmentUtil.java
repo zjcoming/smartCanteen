@@ -1,14 +1,11 @@
-package com.common.util;
+package com.base.util;
 
 import androidx.annotation.AnimRes;
 import androidx.annotation.AnimatorRes;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import com.swu.lib_common.R;
 
 /**
  * @ClassName FragmentUtil
@@ -47,9 +44,9 @@ public class FragmentUtil {
                     transaction.show(targetFragment);
                 }
             } else {
-                transaction.add(containerId, fragment, fragment.getClass().getCanonicalName());
+                transaction.add(containerId, fragment);
             }
-            transaction.commitNowAllowingStateLoss();
+            transaction.addToBackStack(fragment.getClass().getCanonicalName()).commit();
         }
     }
     /**
@@ -69,7 +66,7 @@ public class FragmentUtil {
         }else if (!toFragment.isVisible()) {
             transaction.show(toFragment);
         }
-        transaction.commitNowAllowingStateLoss();
+        transaction.addToBackStack(fromFragment.getClass().getCanonicalName()).commit();
     }
 
     /**
@@ -86,8 +83,8 @@ public class FragmentUtil {
         if(!toFragment.isAdded()) {
             transaction.add(containerId, toFragment);
         }
-        transaction.setCustomAnimations(inAnim, 0);
-        transaction.show(toFragment).commitAllowingStateLoss();
+        transaction.setCustomAnimations(inAnim, 0).addToBackStack(fromFragment.getClass().getCanonicalName());
+        transaction.show(toFragment).commit();
     }
 
 
@@ -103,9 +100,9 @@ public class FragmentUtil {
                 }
             } else {
                 transaction.setCustomAnimations(inAnim, 0);
-                transaction.add(containerId, fragment, fragment.getClass().getCanonicalName());
+                transaction.add(containerId, fragment);
             }
-            transaction.commitNowAllowingStateLoss();
+            transaction.addToBackStack(fragment.getClass().getCanonicalName()).commit();
         }
     }
 
@@ -115,7 +112,7 @@ public class FragmentUtil {
             FragmentManager fragmentManager = activity.getSupportFragmentManager();
             Fragment targetFragment = fragmentManager.findFragmentByTag(fragment.getClass().getCanonicalName());
             if (targetFragment != null && targetFragment.isAdded()) {
-                fragmentManager.beginTransaction().remove(fragment).commitNowAllowingStateLoss();
+                fragmentManager.beginTransaction().remove(fragment).commit();
             }
         }
     }
@@ -128,7 +125,7 @@ public class FragmentUtil {
             if (targetFragment != null && targetFragment.isAdded()) {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setCustomAnimations(0, outAnim);
-                transaction.remove(fragment).commitNowAllowingStateLoss();
+                transaction.remove(fragment).commit();
             }
         }
     }

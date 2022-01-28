@@ -8,7 +8,7 @@ import android.view.WindowManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.base.BaseActivity;
-import com.common.util.FragmentUtil;
+import com.base.util.FragmentUtil;
 import com.example.module_person.dataFragment.AddAddressFragment;
 import com.example.module_person.dataFragment.AddressListFragment;
 import com.example.module_person.dataFragment.PersonDataFragment;
@@ -37,7 +37,8 @@ public class DataActivity extends BaseActivity<ActivityDataBinding> {
         personDataFragment = personDataViewModel.personDataFragment;
         addressListFragment = personDataViewModel.addressListFragment;
 
-        FragmentUtil.getInstance().startFragment(DataActivity.this,personDataFragment,binding.contentContainer.getId());
+//        FragmentUtil.getInstance().startFragment(DataActivity.this,personDataFragment,binding.contentContainer.getId());
+        openFragment(personDataFragment);
     }
 
     @Override

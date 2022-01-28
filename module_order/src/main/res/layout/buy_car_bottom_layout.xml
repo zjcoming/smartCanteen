@@ -4,12 +4,11 @@
     android:id="@+id/check_select_list"
     android:layout_width="match_parent"
     android:layout_height="56dp"
-    android:background="@drawable/buyingcar_shape_left_floating_bottom"
-    android:clickable="true"
-    android:focusable="true"
     android:layout_marginStart="25dp"
     android:layout_marginEnd="25dp"
-    >
+    android:background="@drawable/buyingcar_shape_left_floating_bottom"
+    android:clickable="true"
+    android:focusable="true">
 
     <ImageView
         android:id="@+id/imageView"
@@ -29,11 +28,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="17dp"
         android:layout_marginBottom="17dp"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/imageView"
         android:background="@color/white"
-        />
+        app:layout_constraintStart_toEndOf="@id/imageView"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tv_final_price"
         android:layout_width="wrap_content"
@@ -49,34 +48,42 @@
 
     <TextView
         android:id="@+id/tv_raw_price"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
         android:layout_marginTop="4dp"
         android:gravity="center_vertical"
         android:text="￥20.88"
         android:textColor="@color/go_pay_discount"
         android:textSize="14sp"
-        android:layout_marginStart="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/go_pay"
         app:layout_constraintStart_toEndOf="@+id/tv_final_price"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/go_pay"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
         android:background="@drawable/buyingcar_shape_right_floating_bottom"
         android:clickable="true"
         android:focusable="true"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:text="去结算"
         android:textColor="@color/go_pay_black"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.76" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

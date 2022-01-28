@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.base.BaseFragment
-import com.base.bean.FoodListBean
+import com.base.bean.FoodListPageBean
 import com.base.recyclerview.BaseAdapter
 import com.base.util.UIUtils
 import com.base.util.updateLayoutParams
@@ -35,9 +35,9 @@ class ChooseFoodFragment(private val mContext: Context) : BaseFragment<FragmentC
     private var mRvState = RecyclerView.State()
 
     override fun initData() {
-        RequestHandler.fetchFoodList(object : AppObserver<ResponseModel<FoodListBean>>() {
-            override fun onData(o: ResponseModel<FoodListBean>) {
-                Log.e("cx",o.toString())
+        RequestHandler.fetchFoodList(object : AppObserver<ResponseModel<FoodListPageBean>>() {
+            override fun onData(o: ResponseModel<FoodListPageBean>) {
+                Log.e("cx",o.data.foodListBeans.toString())
             }
         }, 1)
     }
@@ -54,6 +54,11 @@ class ChooseFoodFragment(private val mContext: Context) : BaseFragment<FragmentC
             adapter = rightMenuAdapter
             layoutManager = LinearLayoutManager(mContext)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
     }
 
     override fun initListener() {
@@ -129,6 +134,8 @@ class ChooseFoodFragment(private val mContext: Context) : BaseFragment<FragmentC
         rightMenuAdapter.setItemClickOutCallBack(object : BaseAdapter.OnClickOutCallBack {
             override fun onItemClick(position: Int) {
                 jumpToFragment(FoodDetailFragment(), R.anim.page_from_right_to_left_in)
+//                mHost?.getContainer()?.let {
+//                }
             }
         })
     }

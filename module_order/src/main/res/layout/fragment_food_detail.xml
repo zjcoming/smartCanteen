@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.FoodDetailFragment"
-    android:background="@color/grey2">
+    android:background="@color/grey2"
+    android:id="@+id/container"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,14 +18,10 @@ import com.common.constants.TargetFragmentConstants;
 import com.common.repository.UserRepository;
 import com.common.requestbase.AppObserver;
 import com.common.requestbase.ResponseModel;
-import com.common.util.FormatUtil;
-import com.common.util.FragmentUtil;
 import com.example.module_person.viewholder.MessageViewHolder;
 import com.swu.lib_common.R;
 
 
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 

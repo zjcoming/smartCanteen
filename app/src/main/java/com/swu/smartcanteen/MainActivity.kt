@@ -127,7 +127,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         //开始事务
         val fragmentTransaction = fragmentManager.beginTransaction()
         //事务创建
-        fragmentTransaction.replace(R.id.loginAndRegisterFrag, fragment!!)
+        fragmentTransaction.replace(R.id.loginAndRegisterFrag, fragment)
         fragmentTransaction.addToBackStack(null)
         //事务提交
         fragmentTransaction.commit()

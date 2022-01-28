@@ -25,6 +25,10 @@ class BottomShopCartLayout @JvmOverloads constructor(
 ) : LinearLayout(context, attr, style) {
     private lateinit var binding: BuyCarBottomLayoutBinding
     private var mActivityRef: WeakReference<Activity>? = null
+    private var clickListener: BottomCarClickListener? = null
+    private var settlementCallBack: (()->Unit)? = null
+    private var settlePayCallBack: (()->Unit)? = null
+
     init {
         initView()
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
@@ -33,7 +37,14 @@ class BottomShopCartLayout @JvmOverloads constructor(
 
     private fun initListener() {
         binding.root.setOnClickListener {
-            BottomShopCartDetailDialog(context).show()
+            clickListener?.onBottomCarClick()
+        }
+        binding.goPay.setOnClickListener {
+            if (settlePayCallBack != null) {
+                settlePayCallBack!!.invoke()
+            } else {
+                settlementCallBack?.invoke()
+            }
         }
     }
 
@@ -74,10 +85,30 @@ class BottomShopCartLayout @JvmOverloads constructor(
         binding.tvFinalPrice.text = "￥$price"
     }
 
+    fun setGoPayText(goPayText: String) {
+        binding.goPay.text = goPayText
+    }
+
+    fun setOnBottomCarClickListener(listener: BottomCarClickListener) {
+        clickListener = listener
+    }
+
+    fun setSettlementCallBack(callBack: ()->Unit) {
+        settlementCallBack = callBack
+    }
+
+    fun setSettlePayCallBack(callBack: (()->Unit)?) {
+        settlePayCallBack = callBack
+    }
+
     companion object {
           val BOTTOM_CART_HEIGHT:Int = (56 / 881.0f * ScreenSizeUtil.getScreenHeight(
               ApplicationContext.getContext()
           )).toInt()
+    }
+
+    interface BottomCarClickListener {
+        fun onBottomCarClick()
     }
 
 }

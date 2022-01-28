@@ -8,7 +8,9 @@ import androidx.annotation.AnimRes
 import androidx.annotation.AnimatorRes
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.base.util.FragmentUtil
 import com.base.util.inflateBindingWithGeneric
+import com.swu.lib_base.R
 
 /**
  * Created by chenxiong
@@ -17,7 +19,7 @@ import com.base.util.inflateBindingWithGeneric
 abstract class BaseFragment<VIEW : ViewBinding>: Fragment() {
     private var _binding: VIEW? = null
     val binding:VIEW get() = _binding!!
-    private var jumpListener: FragmentJumpListener? = null
+//    private var jumpListener: FragmentJumpListener? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initData()
@@ -50,13 +52,14 @@ abstract class BaseFragment<VIEW : ViewBinding>: Fragment() {
     }
 
     protected fun jumpToFragment(fragment: Fragment, @AnimatorRes @AnimRes inAnim: Int) {
-        jumpListener?.jumpToFragment(fragment, inAnim)
+//        jumpListener?.jumpToFragment(fragment, inAnim)
+        FragmentUtil.getInstance().startFragment(requireActivity(), fragment, R.id.container, inAnim)
     }
 
-    @JvmName("setJumpFragmentCallBack1")
-    fun setJumpFragmentCallBack(jumpListener: FragmentJumpListener) {
-        this.jumpListener = jumpListener
-    }
+//    @JvmName("setJumpFragmentCallBack1")
+//    fun setJumpFragmentCallBack(jumpListener: FragmentJumpListener) {
+//        this.jumpListener = jumpListener
+//    }
 
     abstract fun initViews()
 
@@ -64,8 +67,8 @@ abstract class BaseFragment<VIEW : ViewBinding>: Fragment() {
 
     abstract fun initListener()
 
-    interface FragmentJumpListener {
-        fun jumpToFragment(fragment: Fragment, @AnimatorRes @AnimRes anim: Int)
-    }
+//    interface FragmentJumpListener {
+//        fun jumpToFragment(fragment: Fragment, @AnimatorRes @AnimRes anim: Int)
+//    }
 
 }

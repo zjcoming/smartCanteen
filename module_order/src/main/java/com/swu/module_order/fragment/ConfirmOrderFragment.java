@@ -4,31 +4,54 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.base.BaseFragment;
-import com.base.util.UIUtils;
 import com.common.util.DialogUtil;
 import com.swu.module_order.R;
 import com.swu.module_order.adapter.ConfirmOrderGoodsAdapter;
 import com.swu.module_order.databinding.FragmentConfirmOrderBinding;
 import com.swu.module_order.decoration.GoodItemDecoration;
+import com.swu.module_order.view_model.FoodPageViewModel;
+import com.common.constants.DiningWay;
+
 import java.util.ArrayList;
+
 /**
  * Created by 刘金豪 on 2021/1/11
  * desc: 确定订单页面
  */
 public class ConfirmOrderFragment extends BaseFragment<FragmentConfirmOrderBinding> implements View.OnClickListener {
+
+    private FoodPageViewModel foodPageViewModel;
+
     public ConfirmOrderFragment(Context context){
 
+    }
+
+    public ConfirmOrderFragment(FoodPageViewModel pageViewModel) {
+        this.foodPageViewModel = pageViewModel;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        foodPageViewModel.getShopCart().setSettlePayCallBack(() -> {
+            Log.e("cx","点击了结算页面");
+            return null;
+        });
+        foodPageViewModel.getShopCart().setGoPayText("提交订单");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        foodPageViewModel.getShopCart().setSettlePayCallBack(null);
+        foodPageViewModel.getShopCart().setGoPayText("去结算");
     }
 
     @Override
@@ -38,6 +61,18 @@ public class ConfirmOrderFragment extends BaseFragment<FragmentConfirmOrderBindi
         getBinding().confirmOrderBuymode.setOnClickListener(this);
         getBinding().confirmOrderBuymode.setVisibility(View.GONE);
         getBinding().confirmOrderBuycar.setVisibility(View.GONE);
+        int imgEatModeRes;
+        switch (foodPageViewModel.getDiningWay()) {
+            case DiningWay.TAKE_OUT:
+                imgEatModeRes = R.drawable.confirm_order_top_take_out;
+                break;
+            case DiningWay.PRE_ORDER:
+                imgEatModeRes = R.drawable.confirm_order_top_before;
+                break;
+            default:
+                imgEatModeRes = R.drawable.confirm_order_top_in_canteen;
+        }
+        getBinding().confirmOrderEatMode.setImageResource(imgEatModeRes);
     }
     public void initGoods(){
         ArrayList<String> mDatas = new ArrayList<>();

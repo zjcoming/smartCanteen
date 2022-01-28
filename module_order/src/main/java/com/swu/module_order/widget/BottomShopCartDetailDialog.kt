@@ -30,7 +30,6 @@ class BottomShopCartDetailDialog(context: Context) : BaseDialog<BottomShopCartDe
         binding.rvBottomCartDetail.updateLayoutParams<ViewGroup.LayoutParams> {
             (this as ViewGroup.MarginLayoutParams).setMargins(0,0,0,BottomShopCartLayout.BOTTOM_CART_HEIGHT)
         }
-        binding.root.setOnClickListener(null)
 
         //模拟数据
         for (i in 1..20) {

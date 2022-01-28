@@ -3,7 +3,7 @@ package com.swu.module_order.fragment
 import com.base.BaseFragment
 import com.base.HandlerManager
 import com.base.util.UIUtils
-import com.common.util.FragmentUtil
+import com.base.util.FragmentUtil
 import com.swu.module_order.R
 import com.swu.module_order.databinding.FragmentSearchBinding
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
