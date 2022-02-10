@@ -27,8 +27,73 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:orientation="vertical">
-
+        <LinearLayout
+            android:id="@+id/confirm_order_msg_linear_first"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/confirm_order_msg_linear_first_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:gravity="center"
+                android:text="寝室号"
+                android:textSize="15sp"/>
+            <EditText
+                android:id="@+id/confirm_order_msg_linear_first_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/confirm_order_msg_linear_second"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/confirm_order_msg_linear_second_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:gravity="center"
+                android:text="电话号码"/>
+            <EditText
+                android:id="@+id/confirm_order_msg_linear_second_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/confirm_order_msg_linear_third"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/confirm_order_msg_linear_third_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:gravity="center"
+                android:text="送达时间"/>
+            <EditText
+                android:id="@+id/confirm_order_msg_linear_third_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </LinearLayout>
     </LinearLayout>
     <ImageView
         android:id="@+id/confirm_order_buymode"
@@ -48,8 +113,8 @@
         android:id="@+id/confirm_order_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/confirm_order_buycar"
         android:layout_below="@id/confirm_order_buymode"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="7dp"
         android:layout_marginRight="20dp"
@@ -62,12 +127,4 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <ImageView
-        android:id="@+id/confirm_order_buycar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/confirm_order_bottom"
-        android:scaleType="fitXY"
-        android:layout_alignParentBottom="true"
-        />
 </RelativeLayout>

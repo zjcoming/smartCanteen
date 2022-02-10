@@ -11,6 +11,7 @@ import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.base.BaseFragment;
+import com.base.util.UIUtils;
 import com.common.util.DialogUtil;
 import com.swu.module_order.R;
 import com.swu.module_order.adapter.ConfirmOrderGoodsAdapter;
@@ -42,6 +43,7 @@ public class ConfirmOrderFragment extends BaseFragment<FragmentConfirmOrderBindi
         super.onStart();
         foodPageViewModel.getShopCart().setSettlePayCallBack(() -> {
             Log.e("cx","点击了结算页面");
+            showBuyMode();
             return null;
         });
         foodPageViewModel.getShopCart().setGoPayText("提交订单");
@@ -60,17 +62,22 @@ public class ConfirmOrderFragment extends BaseFragment<FragmentConfirmOrderBindi
         initGoods();
         getBinding().confirmOrderBuymode.setOnClickListener(this);
         getBinding().confirmOrderBuymode.setVisibility(View.GONE);
-        getBinding().confirmOrderBuycar.setVisibility(View.GONE);
         int imgEatModeRes;
         switch (foodPageViewModel.getDiningWay()) {
             case DiningWay.TAKE_OUT:
                 imgEatModeRes = R.drawable.confirm_order_top_take_out;
+                getBinding().confirmOrderMsgLinearFirstText.setText("寝室号");
+                getBinding().confirmOrderMsgLinearThirdText.setText("送达时间");
                 break;
             case DiningWay.PRE_ORDER:
                 imgEatModeRes = R.drawable.confirm_order_top_before;
+                getBinding().confirmOrderMsgLinearFirstText.setText("座位号");
+                getBinding().confirmOrderMsgLinearThirdText.setText("取餐时间");
                 break;
             default:
                 imgEatModeRes = R.drawable.confirm_order_top_in_canteen;
+                getBinding().confirmOrderMsgLinearFirstText.setText("座位号");
+                getBinding().confirmOrderMsgLinearThirdText.setText("取餐时间");
         }
         getBinding().confirmOrderEatMode.setImageResource(imgEatModeRes);
     }
@@ -94,16 +101,12 @@ public class ConfirmOrderFragment extends BaseFragment<FragmentConfirmOrderBindi
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.confirm_order_buymode) {//clickBuyMode();
-            Dialog dialog = DialogUtil.showSelfDialog(getContext(), R.layout.confirm_order_buy_success_dialog);
-            dialog.show();
-        }
     }
 
     /**
      * 用户选择支付方式
      */
-    public void clickBuyMode(){
+    public void showBuyMode(){
         Dialog dialog = DialogUtil.showSelfDialog(getContext(),R.layout.confirm_order_buy_mode_dialog);
         View wechat = dialog.findViewById(R.id.buy_mode_dialog_wechat);
         View zhifubao = dialog.findViewById(R.id.buy_mode_dialog_zhifubao);
