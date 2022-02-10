@@ -8,6 +8,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.base.BaseActivity
 import com.common.constants.DiningWay
 import com.common.constants.RouteConstants
+import com.common.constants.TargetFragmentConstants
 import com.swu.module_order.databinding.ActivityChooseFoodBinding
 import com.swu.module_order.fragment.ChooseFoodFragment
 import com.swu.module_order.fragment.ConfirmOrderFragment
@@ -48,14 +49,16 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
 //            R.id.container
 //        )
         openFragment(ChooseFoodFragment(this))
+        TargetFragmentConstants.CurrentChooseFoodActivity = TargetFragmentConstants.CHOOSE_FOOD_FRAGMENT;
+
         pageViewModel.diningWay = diningWay
-        Log.e("cx",diningWay?:"Null")
+        Log.e("cx", diningWay ?: "Null")
     }
 
     override fun onResume() {
         super.onResume()
         pageViewModel.getShopCart().attach(this)
-        Log.e("cx","ChooseFoodActivity-pageViewModel：${pageViewModel.hashCode()}")
+        Log.e("cx", "ChooseFoodActivity-pageViewModel：${pageViewModel.hashCode()}")
     }
 
     override fun onPause() {
@@ -63,15 +66,17 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
         pageViewModel.getShopCart().detach()
     }
     override fun initListener() {
-        pageViewModel.getShopCart().setOnBottomCarClickListener(object : BottomShopCartLayout.BottomCarClickListener {
+        pageViewModel.getShopCart().setOnBottomCarClickListener(object :
+            BottomShopCartLayout.BottomCarClickListener {
             override fun onBottomCarClick() {
                 BottomShopCartDetailDialog(this@ChooseFoodActivity).show()
             }
         })
-
         pageViewModel.getShopCart().setSettlementCallBack {
             openFragment(ConfirmOrderFragment(pageViewModel))
         }
+
+
     }
 
     override fun onBackPressed() {

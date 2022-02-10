@@ -1,6 +1,7 @@
 package com.example.module_person.uifragment;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,5 +71,29 @@ public class DetailMessageFragment extends BaseFragment<FragmentDetailMessageBin
     @Override
     public void initListener() {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getFocus();//对返回键做特殊处理
+    }
+
+    private void getFocus() {
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // 监听到返回按钮点击事件
+                    ARouter.getInstance().build(RouteConstants.Module_person.PAGER_UI_ACTIVITY)
+                            .withString("targetFragment", TargetFragmentConstants.MESSAGE_FRAGMENT)
+                            .navigation();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

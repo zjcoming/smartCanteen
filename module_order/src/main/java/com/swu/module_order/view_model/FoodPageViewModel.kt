@@ -21,4 +21,5 @@ class FoodPageViewModel(private val context: Context) : ViewModel() {
 
     fun getShopCart() = bottomShopCartLayout
 
+
 }

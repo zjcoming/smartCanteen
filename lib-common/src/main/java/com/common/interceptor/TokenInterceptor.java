@@ -18,7 +18,7 @@ import okhttp3.Response;
 
 /**
  * Created by 刘金豪 on 2021/11/26
- * desc: 这是全局的Token拦截器，用于判断Token是否过期。如果过期，则再次发起请求
+ * desc: 这是全局的Token拦截器，用于判断Token是否过期。如果过期，则强制下线
  */
 public class TokenInterceptor implements Interceptor {
 
