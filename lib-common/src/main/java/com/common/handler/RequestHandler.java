@@ -1,14 +1,12 @@
 package com.common.handler;
 
-import com.base.bean.FoodListBean;
-
 import com.base.bean.FoodListPageBean;
-import com.base.bean.UserBean;
-import com.base.model.MessageModel;
-import com.common.requestbase.ResponseModel;
+import com.base.dao.UserBean;
 import com.common.constants.LoginAndRegisterConstants;
-import com.common.retrofitservice.UserInfoService;
+import com.common.model.MessageModel;
+import com.common.requestbase.ResponseModel;
 import com.common.retrofitservice.FetchFoodDataService;
+import com.common.retrofitservice.UserInfoService;
 import com.common.retrofitservice.UserLoginService;
 import com.common.util.RetrofitUtil;
 

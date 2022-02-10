@@ -4,16 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
-import android.os.CountDownTimer
 import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.MotionEvent
-import androidx.core.graphics.contains
-import com.base.util.UIUtils
-import com.common.util.LogUtil
 import com.google.android.material.textfield.TextInputEditText
 import com.swu.smartcanteen.R
 

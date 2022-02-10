@@ -8,7 +8,6 @@ import android.view.WindowManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.base.BaseActivity;
-import com.base.util.FragmentUtil;
 import com.example.module_person.dataFragment.AddAddressFragment;
 import com.example.module_person.dataFragment.AddressListFragment;
 import com.example.module_person.dataFragment.PersonDataFragment;

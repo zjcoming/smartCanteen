@@ -12,9 +12,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.base.model.MessageModel;
 import com.common.constants.RouteConstants;
 import com.common.constants.TargetFragmentConstants;
+import com.common.model.MessageModel;
 import com.common.repository.UserRepository;
 import com.common.requestbase.AppObserver;
 import com.common.requestbase.ResponseModel;

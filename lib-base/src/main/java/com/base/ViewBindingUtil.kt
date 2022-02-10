@@ -18,7 +18,7 @@
 @file:JvmName("ViewBindingUtil")
 @file:Suppress("UNCHECKED_CAST", "unused")
 
-package com.base.util
+package com.base
 
 import android.view.LayoutInflater
 import android.view.View

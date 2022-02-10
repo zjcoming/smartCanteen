@@ -5,10 +5,8 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.View;
 
 import com.base.BaseFragment;
-import com.base.util.FragmentUtil;
 import com.common.selfview.MyTitleBar;
 import com.example.module_person.viewmodel.PersonDataViewModel;
-import com.swu.module_person.R;
 import com.swu.module_person.databinding.FragmentAddAddressBinding;
 
 

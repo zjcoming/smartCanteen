@@ -1,4 +1,4 @@
-package com.base.util
+package com.base
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
-import com.base.ApplicationContext
+import com.base.BaseApplication
 
 /**
  * Created by chenxiong
@@ -22,7 +22,7 @@ object UIUtils {
         Toast.makeText(context,content,Toast.LENGTH_SHORT).show()
     }
     fun showToast(content: String) {
-        Toast.makeText(ApplicationContext.getContext(),content,Toast.LENGTH_SHORT).show()
+        Toast.makeText(BaseApplication.getContext(),content,Toast.LENGTH_SHORT).show()
     }
 
     fun getLayoutInflater(context: Context) = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -30,16 +30,18 @@ object UIUtils {
     fun dp2px(context: Context, dp: Int) = (context.resources.displayMetrics.density * dp + 0.5f).toInt()
 
     fun hideKeyBoard(editText: EditText) {
-        val inputMethodManager=ApplicationContext.getContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager=
+            BaseApplication.getContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(editText.windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN)
     }
 
     fun showKeyBoard(editText: EditText) {
-        val inputMethodManager=ApplicationContext.getContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager=
+            BaseApplication.getContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(editText, 0)
     }
 
-    fun getInputMethodManager() = ApplicationContext.getContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    fun getInputMethodManager() = BaseApplication.getContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
 }
 

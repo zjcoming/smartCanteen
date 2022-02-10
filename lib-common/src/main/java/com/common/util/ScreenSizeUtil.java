@@ -1,12 +1,9 @@
 package com.common.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
-import android.view.WindowManager;
 
 import java.lang.reflect.Method;
 

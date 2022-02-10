@@ -1,10 +1,11 @@
-package com.base.util
+package com.common.util
 
 import android.content.Context
 import cn.bmob.v3.BmobSMS
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.QueryListener
 import cn.bmob.v3.listener.UpdateListener
+import com.base.UIUtils
 
 /**
  * Created by chenxiong

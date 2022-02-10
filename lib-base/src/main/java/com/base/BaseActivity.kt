@@ -5,8 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.base.util.FragmentUtil
-import com.base.util.inflateBindingWithGeneric
 import com.swu.lib_base.R
 
 /**

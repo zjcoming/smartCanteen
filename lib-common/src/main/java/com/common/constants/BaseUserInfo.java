@@ -1,15 +1,12 @@
 package com.common.constants;
 
-import android.util.Log;
 import android.widget.Toast;
 
-import com.base.ApplicationContext;
-import com.base.bean.UserBean;
+import com.base.BaseApplication;
+import com.base.dao.UserBean;
 import com.common.repository.UserRepository;
 import com.common.requestbase.AppObserver;
 import com.common.requestbase.ResponseModel;
-
-import java.util.HashMap;
 
 import io.reactivex.annotations.NonNull;
 
@@ -25,7 +22,7 @@ public class BaseUserInfo {
     private static String token = "";//不能为null
 
     public static void updateLogin(boolean isLogin, String userid,String userPhone, String userPwd,String token){
-        Toast.makeText(ApplicationContext.getContext(), isLogin ? "登录成功" : "登录失败", Toast.LENGTH_SHORT).show();
+        Toast.makeText(BaseApplication.getContext(), isLogin ? "登录成功" : "登录失败", Toast.LENGTH_SHORT).show();
         BaseUserInfo.isLogin = isLogin;
         BaseUserInfo.token = token;
         userBean.setUid(userid);

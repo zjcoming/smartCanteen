@@ -6,12 +6,9 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import android.widget.TextView
-import cn.bmob.v3.BmobSMS
-import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.QueryListener
 import com.base.BaseActivity
-import com.base.util.BaseUtil
-import com.base.util.UIUtils
+import com.base.UIUtils
+import com.common.util.BaseUtil
 import com.swu.smartcanteen.databinding.ActivityRegisterBinding
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe

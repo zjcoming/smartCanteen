@@ -7,9 +7,9 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import com.base.ApplicationContext
-import com.base.util.UIUtils
-import com.base.util.updateLayoutParams
+import com.base.BaseApplication
+import com.base.UIUtils
+import com.base.updateLayoutParams
 import com.common.util.ScreenSizeUtil
 import com.swu.module_order.databinding.BuyCarBottomLayoutBinding
 import java.lang.ref.WeakReference
@@ -103,7 +103,7 @@ class BottomShopCartLayout @JvmOverloads constructor(
 
     companion object {
           val BOTTOM_CART_HEIGHT:Int = (56 / 881.0f * ScreenSizeUtil.getScreenHeight(
-              ApplicationContext.getContext()
+              BaseApplication.getContext()
           )).toInt()
     }
 

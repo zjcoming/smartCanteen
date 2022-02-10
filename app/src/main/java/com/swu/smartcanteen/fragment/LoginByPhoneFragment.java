@@ -2,9 +2,6 @@ package com.swu.smartcanteen.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-
 import android.os.Handler;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -15,16 +12,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.base.BaseFragment;
-import com.base.bean.UserBean;
-import com.base.util.BaseUtil;
-import com.base.util.UIUtils;
+import com.base.UIUtils;
+import com.base.dao.UserBean;
 import com.common.anim.LoginRegisterFragmentAnimation;
-import com.common.requestbase.AppObserver;
-import com.common.requestbase.ResponseModel;
 import com.common.constants.BaseUserInfo;
 import com.common.constants.LoginAndRegisterConstants;
 import com.common.handler.RequestHandler;
+import com.common.requestbase.AppObserver;
+import com.common.requestbase.ResponseModel;
+import com.common.util.BaseUtil;
 import com.common.util.BtnCountDownUtil;
 import com.common.util.RandomCode;
 import com.swu.smartcanteen.MainActivity;

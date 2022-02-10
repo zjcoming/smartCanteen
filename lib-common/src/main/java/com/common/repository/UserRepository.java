@@ -1,16 +1,14 @@
 package com.common.repository;
 
-import com.base.bean.UserBean;
-import com.base.model.MessageModel;
+import com.base.dao.UserBean;
 import com.common.handler.RequestHandler;
-import com.common.requestbase.AppObserver;
+import com.common.model.MessageModel;
 import com.common.requestbase.ResponseModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.reactivex.Observer;
-import io.reactivex.annotations.NonNull;
 import okhttp3.RequestBody;
 
 /**

@@ -1,4 +1,4 @@
-package com.base.util;
+package com.base;
 
 import androidx.annotation.AnimRes;
 import androidx.annotation.AnimatorRes;

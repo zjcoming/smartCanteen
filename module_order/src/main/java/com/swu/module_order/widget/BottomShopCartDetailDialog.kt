@@ -3,11 +3,10 @@ package com.swu.module_order.widget
 import android.content.Context
 import android.view.Gravity
 import android.view.ViewGroup
-import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.base.BaseDialog
-import com.base.util.UIUtils
-import com.base.util.updateLayoutParams
+import com.base.UIUtils
+import com.base.updateLayoutParams
 import com.swu.module_order.R
 import com.swu.module_order.adapter.BuyingCarAdapter
 import com.swu.module_order.databinding.BottomShopCartDetailBinding

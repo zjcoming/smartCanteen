@@ -2,7 +2,7 @@ package com.common.util;
 
 import android.content.Context;
 
-import com.base.ApplicationContext;
+import com.base.BaseApplication;
 import com.tencent.mmkv.MMKV;
 
 import java.util.HashMap;
@@ -26,7 +26,7 @@ public class MMKVUtil {
     private static Map mmkvMap = new HashMap<Context,MMKV>();
 
     public static MMKV getMMKV(){
-        return getMMKV(ApplicationContext.getContext());
+        return getMMKV(BaseApplication.getContext());
     }
     //得到MMKV实例
     public static MMKV getMMKV(Context mContext){

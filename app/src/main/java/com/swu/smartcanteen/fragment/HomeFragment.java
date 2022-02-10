@@ -1,28 +1,16 @@
 package com.swu.smartcanteen.fragment;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.util.Log;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.base.ApplicationContext;
 import com.base.BaseFragment;
-import com.base.util.UIUtils;
 import com.common.constants.DiningWay;
-import com.common.constants.PermissionConstants;
 import com.common.constants.RouteConstants;
-import com.common.util.DialogUtil;
 import com.common.util.LogUtil;
 import com.common.util.PermissionUtil;
 import com.swu.smartcanteen.R;
 import com.swu.smartcanteen.databinding.FragmentHomeBinding;
-
-import java.util.Arrays;
 
 /**
  * created by zhangjun

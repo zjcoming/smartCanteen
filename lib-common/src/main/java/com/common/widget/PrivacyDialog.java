@@ -16,7 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
-import com.base.util.UIUtils;
+import com.base.UIUtils;
 import com.swu.lib_common.R;
 
 import org.jetbrains.annotations.NotNull;

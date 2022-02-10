@@ -5,22 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.BaseFragment;
-import com.base.model.MessageModel;
 import com.common.constants.RouteConstants;
 import com.common.constants.TargetFragmentConstants;
+import com.common.model.MessageModel;
 import com.common.selfview.MyTitleBar;
 import com.swu.module_person.databinding.FragmentDetailMessageBinding;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
 
 
 /**

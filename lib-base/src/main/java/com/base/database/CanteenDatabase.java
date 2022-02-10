@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.base.bean.UserBean;
+import com.base.dao.UserBean;
 import com.base.dao.UserDao;
 
 /**

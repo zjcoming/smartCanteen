@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 
-import com.base.util.BaseUtil;
 import com.common.constants.LoginAndRegisterConstants;
 import com.swu.lib_common.R;
 

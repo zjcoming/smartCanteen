@@ -1,7 +1,6 @@
 package com.base.bean
 
 import com.base.recyclerview.IBaseCustomViewModel
-import com.google.gson.annotations.SerializedName
 
 /**
  * Created by chenxiong

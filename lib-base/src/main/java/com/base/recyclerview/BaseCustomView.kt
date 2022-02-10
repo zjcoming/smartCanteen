@@ -1,16 +1,11 @@
 package com.base.recyclerview
 
 import android.content.Context
-import android.os.Build
 import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.FrameLayout
-import androidx.annotation.RequiresApi
 import androidx.viewbinding.ViewBinding
-import com.base.util.UIUtils
-import com.base.util.bindViewWithGeneric
-import com.base.util.inflateBindingWithGeneric
+import com.base.UIUtils
+import com.base.inflateBindingWithGeneric
 
 /**
  * Created by chenxiong

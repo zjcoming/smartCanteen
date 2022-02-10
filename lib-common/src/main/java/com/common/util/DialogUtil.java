@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -14,8 +13,8 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.base.ApplicationContext;
-import com.base.util.UIUtils;
+import com.base.BaseApplication;
+import com.base.UIUtils;
 import com.swu.lib_common.R;
 
 import java.util.HashMap;
@@ -116,7 +115,7 @@ public class DialogUtil {
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"您取消了权限授予");
+                UIUtils.INSTANCE.showToast(BaseApplication.getContext(),"您取消了权限授予");
                 dialog.dismiss();
             }
         });

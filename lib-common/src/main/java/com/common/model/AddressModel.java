@@ -1,4 +1,4 @@
-package com.base.model;
+package com.common.model;
 
 import androidx.room.Entity;
 

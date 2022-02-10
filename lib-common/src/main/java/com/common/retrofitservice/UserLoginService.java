@@ -1,16 +1,13 @@
 package com.common.retrofitservice;
 
-import com.base.bean.UserBean;
+import com.base.dao.UserBean;
 import com.common.requestbase.ResponseModel;
-
 
 import java.util.HashMap;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * Created by 刘金豪 on 2021/11/26

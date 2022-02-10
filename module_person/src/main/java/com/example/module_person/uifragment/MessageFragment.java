@@ -1,12 +1,7 @@
 package com.example.module_person.uifragment;
 
-import android.app.Dialog;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,22 +10,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.BaseFragment;
-import com.base.model.MessageModel;
 import com.common.constants.RouteConstants;
 import com.common.constants.TargetFragmentConstants;
+import com.common.model.MessageModel;
 import com.common.selfview.MyTitleBar;
-import com.common.util.DialogUtil;
 import com.example.module_person.adapter.MessageAdapter;
 import com.example.module_person.viewmodel.MessageViewModel;
 import com.swu.module_person.R;
 import com.swu.module_person.databinding.FragmentMessageBinding;
 
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by 刘金豪 on 2021/1/15
@@ -49,6 +38,7 @@ public class MessageFragment extends BaseFragment<FragmentMessageBinding> {
 
         //监听viewmodel里面的数据变化
         messageViewModel.getAllMessages().observe(this, new Observer<ArrayList<MessageModel>>() {
+
             @Override
             public void onChanged(ArrayList<MessageModel> messages) {
                 //当 消息 数据发生变化时，改变RecyclerView中显示的数据

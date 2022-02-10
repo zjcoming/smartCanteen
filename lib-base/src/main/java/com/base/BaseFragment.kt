@@ -8,8 +8,6 @@ import androidx.annotation.AnimRes
 import androidx.annotation.AnimatorRes
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.base.util.FragmentUtil
-import com.base.util.inflateBindingWithGeneric
 import com.swu.lib_base.R
 
 /**

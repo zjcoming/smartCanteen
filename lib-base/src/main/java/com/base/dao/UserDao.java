@@ -2,9 +2,6 @@ package com.base.dao;
 
 import androidx.room.Dao;
 
-import com.base.BaseDao;
-import com.base.bean.UserBean;
-
 /**
  * @ClassName UserDao
  * @Author zhangjun

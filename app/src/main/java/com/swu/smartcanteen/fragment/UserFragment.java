@@ -5,29 +5,26 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.base.ApplicationContext;
 import com.base.BaseFragment;
-import com.base.util.UIUtils;
+import com.base.UIUtils;
 import com.bumptech.glide.Glide;
 import com.common.constants.BaseUserInfo;
 import com.common.constants.PermissionConstants;
-import com.common.constants.TargetFragmentConstants;
 import com.common.constants.RouteConstants;
+import com.common.constants.TargetFragmentConstants;
 import com.common.util.ImageUtil;
 import com.common.util.PermissionUtil;
+import com.swu.smartcanteen.application.CanteenApplication;
 import com.swu.smartcanteen.R;
 import com.swu.smartcanteen.databinding.FragmentUserBinding;
 
@@ -65,9 +62,9 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
         if (userIconBitmap == null){
             //说明本地没保存 需要从服务器加载用户头像
             //示例url：https://marsyr-210522.oss-cn-chengdu.aliyuncs.com/SWU_canteen/20220119114836258.jpg
-            Glide.with(ApplicationContext.getContext()).load(BaseUserInfo.getUserBean().getProfilePhoto()).into(getBinding().myIcon);//从本地加载图片
+            Glide.with(CanteenApplication.getContext()).load(BaseUserInfo.getUserBean().getProfilePhoto()).into(getBinding().myIcon);//从本地加载图片
         }else {
-            Glide.with(ApplicationContext.getContext()).load(ImageUtil.getPhotoFromStorage("userIcon")).into(getBinding().myIcon);//从本地加载图片
+            Glide.with(CanteenApplication.getContext()).load(ImageUtil.getPhotoFromStorage("userIcon")).into(getBinding().myIcon);//从本地加载图片
         }
     }
 
@@ -117,13 +114,13 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
     }
 
     private void clickMySelfInfo(){
-        UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"您点击了个人信息");
+        UIUtils.INSTANCE.showToast(CanteenApplication.getContext(),"您点击了个人信息");
     }
     private void clickMyHistoryBuy(){
-        UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"您点击了历史订单");
+        UIUtils.INSTANCE.showToast(CanteenApplication.getContext(),"您点击了历史订单");
     }
     private void clickMyMsgCenter(){
-        UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"您点击了消息中心");
+        UIUtils.INSTANCE.showToast(CanteenApplication.getContext(),"您点击了消息中心");
         getActivity().finish();
         ARouter.getInstance().build(RouteConstants.Module_person.PAGER_UI_ACTIVITY)
                 .withString("targetFragment", TargetFragmentConstants.MESSAGE_FRAGMENT)
@@ -132,7 +129,7 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
 //        FragmentUtil.getInstance().startFragment(getActivity(),messageFragment, com.swu.module_person.R.id.container);
     }
     private void clickMySelfLove(){
-        UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"您点击了我的喜爱");
+        UIUtils.INSTANCE.showToast(CanteenApplication.getContext(),"您点击了我的喜爱");
     }
 
 

@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.base.BaseFragment
+import com.base.UIUtils
 import com.base.bean.FoodListPageBean
 import com.base.recyclerview.BaseAdapter
-import com.base.util.UIUtils
-import com.base.util.updateLayoutParams
+import com.base.updateLayoutParams
 import com.common.handler.RequestHandler
 import com.common.requestbase.AppObserver
 import com.common.requestbase.ResponseModel
@@ -54,11 +54,6 @@ class ChooseFoodFragment(private val mContext: Context) : BaseFragment<FragmentC
             adapter = rightMenuAdapter
             layoutManager = LinearLayoutManager(mContext)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
     }
 
     override fun initListener() {

@@ -1,7 +1,6 @@
-package com.base.model;
+package com.common.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by 刘金豪 on 2021/1/20

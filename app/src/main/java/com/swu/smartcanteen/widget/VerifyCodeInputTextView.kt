@@ -5,7 +5,7 @@ import android.graphics.*
 import android.os.CountDownTimer
 import android.util.AttributeSet
 import android.view.MotionEvent
-import com.base.util.UIUtils
+import com.base.UIUtils
 import com.google.android.material.textfield.TextInputEditText
 
 /**

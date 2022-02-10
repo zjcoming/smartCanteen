@@ -1,8 +1,9 @@
 package com.common.requestbase;
 
 
-import com.base.ApplicationContext;
-import com.base.util.UIUtils;
+
+import com.base.BaseApplication;
+import com.base.UIUtils;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -17,7 +18,7 @@ public abstract class AppObserver<T> implements Observer<T> {
     public abstract void onData(@NonNull T o);
     public void onFailed(@NonNull Throwable e){
         e.printStackTrace();
-        UIUtils.INSTANCE.showToast(ApplicationContext.getContext(),"网络异常，请稍后重试");
+        UIUtils.INSTANCE.showToast(BaseApplication.getContext(),"网络异常，请稍后重试");
     };
     @Override
     public void onSubscribe(@NonNull Disposable d) {

@@ -1,7 +1,7 @@
 package com.swu.module_order.fragment
 
 import com.base.BaseFragment
-import com.base.util.FragmentUtil
+import com.base.FragmentUtil
 import com.swu.module_order.R
 import com.swu.module_order.databinding.FragmentFoodDetailBinding
 

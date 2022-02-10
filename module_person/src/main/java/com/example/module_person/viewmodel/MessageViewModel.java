@@ -1,27 +1,18 @@
 package com.example.module_person.viewmodel;
 
-import android.os.AsyncTask;
-import android.util.Log;
-
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ViewModel;
 
-import com.base.model.MessageModel;
 import com.common.constants.BaseUserInfo;
+import com.common.model.MessageModel;
 import com.common.repository.UserRepository;
 import com.common.requestbase.AppObserver;
 import com.common.requestbase.ResponseModel;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 import io.reactivex.annotations.NonNull;
 

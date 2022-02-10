@@ -3,7 +3,7 @@ package com.common.interceptor;
 import android.content.DialogInterface;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.base.ApplicationContext;
+import com.base.BaseApplication;
 import com.common.constants.BaseUserInfo;
 import com.common.constants.LoginAndRegisterConstants;
 import com.common.constants.RouteConstants;
@@ -34,7 +34,7 @@ public class TokenInterceptor implements Interceptor {
         if (isTokenExpired(response)) {
             LogUtil.d("Token失效了");
             //提示弹框，强制下线
-            DialogUtil.showOneBtnDialog(ApplicationContext.getContext(),
+            DialogUtil.showOneBtnDialog(BaseApplication.getContext(),
                     "您被强制下线了",
                     "您的账户已在另一台设备上登录，点击确定重新登录",
                     "确定",

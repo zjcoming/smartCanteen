@@ -1,4 +1,4 @@
-package com.base.bean;
+package com.base.dao;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

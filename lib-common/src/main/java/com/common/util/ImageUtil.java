@@ -3,11 +3,9 @@ package com.common.util;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
-import android.util.Log;
 
-import com.base.util.UIUtils;
+import com.base.UIUtils;
 import com.common.constants.BaseUserInfo;
-import com.common.handler.RequestHandler;
 import com.common.repository.UserRepository;
 import com.common.requestbase.AppObserver;
 import com.common.requestbase.ResponseModel;

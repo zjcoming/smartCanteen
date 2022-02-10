@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.base.BaseFragment;
 import com.common.selfview.MyTitleBar;
-import com.base.util.FragmentUtil;
+import com.base.FragmentUtil;
 import com.example.module_person.adapter.AddressListAdapter;
 import com.example.module_person.adapter.TestBean;
 import com.example.module_person.viewmodel.PersonDataViewModel;
