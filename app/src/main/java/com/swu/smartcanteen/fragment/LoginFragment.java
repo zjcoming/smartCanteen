@@ -122,8 +122,8 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding> {
 
     public void registerAllClickEvent(){
         //登录的点击事件注册
-        testLoginButtonOnclick();
-//        loginButtonOnclick();
+//        testLoginButtonOnclick();
+        loginButtonOnclick();
         //testLoginButtonOnclick();
         //注册的点击事件注册
         registerButtonOnclick();

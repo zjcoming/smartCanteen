@@ -12,7 +12,9 @@ import com.swu.module_order.widget.RightMenuItemView
  * Created by chenxiong
  * date 1/8/22
  */
-class RightMenuAdapter(private val context: Context, private val rightMenuData: List<RightMenuModel>): BaseAdapter<RightMenuItemLayoutBinding>() {
+class RightMenuAdapter(private val context: Context): BaseAdapter<RightMenuItemLayoutBinding>() {
+
+    private val rightMenuData: MutableList<RightMenuModel> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<RightMenuItemLayoutBinding> {
         val rightMenuItemView = RightMenuItemView(context)
@@ -33,5 +35,11 @@ class RightMenuAdapter(private val context: Context, private val rightMenuData: 
         holder.binding.root.setOnClickListener {
             clickOutCallBack?.onItemClick(position)
         }
+    }
+
+    fun setRightMenuData(datas: List<RightMenuModel>) {
+        rightMenuData.clear()
+        rightMenuData.addAll(datas)
+        notifyDataSetChanged()
     }
 }

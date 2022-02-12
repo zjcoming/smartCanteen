@@ -29,4 +29,10 @@
     <string name="top_person_data">个人资料</string>
     <string name="top_person_set_address">地址设置</string>
     <string name="top_person_add_address">添加地址</string>
+
+    <string name="loadsir">LoadSir</string>
+    <string name="success">Success</string>
+    <string name="keep_title_bar">keep title bar</string>
+    <string name="fine_no_data">fine, no data.</string>
+    <string name="click_me_to_retry">click me to retry!</string>
 </resources>

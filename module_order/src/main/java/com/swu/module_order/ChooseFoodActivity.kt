@@ -1,6 +1,5 @@
 package com.swu.module_order
 
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -20,8 +19,8 @@ import com.swu.module_order.widget.BottomShopCartLayout
 @Route(path = RouteConstants.Module_order.PAGER_CHOOSE_FOOD)
 class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
 
-    @Autowired(name = DiningWay.DINING_WAY)
     @JvmField
+    @Autowired(name = DiningWay.DINING_WAY)
     var diningWay: String? = null
 
     private val pageViewModel: FoodPageViewModel by lazy {
@@ -52,13 +51,11 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
         TargetFragmentConstants.CurrentChooseFoodActivity = TargetFragmentConstants.CHOOSE_FOOD_FRAGMENT;
 
         pageViewModel.diningWay = diningWay
-        Log.e("cx", diningWay ?: "Null")
     }
 
     override fun onResume() {
         super.onResume()
         pageViewModel.getShopCart().attach(this)
-        Log.e("cx", "ChooseFoodActivity-pageViewModel：${pageViewModel.hashCode()}")
     }
 
     override fun onPause() {

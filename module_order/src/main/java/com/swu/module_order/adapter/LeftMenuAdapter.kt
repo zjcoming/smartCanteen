@@ -16,8 +16,9 @@ import com.swu.module_order.widget.LeftMenuItemView
  * Created by chenxiong
  * date 1/8/22
  */
-class LeftMenuAdapter(private val context: Context, private val leftMenuData: List<LeftMenuModel>): BaseAdapter<LeftMenuItemLayoutBinding>() {
+class LeftMenuAdapter(private val context: Context, ): BaseAdapter<LeftMenuItemLayoutBinding>() {
     private var curSelectPos = 0
+    private val leftMenuData: MutableList<LeftMenuModel> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<LeftMenuItemLayoutBinding> {
         val leftMenuItemView = LeftMenuItemView(context)
@@ -52,6 +53,12 @@ class LeftMenuAdapter(private val context: Context, private val leftMenuData: Li
     ) {
         holder.binding.root.setOnClickListener {
             clickOutCallBack?.onItemClick(position) }
+    }
+
+    fun setLeftMenuData(datas: List<LeftMenuModel>) {
+        leftMenuData.clear()
+        leftMenuData.addAll(datas)
+        notifyDataSetChanged()
     }
 
 }

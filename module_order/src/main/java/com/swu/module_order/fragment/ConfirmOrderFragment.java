@@ -11,7 +11,6 @@ import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.base.BaseFragment;
-import com.base.util.UIUtils;
 import com.common.util.DialogUtil;
 import com.swu.module_order.R;
 import com.swu.module_order.adapter.ConfirmOrderGoodsAdapter;

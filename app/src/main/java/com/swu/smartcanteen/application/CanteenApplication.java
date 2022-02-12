@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.BaseApplication;
+import com.common.loadsir.*;
+import com.kingja.loadsir.core.LoadSir;
 
 import java.io.IOException;
 
@@ -35,6 +37,15 @@ public class CanteenApplication extends BaseApplication {
 
         //解决RxJava的onError问题 不加此方法 Rxjava如果报错 就会崩溃
         solveRxJavaOnError();
+
+        LoadSir.beginBuilder()
+                .addCallback(new ErrorCallback())
+                .addCallback(new EmptyCallback())
+                .addCallback(new LoadingCallback())
+                .addCallback(new TimeoutCallback())
+                .addCallback(new CustomCallback())
+                .setDefaultCallback(LoadingCallback.class)
+            .commit();
     }
     private void solveRxJavaOnError(){
         RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {

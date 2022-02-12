@@ -1,5 +1,6 @@
 package com.base
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +30,8 @@ abstract class BaseFragment<VIEW : ViewBinding>: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = inflateBindingWithGeneric(layoutInflater, container, false)
-        _binding?.root?.isClickable = true
+        binding.root.isClickable = true
+        binding.root.setBackgroundColor(Color.WHITE)
         return binding.root
     }
 
