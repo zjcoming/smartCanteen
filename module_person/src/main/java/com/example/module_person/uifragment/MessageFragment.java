@@ -1,5 +1,6 @@
 package com.example.module_person.uifragment;
 
+import android.app.Dialog;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -14,6 +15,7 @@ import com.common.constants.RouteConstants;
 import com.common.constants.TargetFragmentConstants;
 import com.common.model.MessageModel;
 import com.common.selfview.MyTitleBar;
+import com.common.util.DialogUtil;
 import com.example.module_person.adapter.MessageAdapter;
 import com.example.module_person.viewmodel.MessageViewModel;
 import com.swu.module_person.R;
@@ -46,18 +48,18 @@ public class MessageFragment extends BaseFragment<FragmentMessageBinding> {
             }
         });
         //加载先不用了 效果不太好
-//        messageViewModel.getLoadingLiveData().observe(this, new Observer<Boolean>() {
-//            @Override
-//            public void onChanged(Boolean aBoolean) {
-//                //监听是否显示“加载中”dialog
-//                Dialog loadingDialog = DialogUtil.createLoadingDialog(getContext(), "加载中", true, true);
-//                if (aBoolean){
-//                    loadingDialog.show();
-//                }else {
-//                    loadingDialog.dismiss();
-//                }
-//            }
-//        });
+        messageViewModel.getLoadingLiveData().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                //监听是否显示“加载中”dialog
+                Dialog loadingDialog = DialogUtil.createLoadingDialog(getContext(), "加载中", true, true);
+                if (aBoolean){
+                    loadingDialog.show();
+                }else {
+                    loadingDialog.dismiss();
+                }
+            }
+        });
 
         //添加观察者，把messageViewModel作为生命周期观察者
         getLifecycle().addObserver(messageViewModel);

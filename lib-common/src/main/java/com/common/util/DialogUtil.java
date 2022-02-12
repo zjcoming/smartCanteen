@@ -44,7 +44,7 @@ public class DialogUtil {
         //检查看有没有缓存
         Dialog cacheDialog = loadingDialogHashMap.get(context);
         if (isUseCache && cacheDialog != null){
-            cacheDialog.show();
+            //cacheDialog.show();
             return cacheDialog;
         }
 

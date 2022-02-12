@@ -1,5 +1,8 @@
 package com.example.module_person.viewmodel;
 
+import android.content.Intent;
+import android.os.Handler;
+
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.MutableLiveData;
@@ -32,7 +35,7 @@ public class MessageViewModel extends ViewModel implements LifecycleObserver {
     //得到消息
     @OnLifecycleEvent(value = Lifecycle.Event.ON_RESUME)
     public void getMessages(){
-        //loadingLiveData.setValue(true);//显示加载dialog
+        loadingLiveData.setValue(true);//显示加载dialog
         //模拟请求数据
         ArrayList<MessageModel> mDatas = new ArrayList<>();
         UserRepository.getUserRepository().getUserMessagesFromServer(new AppObserver<ResponseModel<ArrayList<MessageModel>>>() {
@@ -42,8 +45,13 @@ public class MessageViewModel extends ViewModel implements LifecycleObserver {
                     return;
                 }
                 mDatas.addAll(o.getData());
-//                loadingLiveData.setValue(false);
                 allMessages.setValue(mDatas);
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        loadingLiveData.setValue(false);
+                    }
+                }, 200);
+
             }
         }, BaseUserInfo.getUserBean().getUid());
     }

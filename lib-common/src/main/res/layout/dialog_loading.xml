@@ -12,10 +12,10 @@
         android:background="@drawable/dialog_loading_bg"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingBottom="10dp"
         android:paddingLeft="21dp"
+        android:paddingTop="10dp"
         android:paddingRight="21dp"
-        android:paddingTop="10dp">
+        android:paddingBottom="10dp">
 
         <ProgressBar
             android:id="@+id/progressBar1"

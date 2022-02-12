@@ -1,8 +1,12 @@
 package com.common.util;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Environment;
+import android.os.FileUtils;
+import android.util.Log;
 
 import com.base.UIUtils;
 import com.common.constants.BaseUserInfo;
@@ -29,17 +33,41 @@ import okhttp3.RequestBody;
  * desc: 图片加载类 可用来保存图片到本地，加载本地图片
  */
 public class ImageUtil {
+    public File sdDir;
+    public Context mContext;
+
+    private static ImageUtil imageUtil;
+    private ImageUtil(){}
+    public static ImageUtil getInstance(Context context){
+        if(imageUtil == null){
+            synchronized (ImageUtil.class){
+                if(imageUtil == null){
+                    imageUtil = new ImageUtil();
+                }
+            }
+        }
+
+        imageUtil.mContext = context;
+        if (Build.VERSION.SDK_INT>=29){
+            //Android10之后
+            imageUtil.sdDir = context.getExternalFilesDir(null);
+        }else {
+            imageUtil.sdDir = Environment.getExternalStorageDirectory();// 获取SD卡根目录
+        }
+
+        return imageUtil;
+    }
     /**
      * 保存图片到本地
      * @param photoBitmap 图片的Bitmap类型
      * @param imgName 图片的名字
      *
-     * 保存到本地的路径为：Environment.getExternalStorageDirectory() + "/smart_canteen/photo/{imgName}.jpg
      */
-    public static void savePhotoToStorage(Bitmap photoBitmap, String imgName) {
+    public void savePhotoToStorage(Bitmap photoBitmap, String imgName) {
         //更改的名字
         String photoName = imgName + ".jpg";
-        String photoPath = Environment.getExternalStorageDirectory() + "/smart_canteen/photo";
+        String photoPath = sdDir.getPath();
+        Log.v("ljh","savePhotoToStorage");
 
         File fileDir = new File(photoPath);
         if (!fileDir.exists()) {
@@ -49,8 +77,9 @@ public class ImageUtil {
         File photoFile = null;
         try {
             //重命名并保存
-            photoFile = new File(fileDir, photoName);
+            photoFile = new File(fileDir.getPath(), photoName);
             photoFile.createNewFile();
+//            Log.v("ljh","createNewFile的路径为"+photoFile.getPath());
             fos = new FileOutputStream(photoFile);
             photoBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
@@ -70,17 +99,14 @@ public class ImageUtil {
      * 保存头像到服务器
      * @param imgName 图片名字 最好有自己的规定 比如userID + imgName 组成 imgName
      */
-    public static void savePhotoToServer(String imgName){
+    public void savePhotoToServer(String imgName){
         //图片路径
         String photoName = imgName + ".jpg";
-        String photoPath = Environment.getExternalStorageDirectory() + "/smart_canteen/photo";
+        String photoPath = sdDir.getPath();
 
         //得到图片文件
         File fileDir = new File(photoPath);
-        if (!fileDir.exists()) {
-            fileDir.mkdirs();
-        }
-        File photoFile = new File(fileDir, photoName);
+        File photoFile = new File(fileDir.getPath(), photoName);
 
         //如果图片不存在，则返回
         if (!photoFile.exists()){
@@ -130,12 +156,22 @@ public class ImageUtil {
      * @param imgName 图片名称
      * @return
      */
-    public static Bitmap getPhotoFromStorage(String imgName) {
-        String photoPath = android.os.Environment.getExternalStorageDirectory() + "/smart_canteen/photo/" + imgName + ".jpg";
+    public Bitmap getPhotoFromStorage(String imgName) {
+//        String photoPath = android.os.Environment.getExternalStorageDirectory() + "/smart_canteen/photo/" + imgName + ".jpg";
+//        String photoPath = sdDir.getPath() + "/smart_canteen/photo/" + imgName + ".jpg";
+        String photoPath = sdDir.getPath() + "/" + imgName + ".jpg";
+        Log.v("ljh","photoPath为" + photoPath);
+
+        File fileDir = new File(photoPath);
+        Log.v("ljh","photoPath是否存在" + fileDir.exists());
+        if (!fileDir.exists()) {
+            return null;
+        }
+        Log.v("ljh","photoPath是否存在" + fileDir.exists());
         return getBitmapFromPath(photoPath, 80, 80);
     }
     // 从路径获取Bitmap
-    public static Bitmap getBitmapFromPath(String imgPath, int reqWidth, int reqHeight) {
+    public Bitmap getBitmapFromPath(String imgPath, int reqWidth, int reqHeight) {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(imgPath, options);
@@ -152,7 +188,7 @@ public class ImageUtil {
         return BitmapFactory.decodeFile(imgPath, options);
     }
 
-    public static int calculateInSampleSize( //参2和3为ImageView期待的图片大小
+    public int calculateInSampleSize( //参2和3为ImageView期待的图片大小
                                              BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // 图片的实际大小
         final int height = options.outHeight;
@@ -168,32 +204,6 @@ public class ImageUtil {
             }
         }
         return inSampleSize;
-    }
-
-
-
-    public static Bitmap getBitmapFromByte(byte[] imgByte, int reqWidth, int reqHeight) {
-        InputStream input = null;
-        Bitmap bitmap = null;
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        input = new ByteArrayInputStream(imgByte);
-        SoftReference softRef = new SoftReference(BitmapFactory.decodeStream(
-                input, null, options));
-        bitmap = (Bitmap) softRef.get();
-        if (imgByte != null) {
-            imgByte = null;
-        }
-
-        try {
-            if (input != null) {
-                input.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return bitmap;
     }
 }
 

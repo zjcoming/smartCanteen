@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -58,13 +59,14 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
      */
     public void initUserIcon(){
         //获取本地保存的用户头像
-        userIconBitmap = ImageUtil.getPhotoFromStorage("userIcon");
+        userIconBitmap = ImageUtil.getInstance(getContext()).getPhotoFromStorage("userIcon");
+        Log.v("ljh","从本地加载的是否为null"+userIconBitmap);
         if (userIconBitmap == null){
             //说明本地没保存 需要从服务器加载用户头像
             //示例url：https://marsyr-210522.oss-cn-chengdu.aliyuncs.com/SWU_canteen/20220119114836258.jpg
             Glide.with(CanteenApplication.getContext()).load(BaseUserInfo.getUserBean().getProfilePhoto()).into(getBinding().myIcon);//从本地加载图片
         }else {
-            Glide.with(CanteenApplication.getContext()).load(ImageUtil.getPhotoFromStorage("userIcon")).into(getBinding().myIcon);//从本地加载图片
+            Glide.with(CanteenApplication.getContext()).load(ImageUtil.getInstance(getContext()).getPhotoFromStorage("userIcon")).into(getBinding().myIcon);//从本地加载图片
         }
     }
 
@@ -161,7 +163,7 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
                         //权限获取到了
                         Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         intent2.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "userIcon.jpg")));
+                        Uri.fromFile(new File(ImageUtil.getInstance(getContext()).sdDir.getPath(), "userIcon.jpg")));
                         startActivityForResult(intent2, 2);// 采用ForResult打开
                         dialog.dismiss();
                     }
@@ -178,12 +180,14 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
         switch (requestCode) {
             case 1:
                 if (resultCode == RESULT_OK) {
+                    Log.v("ljh","裁剪图片1");
                     cropPhoto(data.getData());// 裁剪图片
                 }
 
                 break;
             case 2:
                 if (resultCode == RESULT_OK) {
+                    Log.v("ljh","裁剪图片2");
                     File temp = new File(Environment.getExternalStorageDirectory() + "/userIcon.jpg");
                     cropPhoto(Uri.fromFile(temp));// 裁剪图片
                 }
@@ -195,9 +199,9 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
                     userIconBitmap = extras.getParcelable("data");
                     if (userIconBitmap != null) {
                         //保存到本地
-                        ImageUtil.savePhotoToStorage(userIconBitmap,"userIcon");
+                        ImageUtil.getInstance(getContext()).savePhotoToStorage(userIconBitmap,"userIcon");
                         //保存到服务器
-                        ImageUtil.savePhotoToServer("userIcon");
+                        ImageUtil.getInstance(getContext()).savePhotoToServer("userIcon");
                         //显示到头像上
                         getBinding().myIcon.setImageBitmap(userIconBitmap);
                     }
