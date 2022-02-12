@@ -7,10 +7,15 @@ import android.content.DialogInterface;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.BaseFragment;
+import com.common.constants.RouteConstants;
+import com.common.constants.TargetFragmentConstants;
 import com.common.util.DialogUtil;
 import com.swu.module_order.R;
 import com.swu.module_order.adapter.ConfirmOrderGoodsAdapter;
@@ -106,22 +111,72 @@ public class ConfirmOrderFragment extends BaseFragment<FragmentConfirmOrderBindi
      * 用户选择支付方式
      */
     public void showBuyMode(){
+        Dialog successDialog = DialogUtil.showSelfDialog(getContext(), R.layout.confirm_order_buy_success_dialog);
         Dialog dialog = DialogUtil.showSelfDialog(getContext(),R.layout.confirm_order_buy_mode_dialog);
-        View wechat = dialog.findViewById(R.id.buy_mode_dialog_wechat);
-        View zhifubao = dialog.findViewById(R.id.buy_mode_dialog_zhifubao);
-//        wechat.setOnClickListener(v -> UIUtils.INSTANCE.showToast(getContext(),"微信支付"));
-//        zhifubao.setOnClickListener(v -> UIUtils.INSTANCE.showToast(getContext(),"支付宝支付"));
-        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+        dialog.show();
+
+        LinearLayout wechat = dialog.findViewById(R.id.buy_mode_dialog_wechat);
+        LinearLayout zhifubao = dialog.findViewById(R.id.buy_mode_dialog_zhifubao);
+         if(wechat != null){
+            wechat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                    successDialog.show();
+                    ImageView goBackToOrderPage = successDialog.findViewById(R.id.dialog_buysuccess_goback);
+
+                    goBackToOrderPage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            successDialog.dismiss();
+                            Log.v("ljh","点击了微信支付后的支付成功");
+                            //getActivity().finish();
+                            ARouter.getInstance().build(RouteConstants.Module_app.PAGER_NAVIGATION)
+                                    .withString("testTargetFragment", TargetFragmentConstants.ORDER_FRAGMENT)
+                                    .navigation();
+                        }
+                    });
+                }
+            });
+        }
+        if(zhifubao != null){
+            zhifubao.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                    successDialog.show();
+                    ImageView goBackToOrderPage = successDialog.findViewById(R.id.dialog_buysuccess_goback);
+
+                    goBackToOrderPage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            successDialog.dismiss();
+                            ARouter.getInstance().build(RouteConstants.Module_app.PAGER_NAVIGATION)
+                                    .withString("targetFragment", TargetFragmentConstants.ORDER_FRAGMENT)
+                                    .navigation();
+                        }
+                    });
+                }
+            });
+        }
+//        if(goBackToOrderPage != null){
+//            Log.v("ljh","goBackToOrderPage不为null");
+//            goBackToOrderPage.setOnClickListener(v -> ARouter.getInstance().build(RouteConstants.Module_app.PAGER_NAVIGATION)
+//                    .withString("targetFragment", TargetFragmentConstants.ORDER_FRAGMENT)
+//                    .navigation());
+//        }
+
+        successDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){//保证只执行一次 如果不加这个&& 则会执行两次
                     //如果用户按了返回键
-//                    UIUtils.INSTANCE.showToast(getContext(),"您取消了支付");
+                    return true;
                 }
                 return false;
             }
         });
-        dialog.show();
+
     }
 
     @Override
