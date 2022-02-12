@@ -1,6 +1,7 @@
 package com.swu.smartcanteen;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -13,6 +14,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.base.BaseActivity;
 import com.common.constants.RouteConstants;
+import com.common.constants.TargetFragmentConstants;
 import com.swu.smartcanteen.databinding.ActivityNavigationBinding;
 import com.swu.smartcanteen.fragment.HomeFragment;
 import com.swu.smartcanteen.fragment.OrderFragment;
@@ -34,6 +36,7 @@ public class NavigationActivity extends BaseActivity<ActivityNavigationBinding> 
     @Autowired
     String targetFragment;
 
+
     //创建一个list用于保存三个Fragment
     private List<Fragment> fragments;
     UserFragment userFragment;
@@ -52,14 +55,37 @@ public class NavigationActivity extends BaseActivity<ActivityNavigationBinding> 
         //依赖注入
         ARouter.getInstance().inject(this);
         init();
-        if (targetFragment != null && !targetFragment.equals("")){
-            switchFragment(0,1);
-            initBar(1);
-            lastFragment = 1;
-        }else {
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.v("ljh","targetFragment为"+targetFragment);
+        if (targetFragment == null || targetFragment.equals("")){
             //默认显示首页
             initBar(0);
             lastFragment = 0;
+        }else {
+            switch (targetFragment){
+                case TargetFragmentConstants.HOME_FRAGMENT:
+                    initBar(0);
+                    lastFragment = 0;
+                    break;
+                case TargetFragmentConstants.USER_FRAGMENT:
+                    switchFragment(0,1);
+                    initBar(1);
+                    lastFragment = 1;
+                    break;
+                case TargetFragmentConstants.ORDER_FRAGMENT:
+                    switchFragment(0,2);
+                    initBar(2);
+                    lastFragment = 2;
+                    break;
+                default:
+                    initBar(0);
+                    lastFragment = 0;
+                    break;
+            }
         }
         pressMenu();
     }
