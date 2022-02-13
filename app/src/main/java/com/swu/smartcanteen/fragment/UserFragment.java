@@ -115,6 +115,10 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
 
     private void clickMySelfInfo(){
         UIUtils.INSTANCE.showToast(CanteenApplication.getContext(),"您点击了个人信息");
+        getActivity().finish();
+        ARouter.getInstance().build(RouteConstants.Module_person.PAGER_UI_ACTIVITY)
+                .withString("targetFragment", TargetFragmentConstants.DATA_PERSON)
+                .navigation();
     }
     private void clickMyHistoryBuy(){
         UIUtils.INSTANCE.showToast(CanteenApplication.getContext(),"您点击了历史订单");

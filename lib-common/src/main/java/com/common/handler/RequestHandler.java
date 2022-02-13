@@ -3,6 +3,7 @@ package com.common.handler;
 import com.base.bean.FoodListPageBean;
 import com.base.dao.UserBean;
 import com.common.constants.LoginAndRegisterConstants;
+import com.common.model.AddressModel;
 import com.common.model.MessageModel;
 import com.common.requestbase.ResponseModel;
 import com.common.retrofitservice.FetchFoodDataService;
@@ -120,6 +121,19 @@ public class RequestHandler {
     public static void fetchFoodList(Observer<ResponseModel<FoodListPageBean>> observer, int floor) {
         FetchFoodDataService foodDataService = RetrofitUtil.getService(FetchFoodDataService.class, LoginAndRegisterConstants.BASE_URL);
         Observable<ResponseModel<FoodListPageBean>> observable = foodDataService.fetchFoodList(floor);
+        observable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 获取用户地址列表
+     * @param observer
+     * @param uid
+     */
+    public static void getUserAddressList(Observer<ResponseModel<ArrayList<AddressModel>>> observer, String uid){
+        UserInfoService userInfoService = RetrofitUtil.getService(UserInfoService.class, LoginAndRegisterConstants.BASE_URL);
+        Observable<ResponseModel<ArrayList<AddressModel>>> observable = userInfoService.getAddressList(uid);
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

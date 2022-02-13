@@ -1,6 +1,7 @@
 package com.common.retrofitservice;
 
 import com.base.dao.UserBean;
+import com.common.model.AddressModel;
 import com.common.model.MessageModel;
 import com.common.requestbase.ResponseModel;
 
@@ -47,5 +48,8 @@ public interface UserInfoService {
      */
     @POST("message/info")
     Observable<ResponseModel<HashMap<String,String>>> setMessage(@Body MessageModel messageModel);
+
+    @GET("addressList/{uid}")
+    Observable<ResponseModel<ArrayList<AddressModel>>> getAddressList(@Path("uid") String uid);
 
 }

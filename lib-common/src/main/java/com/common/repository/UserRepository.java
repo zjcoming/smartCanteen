@@ -2,6 +2,7 @@ package com.common.repository;
 
 import com.base.dao.UserBean;
 import com.common.handler.RequestHandler;
+import com.common.model.AddressModel;
 import com.common.model.MessageModel;
 import com.common.requestbase.ResponseModel;
 
@@ -59,5 +60,14 @@ public class UserRepository {
      */
     public void setUserMessageToServer(Observer<ResponseModel<HashMap<String,String>>> observer,MessageModel messageModel){
         RequestHandler.setMessage(observer,messageModel);
+    }
+
+    /**
+     * 从网络获取用户的地址列表
+     * @param observer
+     * @param uid
+     */
+    public void getUserAddressListFromServer(Observer<ResponseModel<ArrayList<AddressModel>>> observer, String uid){
+        RequestHandler.getUserAddressList(observer,uid);
     }
 }

@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.View;
 
 import com.base.BaseFragment;
+import com.base.FragmentUtil;
 import com.common.selfview.MyTitleBar;
 import com.example.module_person.viewmodel.PersonDataViewModel;
+import com.swu.module_person.R;
 import com.swu.module_person.databinding.FragmentAddAddressBinding;
 
 
@@ -28,7 +30,7 @@ public class AddAddressFragment extends BaseFragment<FragmentAddAddressBinding> 
         getBinding().btBack.setOnMyTitleBarListener(new MyTitleBar.OnMyTitleBarListener() {
             @Override
             public void onLeftClick() {
-//                FragmentUtil.getInstance().switchFragment(requireActivity(),personDataViewModel.addAddressFragment,personDataViewModel.addressListFragment, R.id.content_container, com.swu.lib_common.R.anim.page_from_left_to_right_out);
+                FragmentUtil.getInstance().switchFragment(requireActivity(),personDataViewModel.addAddressFragment,personDataViewModel.addressListFragment, R.id.container, com.swu.lib_common.R.anim.page_from_left_to_right_out);
 
             }
 

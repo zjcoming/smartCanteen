@@ -12,6 +12,7 @@ public class TargetFragmentConstants {
      */
     public static final String MESSAGE_FRAGMENT = "MessageFragment";
     public static final String DETAIL_MESSAGE_FRAGMENT = "DetailMessageFragment";
+    public static final String DATA_PERSON = "PersonDataFragment";
 
     /**
      * 跳到NavigationActivity的时候，跳到哪个Fragment

@@ -29,6 +29,7 @@
     <string name="top_person_data">个人资料</string>
     <string name="top_person_set_address">地址设置</string>
     <string name="top_person_add_address">添加地址</string>
+    <string name="top_person_fix_address">修改地址</string>
 
     <string name="loadsir">LoadSir</string>
     <string name="success">Success</string>

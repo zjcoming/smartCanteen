@@ -2,6 +2,8 @@ package com.example.module_person;
 
 import android.os.Bundle;
 
+import androidx.lifecycle.ViewModelProvider;
+
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -9,8 +11,10 @@ import com.base.BaseActivity;
 import com.common.constants.TargetFragmentConstants;
 import com.common.constants.RouteConstants;
 import com.common.model.MessageModel;
+import com.example.module_person.dataFragment.PersonDataFragment;
 import com.example.module_person.uifragment.DetailMessageFragment;
 import com.example.module_person.uifragment.MessageFragment;
+import com.example.module_person.viewmodel.PersonDataViewModel;
 import com.swu.module_person.R;
 import com.swu.module_person.databinding.ActivityUIBinding;
 
@@ -25,6 +29,7 @@ public class UIActivity extends BaseActivity<ActivityUIBinding> {
 
     MessageFragment messageFragment;
 
+    PersonDataViewModel personDataViewModel;
     /**
      * 与detailMessageFragment相关的集合
      */
@@ -39,6 +44,7 @@ public class UIActivity extends BaseActivity<ActivityUIBinding> {
         //依赖注入
         ARouter.getInstance().inject(this);
 
+        personDataViewModel = new ViewModelProvider(this).get(PersonDataViewModel.class);
         messageFragment = new MessageFragment();
         detailMessageFragment = new DetailMessageFragment();
 
@@ -64,6 +70,9 @@ public class UIActivity extends BaseActivity<ActivityUIBinding> {
                 //显示消息Fragment
                 openFragment(detailMessageFragment);
 //                FragmentUtil.getInstance().startFragment(this,detailMessageFragment,R.id.ui_content_container);
+                break;
+            case TargetFragmentConstants.DATA_PERSON:
+                openFragment(personDataViewModel.personDataFragment);
                 break;
             default:
                 //默认跳转到消息Fragment
