@@ -3,7 +3,9 @@ package com.swu.smartcanteen.fragment;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -23,13 +25,17 @@ import com.common.constants.BaseUserInfo;
 import com.common.constants.PermissionConstants;
 import com.common.constants.RouteConstants;
 import com.common.constants.TargetFragmentConstants;
+import com.common.util.GetPhotoFromPhotoAlbum;
 import com.common.util.ImageUtil;
 import com.common.util.PermissionUtil;
 import com.swu.smartcanteen.application.CanteenApplication;
 import com.swu.smartcanteen.R;
 import com.swu.smartcanteen.databinding.FragmentUserBinding;
 
+
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -40,6 +46,7 @@ import static android.app.Activity.RESULT_OK;
 @Route(path = RouteConstants.Module_app.PAGER_USER_FRAGMENT)
 public class UserFragment extends BaseFragment<FragmentUserBinding> implements View.OnClickListener {
     private Bitmap userIconBitmap;//用户头像
+    private ImageUtil imageUtil;//图片处理类
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -47,6 +54,7 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
         initALLViews();//初始化控件以及其点击事件
     }
     private void initALLViews(){
+        imageUtil = ImageUtil.getInstance(getContext());
         //初始化头像
         initUserIcon();
         //初始化头像左边的欢迎textView
@@ -59,14 +67,14 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
      */
     public void initUserIcon(){
         //获取本地保存的用户头像
-        userIconBitmap = ImageUtil.getInstance(getContext()).getPhotoFromStorage("userIcon");
-        Log.v("ljh","从本地加载的是否为null"+userIconBitmap);
+        userIconBitmap = imageUtil.getPhotoFromStorage("userIcon");
+
         if (userIconBitmap == null){
             //说明本地没保存 需要从服务器加载用户头像
             //示例url：https://marsyr-210522.oss-cn-chengdu.aliyuncs.com/SWU_canteen/20220119114836258.jpg
             Glide.with(CanteenApplication.getContext()).load(BaseUserInfo.getUserBean().getProfilePhoto()).into(getBinding().myIcon);//从本地加载图片
         }else {
-            Glide.with(CanteenApplication.getContext()).load(ImageUtil.getInstance(getContext()).getPhotoFromStorage("userIcon")).into(getBinding().myIcon);//从本地加载图片
+            Glide.with(CanteenApplication.getContext()).load(imageUtil.getPhotoFromStorage("userIcon")).into(getBinding().myIcon);//从本地加载图片
         }
     }
 
@@ -149,7 +157,9 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
                 Intent intent1 = new Intent(Intent.ACTION_PICK, null);
                 //打开文件
                 intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                startActivityForResult(intent1, 1);
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, 1);
                 dialog.dismiss();
             }
         });
@@ -163,7 +173,7 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
                         //权限获取到了
                         Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         intent2.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(new File(ImageUtil.getInstance(getContext()).sdDir.getPath(), "userIcon.jpg")));
+                        Uri.fromFile(new File(imageUtil.sdDir.getPath(), "userIcon.jpg")));
                         startActivityForResult(intent2, 2);// 采用ForResult打开
                         dialog.dismiss();
                     }
@@ -180,7 +190,8 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
         switch (requestCode) {
             case 1:
                 if (resultCode == RESULT_OK) {
-                    Log.v("ljh","裁剪图片1");
+                    String path = GetPhotoFromPhotoAlbum.getRealPathFromUri(getContext(),data.getData());
+                    Log.v("ljh","相册返回图片的路径为：" + path);
                     cropPhoto(data.getData());// 裁剪图片
                 }
 
@@ -188,24 +199,55 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
             case 2:
                 if (resultCode == RESULT_OK) {
                     Log.v("ljh","裁剪图片2");
-                    File temp = new File(Environment.getExternalStorageDirectory() + "/userIcon.jpg");
+                    File temp = new File(imageUtil.sdDir.getPath() + "/userIcon.jpg");
                     cropPhoto(Uri.fromFile(temp));// 裁剪图片
                 }
 
                 break;
             case 3:
-                if (data != null) {
-                    Bundle extras = data.getExtras();
-                    userIconBitmap = extras.getParcelable("data");
-                    if (userIconBitmap != null) {
-                        //保存到本地
-                        ImageUtil.getInstance(getContext()).savePhotoToStorage(userIconBitmap,"userIcon");
-                        //保存到服务器
-                        ImageUtil.getInstance(getContext()).savePhotoToServer("userIcon");
-                        //显示到头像上
-                        getBinding().myIcon.setImageBitmap(userIconBitmap);
-                    }
+                Bitmap userIcon = null;
+                //You want to save file Test\test.pdf but you already have folder Test\Test.pdf\
+                //file:////storage/emulated/0/Android/data/com.swu.smartcanteen/files/userIcon.jpg /storage/emulated/0/Android/data/com.swu.smartcanteen/files
+//                File file = new File(imageUtil.fileUri.getPath());
+//                if(!file.exists()){
+//                    Log.v("ljh","破案了，file不存在");
+//                }
+//                if(file.isDirectory()){
+//                    Log.v("ljh","破案了，file是目录");
+//                }
+//                if(file.isFile()){
+//                    Log.v("ljh","破案了，file是文件");
+//                    Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
+//                    if(bitmap == null){
+//                        Log.v("ljh","bitmap为null");
+//                    }else {
+//                        Log.v("ljh","bitmap不为null");
+//                    }
+//                }
+                try {
+                    userIcon = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUtil.fileUri));
+                    imageUtil.savePhotoToStorage(userIcon,"userIcon");
+                    //保存到服务器
+                    imageUtil.savePhotoToServer("userIcon");
+                    //显示到头像上
+                    getBinding().myIcon.setImageBitmap(userIcon);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
+//                Log.v("ljh","userIcon是否为null"+userIcon);
+//                if (data != null) {
+//                    Bundle extras = data.getExtras();
+//                    userIconBitmap = extras.getParcelable("data");
+//                    if (userIconBitmap != null) {
+//                        Log.v("ljh","保存");
+//                        //保存到本地
+//                        imageUtil.savePhotoToStorage(userIconBitmap,"userIcon");
+//                        //保存到服务器
+//                        imageUtil.savePhotoToServer("userIcon");
+//                        //显示到头像上
+//                        getBinding().myIcon.setImageBitmap(userIconBitmap);
+//                    }
+//                }
                 break;
             default:
                 break;
@@ -221,7 +263,11 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
      */
     public void cropPhoto(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
         intent.setDataAndType(uri, "image/*");
+        intent.setAction("com.android.camera.action.CROP");
         intent.putExtra("crop", "true");
         // aspectX aspectY 是宽高的比例
         intent.putExtra("aspectX", 1);
@@ -229,7 +275,24 @@ public class UserFragment extends BaseFragment<FragmentUserBinding> implements V
         // outputX outputY 是裁剪图片宽高
         intent.putExtra("outputX", 250);
         intent.putExtra("outputY", 250);
-        intent.putExtra("return-data", true);
+//        intent.putExtra("return-data", true);不能加这句话 否则小米手机会闪退
+//        imageUtil.fileUri = Uri.parse("file://" + "/" + imageUtil.sdDir.getPath() + "/" + "userIcon.jpg");
+
+        File dir = new File(imageUtil.sdDir.getPath());
+        if(!dir.exists()){
+            dir.mkdirs();
+        }
+        File img = new File(dir.getPath(),"userIcon.jpg");
+        try{
+            img.createNewFile();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        imageUtil.fileUri = Uri.fromFile(img);
+        intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageUtil.fileUri);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+
         startActivityForResult(intent, 3);
     }
 

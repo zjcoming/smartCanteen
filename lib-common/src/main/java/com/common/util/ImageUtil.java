@@ -3,6 +3,7 @@ package com.common.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.FileUtils;
@@ -34,6 +35,7 @@ import okhttp3.RequestBody;
  */
 public class ImageUtil {
     public File sdDir;
+    public Uri fileUri;
     public Context mContext;
 
     private static ImageUtil imageUtil;
@@ -48,11 +50,15 @@ public class ImageUtil {
         }
 
         imageUtil.mContext = context;
-        if (Build.VERSION.SDK_INT>=29){
+        if (Build.VERSION.SDK_INT >= 29){
+            Log.v("ljh","Build.VERSION.SDK_INT为" + Build.VERSION.SDK_INT);
             //Android10之后
             imageUtil.sdDir = context.getExternalFilesDir(null);
+            Log.v("ljh",">=29 sdDir为" + imageUtil.sdDir.getPath());
         }else {
+            Log.v("ljh","Build.VERSION.SDK_INT为" + Build.VERSION.SDK_INT);
             imageUtil.sdDir = Environment.getExternalStorageDirectory();// 获取SD卡根目录
+            Log.v("ljh","<29 sdDir为" + imageUtil.sdDir.getPath());
         }
 
         return imageUtil;
@@ -67,7 +73,6 @@ public class ImageUtil {
         //更改的名字
         String photoName = imgName + ".jpg";
         String photoPath = sdDir.getPath();
-        Log.v("ljh","savePhotoToStorage");
 
         File fileDir = new File(photoPath);
         if (!fileDir.exists()) {
@@ -79,7 +84,13 @@ public class ImageUtil {
             //重命名并保存
             photoFile = new File(fileDir.getPath(), photoName);
             photoFile.createNewFile();
-//            Log.v("ljh","createNewFile的路径为"+photoFile.getPath());
+
+            if(photoFile.isFile()){
+                Log.v("ljh","图片已保存本地，是文件");
+            }
+            if(photoFile.isDirectory()){
+                Log.v("ljh","图片已保存本地，是目录");
+            }
             fos = new FileOutputStream(photoFile);
             photoBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
@@ -160,14 +171,26 @@ public class ImageUtil {
 //        String photoPath = android.os.Environment.getExternalStorageDirectory() + "/smart_canteen/photo/" + imgName + ".jpg";
 //        String photoPath = sdDir.getPath() + "/smart_canteen/photo/" + imgName + ".jpg";
         String photoPath = sdDir.getPath() + "/" + imgName + ".jpg";
-        Log.v("ljh","photoPath为" + photoPath);
 
         File fileDir = new File(photoPath);
-        Log.v("ljh","photoPath是否存在" + fileDir.exists());
+
         if (!fileDir.exists()) {
+            Log.v("ljh","头像不存在");
+            if(fileDir.isDirectory()){
+                Log.v("ljh","初始化，头像不存在，是目录");
+            }
+            if(fileDir.isFile()){
+                Log.v("ljh","初始化，头像不存在，是文件");
+            }
             return null;
         }
-        Log.v("ljh","photoPath是否存在" + fileDir.exists());
+
+        if(fileDir.isDirectory()){
+            Log.v("ljh","初始化，头像存在，是目录");
+        }
+        if(fileDir.isFile()){
+            Log.v("ljh","初始化，头像存在，是文件");
+        }
         return getBitmapFromPath(photoPath, 80, 80);
     }
     // 从路径获取Bitmap
