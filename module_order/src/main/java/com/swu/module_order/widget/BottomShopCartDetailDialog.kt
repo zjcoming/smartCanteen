@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.base.BaseDialog
 import com.base.UIUtils
 import com.base.updateLayoutParams
+import com.common.bean.FoodItemBean
 import com.swu.module_order.R
 import com.swu.module_order.adapter.BuyingCarAdapter
 import com.swu.module_order.databinding.BottomShopCartDetailBinding
@@ -17,7 +18,7 @@ import com.swu.module_order.model.BuyingCarBean
  * date 1/21/22
  */
 class BottomShopCartDetailDialog(context: Context) : BaseDialog<BottomShopCartDetailBinding>(context) {
-    private val carData: MutableList<BuyingCarBean> = mutableListOf()
+    val carData: MutableList<FoodItemBean> = mutableListOf()
 
     override fun getLayoutId() = R.layout.bottom_shop_cart_detail
 
@@ -27,13 +28,22 @@ class BottomShopCartDetailDialog(context: Context) : BaseDialog<BottomShopCartDe
             setLayout(ViewGroup.LayoutParams.MATCH_PARENT, UIUtils.dp2px(context, 400))
         }
         binding.rvBottomCartDetail.updateLayoutParams<ViewGroup.LayoutParams> {
-            (this as ViewGroup.MarginLayoutParams).setMargins(0,0,0,BottomShopCartLayout.BOTTOM_CART_HEIGHT)
+            (this as ViewGroup.MarginLayoutParams).setMargins(
+                0,
+                0,
+                0,
+                BottomShopCartLayout.BOTTOM_CART_HEIGHT
+            )
+        }
+
+        for (i in 1..10) {
+            carData.add(FoodItemBean(i, "第i个", "", "大份", "微辣", i, i.toFloat()))
         }
 
         //模拟数据
-        for (i in 1..20) {
-            carData.add(BuyingCarBean("水煮肉片$i", "￥18.88", "小份", "微辣", 1))
-        }
+//        for (i in 1..20) {
+//            carData.add(BuyingCarBean("水煮肉片$i", "￥18.88", "小份", "微辣", 1))
+//        }
 
         binding.rvBottomCartDetail.adapter = BuyingCarAdapter(carData, context)
         binding.rvBottomCartDetail.layoutManager = LinearLayoutManager(context)

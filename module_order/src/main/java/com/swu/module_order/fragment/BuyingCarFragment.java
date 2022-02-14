@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.base.BaseFragment;
+import com.common.bean.FoodItemBean;
 import com.common.util.LogUtil;
 import com.swu.module_order.R;
 import com.swu.module_order.adapter.BuyingCarAdapter;
@@ -31,7 +32,7 @@ import java.util.List;
  * @Description
  */
 public class BuyingCarFragment extends BaseFragment<FragmentBuyingCarBinding> {
-    private List<BuyingCarBean> carData = new ArrayList<>();
+    private List<FoodItemBean> carData = new ArrayList<>();
     RecyclerView recyclerView;
     @Nullable
     @Override
@@ -55,8 +56,8 @@ public class BuyingCarFragment extends BaseFragment<FragmentBuyingCarBinding> {
     @Override
     public void initListener() {
         //模拟数据
-        for (int i = 1; i < 21; i++) {
-            carData.add(new BuyingCarBean("水煮肉片"+i,"￥18.88","小份","微辣",1));
+        for (int i = 1; i < 7; i++) {
+            carData.add(new FoodItemBean(i, "第i个", "", "大份", "微辣", i, (float)i));
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity(),
                 LinearLayoutManager.VERTICAL,false));

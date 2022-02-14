@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.base.BaseFragment;
+import com.common.bean.FoodItemBean;
 import com.common.constants.RouteConstants;
 import com.common.constants.TargetFragmentConstants;
 import com.common.util.DialogUtil;
+import com.swu.module_order.ChooseFoodActivity;
 import com.swu.module_order.R;
 import com.swu.module_order.adapter.ConfirmOrderGoodsAdapter;
 import com.swu.module_order.databinding.FragmentConfirmOrderBinding;
@@ -25,6 +27,7 @@ import com.swu.module_order.view_model.FoodPageViewModel;
 import com.common.constants.DiningWay;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by 刘金豪 on 2021/1/11
@@ -86,11 +89,18 @@ public class ConfirmOrderFragment extends BaseFragment<FragmentConfirmOrderBindi
         getBinding().confirmOrderEatMode.setImageResource(imgEatModeRes);
     }
     public void initGoods(){
-        ArrayList<String> mDatas = new ArrayList<>();
-
-        for (int i = 1; i <= 100; i++) {
-            mDatas.add("第 " + i + " 个item");
+        //得到购物车中的菜品列表
+        ChooseFoodActivity activity = (ChooseFoodActivity) getActivity();
+        List<FoodItemBean> mDatas = activity.getBottomShopCartDetailDialog().getCarData();
+        if(mDatas == null){
+            mDatas = new ArrayList<>();
         }
+
+        String foodImgUrl = "https://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E7%BE%8E%E9%A3%9F%E5%9B%BE%E7%89%87&step_word=&hs=0&pn=1&spn=0&di=4180&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&istype=0&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=undefined&cs=574283538%2C544700096&os=1072085278%2C1418846723&simid=3346130196%2C380644665&adpicid=0&lpn=0&ln=1867&fr=&fmq=1644821953889_R&fm=&ic=undefined&s=undefined&hd=undefined&latest=undefined&copyright=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%3A%2F%2Fimg09.viwik.com%2Fimages%2F20180701%2Ftooopen_sy_052538253829965.jpg%26refer%3Dhttp%3A%2F%2Fimg09.viwik.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1647413957%26t%3D462fd4510f24dcf59d348965b41f956b&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3B3twgfi7_z%26e3Bv54AzdH3FrAzdH3Fmm0ulkd11lwd&gsm=2&rpstart=0&rpnum=0&islist=&querylist=&nojc=undefined&dyTabStr=MCwzLDYsNCw1LDgsMSw3LDIsOQ%3D%3D";
+
+//        for (int i = 1; i <= 7; i++) {
+//            mDatas.add(new FoodItemBean(i,"第i个",foodImgUrl,"大份","微辣",i,(float)i));
+//        }
 
         //线性布局
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

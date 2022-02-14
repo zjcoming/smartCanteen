@@ -22,6 +22,7 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
     @JvmField
     @Autowired(name = DiningWay.DINING_WAY)
     var diningWay: String? = null
+    var bottomShopCartDetailDialog: BottomShopCartDetailDialog? = null
 
     private val pageViewModel: FoodPageViewModel by lazy {
         ViewModelProvider(this, FoodViewModelFactory(this)).get(FoodPageViewModel::class.java)
@@ -51,6 +52,7 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
         TargetFragmentConstants.CurrentChooseFoodActivity = TargetFragmentConstants.CHOOSE_FOOD_FRAGMENT;
 
         pageViewModel.diningWay = diningWay
+        bottomShopCartDetailDialog = BottomShopCartDetailDialog(this@ChooseFoodActivity)
     }
 
     override fun onResume() {
@@ -66,7 +68,7 @@ class ChooseFoodActivity : BaseActivity<ActivityChooseFoodBinding>() {
         pageViewModel.getShopCart().setOnBottomCarClickListener(object :
             BottomShopCartLayout.BottomCarClickListener {
             override fun onBottomCarClick() {
-                BottomShopCartDetailDialog(this@ChooseFoodActivity).show()
+                bottomShopCartDetailDialog?.show()
             }
         })
         pageViewModel.getShopCart().setSettlementCallBack {

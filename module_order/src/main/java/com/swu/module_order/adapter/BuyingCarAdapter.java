@@ -1,6 +1,7 @@
 package com.swu.module_order.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.common.bean.FoodItemBean;
 import com.swu.module_order.R;
 import com.swu.module_order.model.BuyingCarBean;
 
@@ -33,9 +35,9 @@ public class BuyingCarAdapter extends RecyclerView.Adapter<CartBaseHolder>{
         this.onClickListener = onClickListener;
     }
 
-    private List<BuyingCarBean> carData;
+    private List<FoodItemBean> carData;
 
-    public BuyingCarAdapter(List<BuyingCarBean> carData,Context context) {
+    public BuyingCarAdapter(List<FoodItemBean> carData, Context context) {
         this.carData = carData;
         mContext = context;
     }
@@ -99,15 +101,17 @@ public class BuyingCarAdapter extends RecyclerView.Adapter<CartBaseHolder>{
             count = itemView.findViewById(R.id.item_food_count);
             add = itemView.findViewById(R.id.item_food_add);
             sub = itemView.findViewById(R.id.item_food_sub);
+            foodImg = itemView.findViewById(R.id.item_food_img);
         }
 
         @Override
-        void onBindViewHolder(int position, BuyingCarBean carBean) {
+        void onBindViewHolder(int position, FoodItemBean carBean) {
 
             name.setText(carBean.getFoodName());
-            scale.setText(carBean.getScale());
-            favor.setText(carBean.getFavor());
-            price.setText(carBean.getFoodPrice());
+            scale.setText(carBean.getFoodConsumption());
+            favor.setText(carBean.getFoodFlavor());
+            price.setText("￥"+carBean.getFoodPrice());
+            foodImg.setImageURI(Uri.parse(carBean.getFoodImgUrl()));
             count.setText(String.valueOf(carBean.getFoodCount()));
             //item事件点击
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +152,7 @@ public class BuyingCarAdapter extends RecyclerView.Adapter<CartBaseHolder>{
         }
 
         @Override
-        void onBindViewHolder(int position, BuyingCarBean carBean) {
+        void onBindViewHolder(int position, FoodItemBean carBean) {
 
         }
 
@@ -159,6 +163,7 @@ public class BuyingCarAdapter extends RecyclerView.Adapter<CartBaseHolder>{
         void onAddItemClick(View view, int position);
         void onSubItemClick(View view, int position);
     }
+
 }
 
 
@@ -166,5 +171,5 @@ abstract class CartBaseHolder extends RecyclerView.ViewHolder{
     public CartBaseHolder(@NonNull View itemView) {
         super(itemView);
     }
-    abstract void onBindViewHolder(int position, BuyingCarBean carBean);
+    abstract void onBindViewHolder(int position, FoodItemBean carBean);
 }
