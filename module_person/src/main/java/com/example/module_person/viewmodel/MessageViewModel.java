@@ -38,7 +38,7 @@ public class MessageViewModel extends ViewModel implements LifecycleObserver {
         UserRepository.getUserRepository().getUserMessagesFromServer(new AppObserver<ResponseModel<ArrayList<MessageModel>>>() {
             @Override
             public void onData(@NonNull ResponseModel<ArrayList<MessageModel>> o) {
-                if (o == null){
+                if (o == null || o.getData() == null){
                     return;
                 }
                 mDatas.addAll(o.getData());
