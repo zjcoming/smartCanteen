@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.reactivex.Observer;
+import kotlin.jvm.Synchronized;
 import okhttp3.RequestBody;
 
 /**
@@ -26,10 +27,14 @@ import okhttp3.RequestBody;
  *         });
  */
 public class UserRepository {
-    private static UserRepository mUserRepository;
+    private static volatile UserRepository mUserRepository;
     public static UserRepository getUserRepository(){
         if (mUserRepository == null) {
-            mUserRepository = new UserRepository();
+            synchronized(UserRepository.class){
+                if (mUserRepository == null){
+                    mUserRepository = new UserRepository();
+                }
+            }
         }
         return mUserRepository;
     }
