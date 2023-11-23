@@ -1,1 +1,1 @@
-# smartCanteen 西南大学智慧食堂 
+# smartCanteen 智慧食堂 
